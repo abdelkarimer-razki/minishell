@@ -1,6 +1,6 @@
 NAME = minishell
 
-FILES = minishell.c ft_split.c ft_strjoin.c ft_strlen.c ft_memcpy.c
+FILES = minishell.c ft_split.c utils.c \
 
 INCLUDE = minishell.h
 
