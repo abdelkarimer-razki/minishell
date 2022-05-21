@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aer-razk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 12:08:12 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/05/20 12:08:14 by aer-razk         ###   ########.fr       */
+/*   Created: 2021/11/17 13:41:27 by aer-razk          #+#    #+#             */
+/*   Updated: 2021/11/22 23:12:38 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	**argv;
-	char	*path[] = { "/bin/", "/bin/sh"};
-	int		pid;
+	int		i;
+	int		j;
+	char	*s;
 
-	while (1)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			argv = ft_split(readline("~$ "), ' ');
-			if (execve(ft_strjoin(path[0], argv[0]), argv, NULL) == -1
-				&& execve(path[1], argv, NULL) == -1)
-			{
-				perror("");
-			}
-			ft_free(argv);
-		}
-		wait(NULL);
-	}
-	return (0);
+	if (!s1 || !s2)
+		return (NULL);
+	j = 0;
+	i = ft_strlen(s1) + ft_strlen(s2);
+	s = malloc(i + 1);
+	if (!s)
+		return (NULL);
+	ft_memcpy(s, s1, ft_strlen(s1));
+	ft_memcpy(s + ft_strlen(s1), s2, ft_strlen(s2));
+	s[i] = 0;
+	return (s);
 }

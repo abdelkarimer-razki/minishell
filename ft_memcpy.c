@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aer-razk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 12:08:12 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/05/20 12:08:14 by aer-razk         ###   ########.fr       */
+/*   Created: 2021/11/13 13:52:32 by aer-razk          #+#    #+#             */
+/*   Updated: 2021/11/14 14:18:04 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(void)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	**argv;
-	char	*path[] = { "/bin/", "/bin/sh"};
-	int		pid;
+	char	*s;
+	char	*d;
 
-	while (1)
+	s = (char *)dest;
+	d = (char *)src;
+	if (src != NULL || dest != NULL)
 	{
-		pid = fork();
-		if (pid == 0)
+		while (n--)
 		{
-			argv = ft_split(readline("~$ "), ' ');
-			if (execve(ft_strjoin(path[0], argv[0]), argv, NULL) == -1
-				&& execve(path[1], argv, NULL) == -1)
-			{
-				perror("");
-			}
-			ft_free(argv);
+			*s = *d;
+			s++;
+			d++;
 		}
-		wait(NULL);
 	}
-	return (0);
+	return (dest);
 }

@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aer-razk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 12:08:12 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/05/20 12:08:14 by aer-razk         ###   ########.fr       */
+/*   Created: 2021/11/13 11:29:58 by aer-razk          #+#    #+#             */
+/*   Updated: 2021/11/13 12:34:01 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(void)
+size_t	ft_strlen(const char *s)
 {
-	char	**argv;
-	char	*path[] = { "/bin/", "/bin/sh"};
-	int		pid;
+	size_t	i;
 
-	while (1)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			argv = ft_split(readline("~$ "), ' ');
-			if (execve(ft_strjoin(path[0], argv[0]), argv, NULL) == -1
-				&& execve(path[1], argv, NULL) == -1)
-			{
-				perror("");
-			}
-			ft_free(argv);
-		}
-		wait(NULL);
-	}
-	return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
