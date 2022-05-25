@@ -1,0 +1,382 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Tue May 24 11:11:11 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/bboulhan/Desktop/ll
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `Makefile', line 9)
+CFLAGS = -Wall -Wextra -Werror
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from `Makefile', line 11)
+OBJS = ${FILES:.c=.o}
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-ec6ae613-a5b2-4167-b364-59ca07d46235.sock
+# environment
+VSCODE_CWD = /
+# environment
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.kdV4uEclL9/Render
+# environment
+PATH = /Users/bboulhan/brew/bin:/Users/bboulhan/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.S9EMT5CYOy/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /Users/bboulhan/Desktop/ll
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /Users/bboulhan
+# default
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/bboulhan/Library/Application Support/Code/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
+# environment
+LOGNAME = bboulhan
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+ZSH = /Users/bboulhan/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# makefile (from `Makefile', line 7)
+CC = cc 
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = bboulhan
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from `Makefile', line 5)
+INCLUDE = minishell.h
+# makefile (from `Makefile', line 1)
+NAME = minishell
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/bboulhan/Library/Application Support/Code/1.67.0-main.sock
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000004.Electron
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+__CF_USER_TEXT_ENCODING = 0x18D8C:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# environment
+HOMEBREW_NO_AUTO_UPDATE = 1
+# automatic
+<F = $(notdir $<)
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+SECURITYSESSIONID = 186a8
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# environment
+LANG = C
+# environment
+VSCODE_PID = 68960
+# makefile (from `Makefile', line 3)
+FILES = minishell.c ft_split.c utils.c 
+# variable set hash-table stats:
+# Load=74/1024=7%, Rehash=0, Collisions=6/104=6%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777227, inode 2583589): 16 files, no impossibilities.
+
+# 16 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.o: %.c minishell.h
+#  commands to execute (from `Makefile', line 64):
+	@gcc  $(CFLAGS) -o $@ -c $<
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+all: minishell
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+utils.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 16:38:34
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+ft_split.o: ft_split.c minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `ft_split'
+#  Last modified 2022-05-23 17:03:00
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 64):
+	@gcc  $(CFLAGS) -o $@ -c $<
+	
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 16:38:47
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+minishell: minishell.o ft_split.o utils.o minishell.h
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-23 21:13:37
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 16):
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $(NAME) -L/usr/local/lib -I/usr/local/include -lreadline
+	@echo "_______oBBBBB8o______oBBBBBBB "
+	@echo "_____o8BBBBBBBBBBB__BBBBBBBBB8________o88o "
+	@echo "___o8BBBBBB**8BBBB__BBBBBBBBBB_____oBBBBBBBo, "
+	@echo "__oBBBBBBB*___***___BBBBBBBBBB_____BBBBBBBBBBo,  "
+	@echo "_8BBBBBBBBBBooooo___*BBBBBBB8______*BB*_8BBBBBBo,  "
+	@echo "_8BBBBBBBBBBBBBBBB8ooBBBBBBB8___________8BBBBBBB8, "
+	@echo "__*BBBBBBBBBBBBBBBBBBBBBBBBBB8_o88BB88BBBBBBBBBBBB,  "
+	@echo "____*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8,  "
+	@echo "______**8BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*,  "
+	@echo "___________*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8*,  "
+	@echo "____________*BBBBBBBBBBBBBBBBBBBBBBBB8888**,  "
+	@echo "_____________BBBBBBBBBBBBBBBBBBBBBBB*,  "
+	@echo "_____________*BBBBBBBBBBBBBBBBBBBBB*,  "
+	@echo "______________*BBBBBBBBBBBBBBBBBB8, "
+	@echo "_______________*BBBBBBBBBBBBBBBB*,  "
+	@echo "________________8BBBBBBBBBBBBBBB8,  "
+	@echo "_________________8BBBBBBBBBBBBBBBo,  "
+	@echo "__________________BBBBBBBBBBBBBBB8,  "
+	@echo "__________________BBBBBBBBBBBBBBBB,  "
+	@echo "__________________8BBBBBBBBBBBBBBB8,  "
+	@echo "__________________*BBBBBBBBBBBBBBBB,  "
+	@echo "__________________8BBBBBBBBBBBBBBBB8, "
+	@echo "_________________oBBBBBBBBBBBBBBBBBB,  "
+	@echo "________________oBBBBBBBBBBBBBBBBBBB,  "
+	@echo "________________BBBBBBBBBBBBBBBBBBBB,  "
+	@echo "_______________8BBBBBBBBBBBBBBBBBBB8,  "
+	@echo "______________oBBBBBBBBB88BBBBBBBBB8,  "
+	@echo "______________8BBBBBBBBB*8BBBBBBBBB*,  "
+	@echo "______________BBBBBBBBB*_BBBBBBBBB8,  "
+	@echo "______________BBBBBBBB8_oBBBBBBBBB*,  "
+	@echo "______________8BBBBBBB__oBBBBBBBB*,  "
+	@echo "______________BBBBBBB*__8BBBBBBB*,  "
+	@echo "_____________8BBBBBB*___BBBBBBB*,  "
+	@echo "____________8BBBBBB8___oBBBBBB8,  "
+	@echo "___________8BBBBBB8____8BBBBBB  "
+	@echo "__________oBBBBBB8____BBBBBBB8,  "
+	@echo "__________BBBBBBB8___BBBBBBBB,  "
+	@echo "_________oBBBBBBB8___BBBBBBBB,  "
+	@echo "_________8BBBBBB8____BBBBBBB,  "
+	@echo "_________BBBBBB*_____8BBBBB*,  "
+	@echo "________oBBBB8_______BBBBB,  "
+	@echo "________oBBB8________BBBB,  "
+	@echo "______8BBBB*_______*BBBBBBBB8o,  "
+	@echo "______BBBBB*____________*88BBBo,  "
+	@echo "SUUUUUUUUIIIIIII"
+	
+
+minishell.o: minishell.c minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `minishell'
+#  Last modified 2022-05-23 21:13:37
+ 
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 64):
+	@gcc  $(CFLAGS) -o $@ -c $<
+	
+
+fclean: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 70):
+	@rm -f ${NAME}
+	
+
+# Not a target:
+ft_split.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 16:34:45
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+re: fclean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 67):
+	@rm -f ${OBJS}
+	
+
+# Not a target:
+minishell.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-23 18:45:41
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+utils.o: utils.c minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `utils'
+#  Last modified 2022-05-23 17:03:00
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 64):
+	@gcc  $(CFLAGS) -o $@ -c $<
+	
+
+# Not a target:
+minishell.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 16:36:48
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# files hash-table stats:
+# Load=15/1024=1%, Rehash=0, Collisions=0/51=0%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Tue May 24 11:11:11 2022
+
+ 
