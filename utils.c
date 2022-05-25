@@ -85,11 +85,10 @@ char	**ft_realloc(char **table, int size)
 		return (NULL);
 	while (table[i])
 	{
-		t[i] = malloc(ft_strlen(table[i]) + 1);
-		ft_memcpy(t[i], table[i], ft_strlen(table[i]));
+		t[i] = ft_strdup(table[i]);
 		i++;
 	}
-	//t[i] = NULL;
+	t[i] = NULL;
 	ft_free(table);
 	return (t);
 }

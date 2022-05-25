@@ -46,23 +46,13 @@ int	double_quoted(char	*line, int i)
 	return (i);
 }
 
-/*void	find_pipe(int *j, char *line, char **table, int i, int *n)
-{
-	j++;
-	table = ft_realloc(table, j);
-	if (line[i] == '|')
-		table[j - 1] = cut_string(line, n, i);
-	else if (line[i + 1] == '\0')
-		table[j - 1] = cut_string(line, n, i + 1);
-	n = i + 1;
-}*/
-
 void	add_node(t_list **node)
 {
 	t_list	*new;
 
 	new = malloc(sizeof(t_list) * 1);
-	//printf("hey\n");
+	if (!new)
+		exit (0);
 	ft_lstadd_back(node, new);
 }
 
@@ -71,7 +61,6 @@ void	parsing(char *line, t_list **node)
 	t_list	*tmp;
 	char	**par;
 	int		i;
-	int		j = 0;
 
 	i = -1;
 	tmp = *node;
@@ -80,7 +69,6 @@ void	parsing(char *line, t_list **node)
 	{
 		tmp->cmd = par[i];
 		tmp->table = lexer(par[i], ' ');
-		j = 0;
 		add_node(node);
 		tmp = tmp->next;
 	}
@@ -118,6 +106,5 @@ char	**lexer(char *line, char c)
 		}
 		table[j] = NULL;
 	}
-	j = 0;
 	return (table);
 }

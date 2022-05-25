@@ -36,13 +36,31 @@ void	print(t_list *node)
 	{
 		while (node->table[i])
 			printf("%s&\n", node->table[i++]);
-		printf("%s\n", node->cmd);
+		printf("%s$\n", node->cmd);
 		printf("--------------------\n");
 		i = 0;
 		node = node->next;
 	}
 	// while (node->table[i])
 	// 	printf("%s&\n", node->table[i++]);
+}
+
+void	free_all(t_list **node)
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*tmp2;
+	
+	tmp = *node;
+	i = 0;
+	while (tmp->next)
+	{
+		ft_free(tmp->table);
+		free(tmp->cmd);
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2);
+	}
 }
 
 int	main(void)
@@ -53,19 +71,21 @@ int	main(void)
 
 	line = NULL;
 	node = NULL;
-	node = malloc(sizeof(t_list) * 1);
-	node->next = NULL;
 	// while (1)
 	// {	
 	// 	line = readline("~$ ");
 	// 	checker(line, &node);
-	// 	//print(node);
+	// 	print(node);
 	// }
+	
 	while (1)
 	{
+		node = malloc(sizeof(t_list) * 1);
+		node->next = NULL;
 		line = readline("~$ ");
 		parsing(line, &node);
 		print(node);
+		free_all(&node);
 	}
 }
 

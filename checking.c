@@ -20,7 +20,7 @@ char	*quote(char *line, int *i)
 	j = *i + 1;
 	while (line[j] != line[*i] && line[j])
 		j++;
-	x = cut_string(line, *i, j - *i + 1);
+	x = ft_substr(line, *i, j - *i + 1);
 	*i = j + 1;
 	return (x);
 }
@@ -37,7 +37,7 @@ char	*space(char *line, int *i)
 			break ;
 		j++;
 	}
-	x = cut_string(line, *i, j - *i);
+	x = ft_substr(line, *i, j - *i);
 	*i = j;
 	return (x);
 }
@@ -59,22 +59,25 @@ void	add_stack(t_list **node, char *line, int *k)
 		exit (0);
 	while (line[++i])
 	{
+		//printf("hey\n");
 		if (line[i] == 39 || line[i] == '"')
 		{
 			new->table[j++] = quote(line, &i);
-			new->table = ft_realloc(new->table, j + 1);
+			//new->table = ft_realloc(new->table, j + 1);
+			//printf("%s$\n", new->table[j - 1]);
 		}
 		else if (line[i] == '|')
 			break ;
 		else if (line[i] != ' ')
 		{
 			new->table[j++] = space(line, &i);
-			new->table = ft_realloc(new->table, j + 1);
+			//new->table = ft_realloc(new->table, j + 1);
+			//printf("%s$\n", new->table[j - 1]);
 		}
 	}
-	//printf("%s\n", new->table[0]);
-	ft_lstadd_back(node, new);
 	*k = i;
+	ft_lstadd_back(node, new);
+	//printf("%s\n", new->table[0]);
 }
 
 void	checker(char *line, t_list **node)
@@ -89,27 +92,24 @@ void	checker(char *line, t_list **node)
 	tmp->table = malloc(sizeof(char *) * 1);
 	if (!tmp->table)
 		return ;
-	tmp->table[0] = NULL;
 	while (line[++i])
 	{
 		if (line[i] == 39 || line[i] == '"')
 		{
-			tmp->table[j] = quote(line, &i);
-			tmp->table = ft_realloc(tmp->table, j + 2);
-			printf("%s$\n", tmp->table[j]);
-			j++;
+			tmp->table[j++] = quote(line, &i);
+			tmp->table = ft_realloc(tmp->table, j + 1);
+			//printf("%s$\n", tmp->table[j - 1]);
 		}
 		else if (line[i] == '|')
 		{
-			tmp->table[j] = NULL;
-			//add_stack(&tmp, line, &i);
+			//tmp->table[j] = NULL;
+			add_stack(&tmp, line, &i);
 		}
 		else if (line[i] != ' ')
 		{
-			tmp->table[j] = space(line, &i);
-			tmp->table = ft_realloc(tmp->table, j + 2);
-			printf("%s$\n", tmp->table[j]);
-			j++;
+			tmp->table[j++] = space(line, &i);
+			tmp->table = ft_realloc(tmp->table, j + 1);
+			//printf("%s$\n", tmp->table[j - 1]);
 		}
 		//printf("%d\t%d\t%zu\n", i, j, ft_strlen(line));
 

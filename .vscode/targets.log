@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Tue May 24 11:11:11 2022
+# Make data base, printed on Wed May 25 21:18:08 2022
 
 # Variables
 
@@ -25,27 +24,27 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/bboulhan/Desktop/ll
+CURDIR := /Users/bboulhan/Desktop/minishell
 # makefile
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 9)
-CFLAGS = -Wall -Wextra -Werror
+# makefile (from `Makefile', line 15)
+CFLAGS = -Wall -Werror -Wextra
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 11)
-OBJS = ${FILES:.c=.o}
+# makefile (from `Makefile', line 24)
+OBJS = $(FILES:%.c=%.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-ec6ae613-a5b2-4167-b364-59ca07d46235.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-5d5fbedf-66e0-4100-9c76-faeebe9c8539.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.kdV4uEclL9/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.mPPhva6gsY/Render
 # environment
 PATH = /Users/bboulhan/brew/bin:/Users/bboulhan/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
@@ -57,13 +56,13 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.S9EMT5CYOy/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ZtWsjsoPSX/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/bboulhan/Desktop/ll
+PWD = /Users/bboulhan/Desktop/minishell
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
@@ -92,17 +91,15 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 7)
-CC = cc 
+# makefile (from `Makefile', line 17)
+CC = cc
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = bboulhan
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from `Makefile', line 5)
-INCLUDE = minishell.h
-# makefile (from `Makefile', line 1)
+# makefile (from `Makefile', line 13)
 NAME = minishell
 # environment
 LESS = -R
@@ -125,7 +122,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000004.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -144,6 +141,8 @@ HOMEBREW_NO_AUTO_UPDATE = 1
 PAGER = less
 # environment
 LC_ALL = C
+# makefile (from `Makefile', line 19)
+HEADER = minishell.h 
 # environment
 SECURITYSESSIONID = 186a8
 # automatic
@@ -157,11 +156,11 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 68960
-# makefile (from `Makefile', line 3)
-FILES = minishell.c ft_split.c utils.c 
+VSCODE_PID = 2088
+# makefile (from `Makefile', line 21)
+FILES = minishell.c utils.c ft_split.c utils_2.c checking.c ft_strtrim.c lexer.c 
 # variable set hash-table stats:
-# Load=74/1024=7%, Rehash=0, Collisions=6/104=6%
+# Load=74/1024=7%, Rehash=0, Collisions=3/103=3%
 
 # Pattern-specific Variable Values
 
@@ -169,50 +168,57 @@ FILES = minishell.c ft_split.c utils.c
 
 # Directories
 
-# . (device 16777227, inode 2583589): 16 files, no impossibilities.
+# . (device 16777227, inode 2583589): 25 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-%.o: %.c minishell.h
-#  commands to execute (from `Makefile', line 64):
-	@gcc  $(CFLAGS) -o $@ -c $<
-	
-
-# 1 implicit rules, 0 (0.0%) terminal.
+# No implicit rules.
 
 # Files
 
 all: minishell
+#  Phony target (prerequisite of .PHONY).
 #  Command-line target.
-#  Implicit rule search has been done.
+#  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+.PHONY: re fclean clean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
-utils.c:
+checking.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 16:38:34
+#  Last modified 2022-05-25 21:15:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-ft_split.o: ft_split.c minishell.h
+# Not a target:
+utils_2.o:
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: `ft_split'
-#  Last modified 2022-05-23 17:03:00
+#  Last modified 2022-05-25 19:59:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 64):
-	@gcc  $(CFLAGS) -o $@ -c $<
-	
+
+# Not a target:
+ft_split.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-25 18:20:39
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .SUFFIXES:
@@ -223,97 +229,40 @@ ft_split.o: ft_split.c minishell.h
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 16:38:47
+#  Last modified 2022-05-25 18:20:59
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: minishell.o ft_split.o utils.o minishell.h
+minishell: minishell.o utils.o ft_split.o utils_2.o checking.o ft_strtrim.o lexer.o minishell.h
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-23 21:13:37
+#  Last modified 2022-05-25 21:15:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 16):
-	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $(NAME) -L/usr/local/lib -I/usr/local/include -lreadline
-	@echo "_______oBBBBB8o______oBBBBBBB "
-	@echo "_____o8BBBBBBBBBBB__BBBBBBBBB8________o88o "
-	@echo "___o8BBBBBB**8BBBB__BBBBBBBBBB_____oBBBBBBBo, "
-	@echo "__oBBBBBBB*___***___BBBBBBBBBB_____BBBBBBBBBBo,  "
-	@echo "_8BBBBBBBBBBooooo___*BBBBBBB8______*BB*_8BBBBBBo,  "
-	@echo "_8BBBBBBBBBBBBBBBB8ooBBBBBBB8___________8BBBBBBB8, "
-	@echo "__*BBBBBBBBBBBBBBBBBBBBBBBBBB8_o88BB88BBBBBBBBBBBB,  "
-	@echo "____*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8,  "
-	@echo "______**8BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*,  "
-	@echo "___________*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8*,  "
-	@echo "____________*BBBBBBBBBBBBBBBBBBBBBBBB8888**,  "
-	@echo "_____________BBBBBBBBBBBBBBBBBBBBBBB*,  "
-	@echo "_____________*BBBBBBBBBBBBBBBBBBBBB*,  "
-	@echo "______________*BBBBBBBBBBBBBBBBBB8, "
-	@echo "_______________*BBBBBBBBBBBBBBBB*,  "
-	@echo "________________8BBBBBBBBBBBBBBB8,  "
-	@echo "_________________8BBBBBBBBBBBBBBBo,  "
-	@echo "__________________BBBBBBBBBBBBBBB8,  "
-	@echo "__________________BBBBBBBBBBBBBBBB,  "
-	@echo "__________________8BBBBBBBBBBBBBBB8,  "
-	@echo "__________________*BBBBBBBBBBBBBBBB,  "
-	@echo "__________________8BBBBBBBBBBBBBBBB8, "
-	@echo "_________________oBBBBBBBBBBBBBBBBBB,  "
-	@echo "________________oBBBBBBBBBBBBBBBBBBB,  "
-	@echo "________________BBBBBBBBBBBBBBBBBBBB,  "
-	@echo "_______________8BBBBBBBBBBBBBBBBBBB8,  "
-	@echo "______________oBBBBBBBBB88BBBBBBBBB8,  "
-	@echo "______________8BBBBBBBBB*8BBBBBBBBB*,  "
-	@echo "______________BBBBBBBBB*_BBBBBBBBB8,  "
-	@echo "______________BBBBBBBB8_oBBBBBBBBB*,  "
-	@echo "______________8BBBBBBB__oBBBBBBBB*,  "
-	@echo "______________BBBBBBB*__8BBBBBBB*,  "
-	@echo "_____________8BBBBBB*___BBBBBBB*,  "
-	@echo "____________8BBBBBB8___oBBBBBB8,  "
-	@echo "___________8BBBBBB8____8BBBBBB  "
-	@echo "__________oBBBBBB8____BBBBBBB8,  "
-	@echo "__________BBBBBBB8___BBBBBBBB,  "
-	@echo "_________oBBBBBBB8___BBBBBBBB,  "
-	@echo "_________8BBBBBB8____BBBBBBB,  "
-	@echo "_________BBBBBB*_____8BBBBB*,  "
-	@echo "________oBBBB8_______BBBBB,  "
-	@echo "________oBBB8________BBBB,  "
-	@echo "______8BBBB*_______*BBBBBBBB8o,  "
-	@echo "______BBBBB*____________*88BBBo,  "
-	@echo "SUUUUUUUUIIIIIII"
-	
-
-minishell.o: minishell.c minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `minishell'
-#  Last modified 2022-05-23 21:13:37
- 
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 64):
-	@gcc  $(CFLAGS) -o $@ -c $<
-	
-
-fclean: clean
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 70):
-	@rm -f ${NAME}
+#  commands to execute (from `Makefile', line 29):
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 	
 
 # Not a target:
-ft_split.c:
+minishell.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 16:34:45
+#  Last modified 2022-05-25 20:55:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+fclean: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 35):
+	rm -f $(NAME)
+	
 
 # Not a target:
 .DEFAULT:
@@ -322,50 +271,59 @@ ft_split.c:
 #  File has not been updated.
 
 re: fclean all
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
 
 clean:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 67):
-	@rm -f ${OBJS}
+#  commands to execute (from `Makefile', line 32):
+	rm -f $(OBJS)
 	
 
 # Not a target:
-minishell.c:
+utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-23 18:45:41
+#  Last modified 2022-05-25 21:00:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-utils.o: utils.c minishell.h
+# Not a target:
+lexer.o:
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: `utils'
-#  Last modified 2022-05-23 17:03:00
+#  Last modified 2022-05-25 20:47:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 64):
-	@gcc  $(CFLAGS) -o $@ -c $<
-	
 
 # Not a target:
 minishell.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 16:36:48
+#  Last modified 2022-05-25 19:12:53
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+# Not a target:
+ft_strtrim.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-25 18:20:39
+#  File has been updated.
+#  Successfully updated.
+ 
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=0/51=0%
+# Load=17/1024=2%, Rehash=0, Collisions=0/46=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -377,6 +335,6 @@ minishell.h:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue May 24 11:11:11 2022
+# Finished Make data base on Wed May 25 21:18:08 2022
 
  

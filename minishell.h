@@ -25,10 +25,7 @@ typedef struct s_list
 {
 	char	**table;
 	char	*cmd;
-	char	*type;
 	struct s_list	*next;
-	int		pip;
-
 }	t_list;
 
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -47,6 +44,6 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
 void	parsing(char *line, t_list **node);
-
+char	*ft_strdup(const char *source);
 
 #endif
