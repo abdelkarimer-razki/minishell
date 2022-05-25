@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -72,4 +72,24 @@ void	*ft_calloc(size_t num, size_t size)
 	while (y--)
 		x[y] = 0;
 	return (x);
+}
+
+char	**ft_realloc(char **table, int size)
+{
+	char	**t;
+	int		i;
+
+	i = 0;
+	t = malloc((size + 1) * sizeof(char *));
+	if (!t)
+		return (NULL);
+	while (table[i])
+	{
+		t[i] = malloc(ft_strlen(table[i]) + 1);
+		ft_memcpy(t[i], table[i], ft_strlen(table[i]));
+		i++;
+	}
+	//t[i] = NULL;
+	ft_free(table);
+	return (t);
 }
