@@ -43,7 +43,7 @@ void	checker(char *line, t_list **node);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
-void	parsing(char *line, t_list **node);
+void	parcing(char *line, t_list **node);
 char	*ft_strdup(const char *source);
 
 #endif

@@ -56,7 +56,7 @@ void	add_node(t_list **node)
 	ft_lstadd_back(node, new);
 }
 
-void	parsing(char *line, t_list **node)
+void	parcing(char *line, t_list **node)
 {
 	t_list	*tmp;
 	char	**par;
