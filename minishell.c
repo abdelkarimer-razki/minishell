@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.c                                         :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/20 16:19:13 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:11:25 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//checking if there is any pipe in the command line
 int	check_pipe(char *line)
 {
 	int	i;
@@ -32,7 +33,7 @@ void	print(t_list *node)
 {
 	int i = 0;
 
-	while (node->next)
+	while (node)
 	{
 		while (node->table[i])
 			printf("%s&\n", node->table[i++]);
@@ -41,25 +42,21 @@ void	print(t_list *node)
 		i = 0;
 		node = node->next;
 	}
-	// while (node->table[i])
-	// 	printf("%s&\n", node->table[i++]);
 }
 
+//free all the allocated memory
 void	free_all(t_list **node)
 {
-	int		i;
 	t_list	*tmp;
-	t_list	*tmp2;
 	
 	tmp = *node;
-	i = 0;
-	while (tmp->next)
+	while ((*node))
 	{
-		ft_free(tmp->table);
-		free(tmp->cmd);
-		tmp2 = tmp;
-		tmp = tmp->next;
-		free(tmp2);
+		ft_free((*node)->table);
+		free((*node)->cmd);
+		tmp = *node;
+		(*node) = (*node)->next;
+		free(tmp);
 	}
 }
 
@@ -71,20 +68,15 @@ int	main(void)
 
 	line = NULL;
 	node = NULL;
-	// while (1)
-	// {	
-	// 	line = readline("~$ ");
-	// 	checker(line, &node);
-	// 	print(node);
-	// }
 	
 	while (1)
 	{
 		node = malloc(sizeof(t_list) * 1);
 		node->next = NULL;
 		line = readline("~$ ");
-		parcing(line, &node);
+		parcing(line, node);
 		print(node);
+		free(line);
 		free_all(&node);
 	}
 }
