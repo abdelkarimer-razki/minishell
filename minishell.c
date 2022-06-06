@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.c                                         :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/20 16:19:13 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:57:41 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ void	print(t_list *node)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (node)
 	{
-		while (node->table[i])
-			printf("%s&\n", node->table[i++]);
+		// while (node->table[++i])
+		// 	printf("%s\n", node->args[i]);
+		printf("%s\n", node->cmd);
 		printf("--------------------\n");
-		i = 0;
+		i = -1;
 		node = node->next;
 	}
 }
@@ -54,7 +55,7 @@ void	free_all(t_list **node)
 	while (tmp)
 	{
 		ft_free(tmp->table);
-		free(tmp->cmd);
+		free(tmp->str);
 		tmp2 = tmp;
 		tmp = tmp->next;
 		free(tmp2);
@@ -72,8 +73,49 @@ int	main(void)
 		node->next = NULL;
 		line = readline("~$ ");
 		parcing(line, node);
+		parcer(node);
+		//print(node);
 		free(line);
-		print(node);
 		free_all(&node);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int	main(void)
+// {
+//  	char	*line;
+//  	char	*path;
+// 	char 	**argv;
+//  	int		pid;
+
+//  	path = "/bin/";
+//  	while (1)
+//  	{
+//  		line = readline("~$ ");
+//  		pid = fork();
+//  		if (pid == 0)
+//  		{
+//  			argv = ft_split(readline("~$ "), ' ');
+//  			if (execve(ft_strjoin(path, argv[0]), argv, NULL) == -1)
+//  				perror("");
+//  			ft_free(argv);
+//  			/*if (pipe_checker(line) == 1)
+//  				with_pipe(line, path);
+//  			else
+//  				without_pipe(line, path);*/
+//  		}
+//  		wait(NULL);
+//  	}
+// }

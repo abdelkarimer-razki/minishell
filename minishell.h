@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/20 16:19:39 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:36:36 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
 typedef struct s_list
 {
 	char			**table;
+	char			*str;
 	char			*cmd;
+	char			**args;
 	struct s_list	*next;
 }	t_list;
 
 char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t num, size_t size);
 void	*ft_free(char **c);
@@ -46,5 +48,12 @@ char	*cut_string(char *str, int i0, int i1);
 void	parcing(char *line, t_list *node);
 char	*ft_strdup(const char *source);
 char	**lexer2(char *line, char c);
+void	ft_putstr_fd(char *s, int fd);
+char	*clean_quote(char *str);
+void	parcer(t_list *node);
+
+
+
+
 
 #endif

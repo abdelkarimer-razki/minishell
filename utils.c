@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/21 15:59:45 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:27:49 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -85,7 +85,9 @@ char	**ft_realloc(char **table, int size)
 		return (NULL);
 	while (table[i])
 	{
-		t[i] = ft_strdup(table[i]);
+		t[i] = malloc(ft_strlen(table[i] + 1));
+		t[i] = ft_memcpy(t[i] ,table[i], ft_strlen(table[i])); 
+		t[i][ft_strlen(table[i])] = 0; 
 		i++;
 	}
 	t[i] = NULL;

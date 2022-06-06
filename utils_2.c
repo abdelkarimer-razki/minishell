@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:44:46 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/23 20:45:00 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:02:50 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,21 @@ t_list	*ft_lstlast(t_list *lst)
 			y = y -> next;
 	}
 	return (y);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	if (s)
+	{
+		k = ft_strlen(s);
+		while (i < k)
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
+	}
 }
