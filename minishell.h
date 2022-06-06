@@ -23,8 +23,8 @@
 
 typedef struct s_list
 {
-	char	**table;
-	char	*cmd;
+	char			**table;
+	char			*cmd;
 	struct s_list	*next;
 }	t_list;
 
@@ -45,5 +45,6 @@ char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
 void	parcing(char *line, t_list **node);
 char	*ft_strdup(const char *source);
+char	**lexer2(char *line, char c);
 
 #endif

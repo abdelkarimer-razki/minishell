@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*cut_string(char *str, int i0, int i1)
 {
@@ -30,20 +30,14 @@ char	*cut_string(char *str, int i0, int i1)
 	return (ft_strtrim(line, " "));
 }
 
-int	single_quoted(char	*line, int i)
+int	quoted(char	*line, int i)
 {
-	i++;
-	while (line[i] != 39 && line[i])
-		i++;
-	return (i);
-}
+	int	j;
 
-int	double_quoted(char	*line, int i)
-{
-	i++;
-	while (line[i] != '"' && line[i])
-		i++;
-	return (i);
+	j = i + 1;
+	while (line[j] != line[i] && line[j])
+		j++;
+	return (j);
 }
 
 void	add_node(t_list **node)
@@ -90,11 +84,48 @@ char	**lexer(char *line, char c)
 	table[0] = NULL;
 	while (line[++i])
 	{
-		if (line[i] == '"')
-			i = double_quoted(line, i);
-		else if (line[i] == 39)
-			i = single_quoted(line, i);
+		if (line[i] == '"' || line[i] == 39)
+			i = quoted(line, i);
 		if (line[i] == c || line[i + 1] == '\0')
+		{
+			j++;
+			table = ft_realloc(table, j);
+			if (line[i] == c)
+				table[j - 1] = cut_string(line, n, i);
+			else if (line[i + 1] == '\0')
+				table[j - 1] = cut_string(line, n, i + 1);
+			n = i + 1;
+		}
+		table[j] = NULL;
+	}
+	return (table);
+}
+
+char	**lexer2(char *line, char c)
+{
+	int		i;
+	int		j;
+	int		n;
+	char	**table;
+
+	i = -1;
+	j = 0;
+	n = 0;
+	table = malloc(sizeof(char *) * 1);
+	if (!table)
+		return (NULL);
+	table[0] = NULL;
+	while (line[++i])
+	{
+		if (line[i] == 39 || line[i] == '"')
+		{
+			n = i;
+			i = quoted(line, i);
+			j++;
+			table = ft_realloc(table, j);
+			table[j - 1] = cut_string(line, n, i + 1);
+		}
+		else if (line[i] == c || line[i + 1] == '\0')
 		{
 			j++;
 			table = ft_realloc(table, j);

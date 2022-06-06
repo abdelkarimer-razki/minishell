@@ -19,7 +19,7 @@ CC = cc
 HEADER = minishell.h \
 
 FILES = minishell.c utils.c ft_split.c utils_2.c checking.c ft_strtrim.c \
-		lexer.c \
+		./Parser/lexer.c \
 
 OBJS = $(FILES:%.c=%.o)
 
