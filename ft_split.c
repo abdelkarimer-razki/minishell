@@ -18,10 +18,9 @@ void	*ft_free(char **c)
 
 	i = 0;
 	while (c[i])
-	{
-		free(c[i]);
 		i++;
-	}
+	while (--i >= 0)
+		free(c[i]);
 	free(c);
 	return (NULL);
 }

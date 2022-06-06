@@ -11,72 +11,52 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	f1_check(char *x, char const *y)
-{
-	int	z;
-
-	z = 0;
-	while (y[z])
-	{
-		if (y[z] == *x)
-			return (1);
-		z++;
-	}
-	return (0);
-}
-
-int	f2_count(char *x, char const *y, char const *s1, int k)
+int	check(char *s1, char *set, int i)
 {
 	int	j;
+	int	c;
 
 	j = 0;
-	if (*x != 0)
+	c = i;
+	while (set[j] && c >= 0)
 	{
-		while (f1_check(x, y) == 1 && *x)
-		{
+		if (s1[c] != set[j])
 			j++;
-			x++;
-		}
-		return (j);
-	}
-	else if (*x == 0)
-	{
-		x = x - 1;
-		while (f1_check(x, y) == 1)
+		else
 		{
-			if (k == (int)ft_strlen(s1) - 1)
-				return (k);
-			k++;
-			x--;
+			if (i == 0)
+				c++;
+			else
+				c--;
+			j = 0;
 		}
 	}
-	return (k);
+	if (i == 0)
+		return (c);
+	return (i - c);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
-	char	*str;
-	char	*x;
-	int		n;
+	int		i;
+	int		c;
+	char	*s;
 
 	if (!s1 || !set)
 		return (NULL);
-	x = (char *)s1;
-	n = ft_strlen(x) - f2_count(x, set, s1, 0)
-		- f2_count(x + ft_strlen(x), set, s1, 0);
-	if (n < 0)
+	i = check(s1, set, 0);
+	c = check(s1, set, ft_strlen(s1) - 1);
+	if (i + c > (int)ft_strlen(s1))
 	{
-		str = malloc (1);
-		if (!str)
-			return (NULL);
-		str[0] = 0;
-		return (str);
+		s = malloc(1);
+		s[0] = 0;
+		return (s);
 	}
-	str = malloc(sizeof(char) * (n + 1));
-	if (!str)
+	s = malloc(ft_strlen(s1) - (i + c) + 1);
+	if (!s)
 		return (NULL);
-	x = x + f2_count(x, set, s1, 0);
-	str = ft_memcpy(str, x, n);
-	str[n] = '\0';
-	return (str);
+	ft_memcpy(s, s1 + i, ft_strlen(s1) - (i + c));
+	s[ft_strlen(s1) - (i + c)] = 0;
+	free(s1);
+	return (s);
 }

@@ -50,22 +50,25 @@ void	add_node(t_list **node)
 	ft_lstadd_back(node, new);
 }
 
-void	parcing(char *line, t_list **node)
+void	parcing(char *line, t_list *node)
 {
 	t_list	*tmp;
 	char	**par;
 	int		i;
 
-	i = -1;
-	tmp = *node;
+	i = 0;
+	tmp = node;
 	par = lexer(line, '|');
+	tmp->cmd = par[i];
+	tmp->table = lexer(par[i], ' ');
 	while (par[++i])
 	{
+		add_node(&node);
+		tmp = tmp->next;
 		tmp->cmd = par[i];
 		tmp->table = lexer(par[i], ' ');
-		add_node(node);
-		tmp = tmp->next;
 	}
+	free(par);
 }
 
 char	**lexer(char *line, char c)

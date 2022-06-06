@@ -40,10 +40,10 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int content);
 void	checker(char *line, t_list **node);
-char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim(char *s1, char *set);
 char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
-void	parcing(char *line, t_list **node);
+void	parcing(char *line, t_list *node);
 char	*ft_strdup(const char *source);
 char	**lexer2(char *line, char c);
 
