@@ -60,13 +60,13 @@ void	parcing(char *line, t_list *node)
 	tmp = node;
 	par = lexer(line, '|');
 	tmp->cmd = par[i];
-	tmp->table = lexer(par[i], ' ');
+	tmp->table = lexer_space(par[i], ' ');
 	while (par[++i])
 	{
 		add_node(&node);
 		tmp = tmp->next;
 		tmp->cmd = par[i];
-		tmp->table = lexer(par[i], ' ');
+		tmp->table = lexer_space(par[i], ' ');
 	}
 	free(par);
 }
@@ -104,7 +104,7 @@ char	**lexer(char *line, char c)
 	return (table);
 }
 
-char	**lexer2(char *line, char c)
+char	**lexer_space(char *line, char c)
 {
 	int		i;
 	int		j;
@@ -121,14 +121,8 @@ char	**lexer2(char *line, char c)
 	while (line[++i])
 	{
 		if (line[i] == 39 || line[i] == '"')
-		{
-			n = i;
 			i = quoted(line, i);
-			j++;
-			table = ft_realloc(table, j);
-			table[j - 1] = cut_string(line, n, i + 1);
-		}
-		else if (line[i] == c || line[i + 1] == '\0')
+		if ((line[i] == c && line[i - 1] != c) || line[i + 1] == '\0')
 		{
 			j++;
 			table = ft_realloc(table, j);
@@ -137,8 +131,8 @@ char	**lexer2(char *line, char c)
 			else if (line[i + 1] == '\0')
 				table[j - 1] = cut_string(line, n, i + 1);
 			n = i + 1;
+			table[j] = NULL;
 		}
-		table[j] = NULL;
 	}
 	return (table);
 }
