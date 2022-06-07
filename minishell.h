@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "./Execution/echo/printf/ft_printf.h"
 
 typedef struct s_list
 {
