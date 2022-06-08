@@ -71,6 +71,12 @@ int	main(void)
 		node = malloc(sizeof(t_list) * 1);
 		node->next = NULL;
 		line = readline("~$ ");
+		if (*line == 0)
+		{
+			free(line);
+			free(node);
+			continue ;
+		}
 		parcing(line, node);
 		free(line);
 		print(node);
