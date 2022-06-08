@@ -12,35 +12,63 @@
 
 #include "../minishell.h"
 
-char	*clean_quote(char *str)
+// char	*clean_quote(char *str)
+// {
+// 	char	*s;
+
+// 	s = NULL;
+// 	if (str[0] == '"' || str[0] == 39)
+// 		s = ft_strdup(&str[1]);
+// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
+// 		s[ft_strlen(s) - 1] = '\0';
+// 	if (*s)
+// 		return (s);
+// 	return (str);
+// }
+
+char	*add_char(char *str, char c)
 {
 	char	*s;
+	int		j;
 
-	s = NULL;
-	if (str[0] == '"' || str[0] == 39)
-		s = ft_strdup(&str[1]);
-	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
-		s[ft_strlen(s) - 1] = '\0';
-	if (*s)
-		return (s);
-	return (str);
+	j = -1;
+	s = ft_calloc(ft_strlen(str) + 2, 1);
+	if (!s)
+		return (NULL);
+	while (str[++j])
+		s[j] = str[j];
+	if (j == -1)
+		j = 0;
+	s[j++] = c;
+	s[j] = 0;
+	free(str);
+	return (s);
 }
 
-//count how many quote in the command
-// int		count_quote(char *str)
-// {
-// 	int	i;
-// 	int	j;
+char	*put_arg(char *str)
+{
+	char	*s;
+	int		i;
+	int		j;
 
-// 	i = -1;
-// 	j = 0;
-// 	while (str[++i])
-// 	{
-// 		if (str[i] == 32 || str[i] == '"')
-// 			j++;
-// 	}
-// 	return (j);
-// }
+	i = 0;
+	j = 0;
+	s = ft_calloc(1, 1);
+	while (str[i])
+	{
+		if (str[i] == 39 || str[i] == '"')
+		{
+			j = i;
+			i = quoted(str, i);
+			while (j++ < i - 1)
+				s = add_char(s, str[j]);
+		}
+		else
+			s = add_char(s, str[i]);
+		i++;
+	}
+	return (s);
+}
 
 void	parcer(t_list *node)
 {
@@ -49,12 +77,12 @@ void	parcer(t_list *node)
 	tmp = node;
 	while (tmp)
 	{
-		put_args(tmp);
+		cmd_and_args(tmp);
 		tmp = tmp->next;
 	}
 }
 
-void	put_args(t_list *node)
+void	cmd_and_args(t_list *node)
 {
 	int	i;
 	int	j;
@@ -70,15 +98,24 @@ void	put_args(t_list *node)
 		exit (0);
 	i = 0;
 	while (node->table[++i])
-	{
-		if ((node->table[i][0] == '"' && node->table[i][ft_strlen(node->table[i]) - 1] == '"') || 
-			(node->table[i][0] == 39 && node->table[i][ft_strlen(node->table[i]) - 1] == 39))
-		{
-			node->args[j] = clean_quote(node->table[i]);
-		}
-		else
-			node->args[j] = ft_strdup(node->table[i]);
-		j++;
-	}
+		node->args[j++] = put_arg(node->table[i]);
 	node->args[j] = NULL;
 }
+
+
+
+
+
+
+
+	// while (node->table[++i])
+	// {
+	// 	if ((node->table[i][0] == '"' && node->table[i][ft_strlen(node->table[i]) - 1] == '"') || 
+	// 		(node->table[i][0] == 39 && node->table[i][ft_strlen(node->table[i]) - 1] == 39))
+	// 	{
+	// 		node->args[j] = clean_quote(node->table[i]);
+	// 	}
+	// 	else
+	// 		node->args[j] = ft_strdup(node->table[i]);
+	// 	j++;
+	// }

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/08 10:42:29 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:18:43 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	**lexer2(char *line, char c);
 void	ft_putstr_fd(char *s, int fd);
 char	*clean_quote(char *str);
 void	parcer(t_list *node);
-void	put_args(t_list *node);
-
-
+void	cmd_and_args(t_list *node);
+char	*put_arg(char *str);
+int	quoted(char	*line, int i);
 
 #endif
