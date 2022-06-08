@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
@@ -44,39 +44,41 @@ char	*clean_quote(char *str)
 
 void	parcer(t_list *node)
 {
+	t_list	*tmp;
+
+	tmp = node;
+	while (tmp)
+	{
+		put_args(tmp);
+		tmp = tmp->next;
+	}
+}
+
+void	put_args(t_list *node)
+{
 	int	i;
 	int	j;
-
+	
 	j = 0;
 	i = 0;
 
 	node->cmd = ft_strdup(node->table[0]);
-	node->args = malloc(sizeof(char *) * 1);
+	while (node->table[i])
+		i++;
+	node->args = malloc(sizeof(char *) * i);
 	if (!node->args)
 		exit (0);
-	node->args[0] = NULL;
+	i = 0;
 	while (node->table[++i])
 	{
 		if ((node->table[i][0] == '"' && node->table[i][ft_strlen(node->table[i]) - 1] == '"') || 
 			(node->table[i][0] == 39 && node->table[i][ft_strlen(node->table[i]) - 1] == 39))
 		{
-			//printf("%p\n", node->args);
-			printf("heho1\n");
-			node->args = ft_realloc(node->args, j + 1);
-			usleep(5000);
-			//printf("%s\n", clean_quote(node->table[i]));
 			node->args[j] = clean_quote(node->table[i]);
-			printf("heho\n");
-			//printf("%p\n", node->args);
 		}
 		else
-		{
-			printf("hey1\n");
-			node->args = ft_realloc(node->args, j + 1);
-			node->args[j] = node->table[i];
-			printf("hey\n");
-		}
-		printf("%s\t%d\n", node->args[j], j);
+			node->args[j] = ft_strdup(node->table[i]);
 		j++;
 	}
+	node->args[j] = NULL;
 }

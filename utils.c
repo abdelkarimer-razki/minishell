@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/06 16:27:49 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:54:29 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,12 @@ char	**ft_realloc(char **table, int size)
 	int		i;
 
 	i = 0;
-	t = malloc((size + 1) * sizeof(char *));
+	t = malloc(sizeof(char *) * (size + 1));
 	if (!t)
 		return (NULL);
 	while (table[i])
 	{
-		t[i] = malloc(ft_strlen(table[i] + 1));
-		t[i] = ft_memcpy(t[i] ,table[i], ft_strlen(table[i])); 
-		t[i][ft_strlen(table[i])] = 0; 
+		t[i] = ft_strdup(table[i]);
 		i++;
 	}
 	t[i] = NULL;
