@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/08 12:50:57 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:11:02 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,18 @@ char	**ft_realloc(char **table, int size)
 	return (t);
 }
 
-// char	*ft_realloc_2(char *str, int size)
-// {
-// 	char	*s;
-// 	int		i;
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
+}
 
-// 	i = 0;
-// 	s = ft_calloc(size + 1, 1);
-// 	if (!s)
-// 		return (NULL);
-// 	while (str[i])
-// 	{
-// 		s[i] = str[i];
-// 	}
-// }
+int	ft_isalnum(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
+}

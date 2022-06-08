@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 18:42:57 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/21 18:43:05 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:33:01 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 /*int	pipe_checker(char *str)
 {

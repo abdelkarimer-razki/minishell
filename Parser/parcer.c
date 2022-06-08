@@ -12,20 +12,6 @@
 
 #include "../minishell.h"
 
-// char	*clean_quote(char *str)
-// {
-// 	char	*s;
-
-// 	s = NULL;
-// 	if (str[0] == '"' || str[0] == 39)
-// 		s = ft_strdup(&str[1]);
-// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
-// 		s[ft_strlen(s) - 1] = '\0';
-// 	if (*s)
-// 		return (s);
-// 	return (str);
-// }
-
 char	*add_char(char *str, char c)
 {
 	char	*s;
@@ -82,6 +68,49 @@ void	parcer(t_list *node)
 	}
 }
 
+int	check_dollar(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+			return (1);
+	}
+	return (0);
+}
+
+char	*get_env(char *str)
+{
+	char	*s1;
+	char	*s2;
+	char	*s3;
+	char	*env;
+	int		i;
+
+	i = 0;
+	s1 = ft_calloc(1, 1);
+	s2 = ft_calloc(1, 1);
+	s3 = ft_calloc(1, 1);
+	while (str[i] && str[i] != '$')
+		s1 = add_char(s1, str[i++]);
+	i++;
+	while (ft_isalpha(str[i]) || ft_isalnum(str[i]))
+		s2 = add_char(s2, str[i++]);
+	while (str[i])
+		s3 = add_char(s3, str[i++]);
+	env = getenv(s2);
+	free(s2);
+	s2 = ft_strjoin(s1 ,env);
+	free(s1);
+	s1 = ft_strjoin(s2, s3);
+	free(s2);
+	free(s3);
+	free(str);
+	return (s1);
+}
+
 void	cmd_and_args(t_list *node)
 {
 	int	i;
@@ -99,14 +128,32 @@ void	cmd_and_args(t_list *node)
 	i = 0;
 	while (node->table[++i])
 		node->args[j++] = put_arg(node->table[i]);
+	i = -1;
 	node->args[j] = NULL;
+	while (node->args[++i])
+	{
+		if (check_dollar(node->args[i]))
+			node->args[i] = get_env(node->args[i]);
+	}
+
 }
 
 
+//----------------------------------------------------------------------------------------------------------------
 
+// char	*clean_quote(char *str)
+// {
+// 	char	*s;
 
-
-
+// 	s = NULL;
+// 	if (str[0] == '"' || str[0] == 39)
+// 		s = ft_strdup(&str[1]);
+// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
+// 		s[ft_strlen(s) - 1] = '\0';
+// 	if (*s)
+// 		return (s);
+// 	return (str);
+// }
 
 	// while (node->table[++i])
 	// {

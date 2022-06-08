@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/08 13:18:43 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:11:11 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*clean_quote(char *str);
 void	parcer(t_list *node);
 void	cmd_and_args(t_list *node);
 char	*put_arg(char *str);
-int	quoted(char	*line, int i);
+int		quoted(char	*line, int i);
+int		ft_isalpha(int c);
+int		ft_isalnum(int c);
 
 #endif
