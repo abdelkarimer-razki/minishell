@@ -31,7 +31,7 @@ char	*add_char(char *str, char c)
 	return (s);
 }
 
-char	*put_arg(char *str)
+char	*put_arg(char *str, char *index)
 {
 	char	*s;
 	int		i;
@@ -46,11 +46,20 @@ char	*put_arg(char *str)
 		{
 			j = i;
 			i = quoted(str, i);
+			if (str[j] != str[i])
+				ft_error(0);
+			if (str[j] == '"')
+				*index = '"';
+			else if (str[j] == 39)
+				*index = 39;
 			while (j++ < i - 1)
 				s = add_char(s, str[j]);
 		}
 		else
+		{
 			s = add_char(s, str[i]);
+			*index = 'a';
+		}
 		i++;
 	}
 	return (s);
@@ -68,11 +77,13 @@ void	parcer(t_list *node)
 	}
 }
 
-int	check_dollar(char *str)
+int	check_dollar(char *str, char c)
 {
 	int	i;
 
 	i = -1;
+	if (c == 39)
+		return (0);
 	while (str[++i])
 	{
 		if (str[i] == '$')
@@ -125,14 +136,21 @@ void	cmd_and_args(t_list *node)
 	node->args = malloc(sizeof(char *) * i);
 	if (!node->args)
 		exit (0);
+	node->args_index = ft_calloc(i, 1);
+	if (!node->args_index)
+		ft_error(1);
 	i = 0;
 	while (node->table[++i])
-		node->args[j++] = put_arg(node->table[i]);
+	{
+		node->args[j] = put_arg(node->table[i], &node->args_index[j]);
+		j++;
+	}
+	node->args_index[j] = 0; 
 	i = -1;
 	node->args[j] = NULL;
 	while (node->args[++i])
 	{
-		if (check_dollar(node->args[i]))
+		if (check_dollar(node->args[i], node->args_index[i]))
 			node->args[i] = get_env(node->args[i]);
 	}
 

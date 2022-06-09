@@ -6,11 +6,19 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/08 13:42:48 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:34:40 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_error(int Er)
+{
+	if (Er == 1)
+		printf("Error\n");
+	
+	exit(0);
+}
 
 int	check_pipe(char *line)
 {
@@ -31,16 +39,19 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
-
+	
 	i = -1;
 	while (node)
 	{
 		printf("%s\n", node->cmd);
-		printf("|||||||\n");
+		printf("||||||||||||\n");
 		while (node->args[++i])
 			printf("%s\n", node->args[i]);
 		// while (node->table[++i])
 		// 	printf("%s\n", node->table[i]);
+		i = -1;
+		// while (node->args_index[++i])
+		// 	printf("%c\n" ,node->args_index[i]);
 		i = -1;
 		printf("--------------------\n");
 		node = node->next;
@@ -51,7 +62,6 @@ void	free_all(t_list **node)
 {
 	int		i;
 	t_list	*tmp;
-	t_list	*tmp2;
 
 	tmp = *node;
 	i = 0;
@@ -60,10 +70,11 @@ void	free_all(t_list **node)
 		ft_free(tmp->table);
 		free(tmp->str);
 		free(tmp->cmd);
+		free(tmp->args_index);
 		ft_free(tmp->args);
-		tmp2 = tmp;
+		*node = tmp;
 		tmp = tmp->next;
-		free(tmp2);
+		free(*node);
 	}
 }
 

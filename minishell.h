@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/08 17:11:11 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:27:45 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_list
 {
 	char			**table;
 	char			*str;
+	char			*args_index;
 	char			*cmd;
 	char			**args;
 	struct s_list	*next;
@@ -52,9 +53,12 @@ void	ft_putstr_fd(char *s, int fd);
 char	*clean_quote(char *str);
 void	parcer(t_list *node);
 void	cmd_and_args(t_list *node);
-char	*put_arg(char *str);
+char	*put_arg(char *str, char *index);
 int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
+void	ft_error(int Er);
+
+
 
 #endif
