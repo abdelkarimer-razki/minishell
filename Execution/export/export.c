@@ -55,6 +55,16 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+int	ft_strlen_2(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
 char	*ft_strjoin1(char *s1, char *s2)
 {
 	int		i;
@@ -81,10 +91,7 @@ char	*ft_strdup(const char *source)
 	char	*s;
 	int		i;
 
-	i = 0;
-	while (source[i])
-		i++;
-	s = malloc((i + 1) * sizeof(char *));
+	s = malloc((ft_strlen(source) + 1) * sizeof(char *));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -124,11 +131,13 @@ char	**ft_strdup_2(char **source)
 {
 	char	**s;
 	int		i;
+	int		y;
 
-	i = 0;
-	while (source[i])
-		i++;
-	s = malloc((i + 1) * sizeof(char **));
+	if (getenv("OLDPWD"))
+		y = ft_strlen_2(source) + 1;
+	else
+		y = ft_strlen_2(source) + 1 + 1;
+	s = malloc((y) * sizeof(char **));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -137,7 +146,13 @@ char	**ft_strdup_2(char **source)
 		s[i] = ft_strjoin1("declare -x ", ft_strdup(source[i]));
 		i++;
 	}
-	s[i] = 0;
+	if (y == ft_strlen_2(source) + 1 + 1)
+	{
+		s[i] = "declare -x OLDPWD";
+		s[i + 1] = 0;
+	}
+	else
+		s[i] = 0;
 	sort_strings(s);
 	return (s);
 }
