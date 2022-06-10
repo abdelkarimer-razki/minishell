@@ -125,13 +125,13 @@ char	*get_env(char *str)
 	return (s1);
 }
 
-// int	check_cmd(char *cmd)
-// {
-// 	int	i;
+int	check_cmd(char *cmd)
+{
+	int	i;
 
-// 	i = 0;
+	i = 0;
 
-// }
+}
 
 int	cmd_and_args(t_list *node)
 {

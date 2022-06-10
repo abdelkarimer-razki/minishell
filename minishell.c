@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/10 15:42:46 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:01:17 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ void	print(t_list *node)
 		printf("||||||||||||\n");
 		while (node->args[++i])
 			printf("%s\n", node->args[i]);
+		i = -1;
 		// while (node->table[++i])
 		// 	printf("%s\n", node->table[i]);
-		i = -1;
-		// while (node->args_index[++i])
-		// 	printf("%c\n" ,node->args_index[i]);
+		//printf("%s\n" ,node->args_index);
 		i = -1;
 		printf("--------------------\n");
 		node = node->next;
@@ -92,14 +91,14 @@ int	main(void)
 		node = malloc(sizeof(t_list) * 1);
 		node->next = NULL;
 		line = readline("~$ ");
-		if (line == NULL)
+		if (*line == 0)
 		{
 			free(line);
 			free(node);
 			continue;
 		}
 		parcing(line, node);
-		if(!parcer(node))	
+		if (!parcer(node))	
 			print(node);
 		free(line);
 		free_all(&node);
