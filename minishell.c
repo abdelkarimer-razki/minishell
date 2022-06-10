@@ -6,18 +6,22 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/09 12:34:40 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:42:46 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(int Er)
+int	ft_error(int Er)
 {
 	if (Er == 1)
 		printf("Error\n");
+	else if (Er == 2)
+		printf("command not found\n");
+	else if (Er == 3)
+		printf("syntax error\n");
 	
-	exit(0);
+	return (1);
 }
 
 int	check_pipe(char *line)
@@ -88,9 +92,15 @@ int	main(void)
 		node = malloc(sizeof(t_list) * 1);
 		node->next = NULL;
 		line = readline("~$ ");
+		if (line == NULL)
+		{
+			free(line);
+			free(node);
+			continue;
+		}
 		parcing(line, node);
-		parcer(node);
-		print(node);
+		if(!parcer(node))	
+			print(node);
 		free(line);
 		free_all(&node);
 	}

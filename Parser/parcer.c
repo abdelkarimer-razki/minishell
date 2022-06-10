@@ -40,6 +40,8 @@ char	*put_arg(char *str, char *index)
 	i = 0;
 	j = 0;
 	s = ft_calloc(1, 1);
+	if (!s)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == 39 || str[i] == '"')
@@ -65,7 +67,7 @@ char	*put_arg(char *str, char *index)
 	return (s);
 }
 
-void	parcer(t_list *node)
+int	parcer(t_list *node)
 {
 	t_list	*tmp;
 
@@ -75,6 +77,7 @@ void	parcer(t_list *node)
 		cmd_and_args(tmp);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 int	check_dollar(char *str, char c)
@@ -122,7 +125,15 @@ char	*get_env(char *str)
 	return (s1);
 }
 
-void	cmd_and_args(t_list *node)
+// int	check_cmd(char *cmd)
+// {
+// 	int	i;
+
+// 	i = 0;
+
+// }
+
+int	cmd_and_args(t_list *node)
 {
 	int	i;
 	int	j;
@@ -131,11 +142,12 @@ void	cmd_and_args(t_list *node)
 	i = 0;
 
 	node->cmd = ft_strdup(node->table[0]);
+
 	while (node->table[i])
 		i++;
 	node->args = malloc(sizeof(char *) * i);
 	if (!node->args)
-		exit (0);
+		ft_error(1);
 	node->args_index = ft_calloc(i, 1);
 	if (!node->args_index)
 		ft_error(1);
@@ -143,7 +155,8 @@ void	cmd_and_args(t_list *node)
 	while (node->table[++i])
 	{
 		node->args[j] = put_arg(node->table[i], &node->args_index[j]);
-		j++;
+		if (node->args[j++] == NULL)
+			ft_error(1);
 	}
 	node->args_index[j] = 0; 
 	i = -1;
@@ -153,7 +166,7 @@ void	cmd_and_args(t_list *node)
 		if (check_dollar(node->args[i], node->args_index[i]))
 			node->args[i] = get_env(node->args[i]);
 	}
-
+	return (0);
 }
 
 

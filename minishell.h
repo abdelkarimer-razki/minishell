@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/09 12:27:45 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:36:21 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
 void	parcing(char *line, t_list *node);
 char	*ft_strdup(const char *source);
-char	**lexer2(char *line, char c);
+char	**lexer_space(char *line, char c);
 void	ft_putstr_fd(char *s, int fd);
 char	*clean_quote(char *str);
-void	parcer(t_list *node);
-void	cmd_and_args(t_list *node);
+int		parcer(t_list *node);
+int		cmd_and_args(t_list *node);
 char	*put_arg(char *str, char *index);
 int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
-void	ft_error(int Er);
-
+int		ft_error(int Er);
+char	**lexer2(char *line, char c);
 
 
 #endif

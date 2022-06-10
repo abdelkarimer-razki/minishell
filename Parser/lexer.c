@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/06 14:04:43 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:41:29 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	parcing(char *line, t_list *node)
 	i = 0;
 	tmp = node;
 	par = lexer(line, '|');
-	tmp->str = par[i];
-	tmp->table = lexer(par[i], ' ');
+	tmp->cmd = par[i];
+	tmp->table = lexer_space(par[i], ' ');
 	while (par[++i])
 	{
 		add_node(&node);
 		tmp = tmp->next;
-		tmp->str = par[i];
-		tmp->table = lexer(par[i], ' ');
+		tmp->cmd = par[i];
+		tmp->table = lexer_space(par[i], ' ');
 	}
 	free(par);
 }
@@ -100,6 +100,39 @@ char	**lexer(char *line, char c)
 			n = i + 1;
 		}
 		table[j] = NULL;
+	}
+	return (table);
+}
+
+char	**lexer_space(char *line, char c)
+{
+	int		i;
+	int		j;
+	int		n;
+	char	**table;
+
+	i = -1;
+	j = 0;
+	n = 0;
+	table = malloc(sizeof(char *) * 1);
+	if (!table)
+		return (NULL);
+	table[0] = NULL;
+	while (line[++i])
+	{
+		if (line[i] == 39 || line[i] == '"')
+			i = quoted(line, i);
+		if ((line[i] == c && line[i - 1] != c) || line[i + 1] == '\0')
+		{
+			j++;
+			table = ft_realloc(table, j);
+			if (line[i] == c)
+				table[j - 1] = cut_string(line, n, i);
+			else if (line[i + 1] == '\0')
+				table[j - 1] = cut_string(line, n, i + 1);
+			n = i + 1;
+			table[j] = NULL;
+		}
 	}
 	return (table);
 }

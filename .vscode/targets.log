@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `minishell.o', needed by `minishell'.  Stop.
 
 
-# Make data base, printed on Thu Jun  9 10:39:55 2022
+# Make data base, printed on Fri Jun 10 14:45:13 2022
 
 # Variables
 
@@ -43,7 +43,7 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 24)
 OBJS = $(FILES:%.c=%.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-3e64fa6b-d687-447b-b965-6f23918a5656.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-62fe27bc-9346-4478-8e6b-d8ff4bf19b73.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -57,7 +57,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.QkIkpEbjxn/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.BQ4Fi8Rtu8/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -123,7 +123,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.2112
+XPC_SERVICE_NAME = com.microsoft.VSCode.1144
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -153,7 +153,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1151
+VSCODE_PID = 1013
 # makefile (from `Makefile', line 21)
 FILES = minishell.c utils.c ft_split.c utils_2.c ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c 
 # variable set hash-table stats:
@@ -165,9 +165,9 @@ FILES = minishell.c utils.c ft_split.c utils_2.c ft_strtrim.c ./Parser/lexer.c .
 
 # Directories
 
-# . (device 16777225, inode 2939200): 19 files, no impossibilities.
+# . (device 16777225, inode 2939200): 18 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -302,11 +302,12 @@ ft_strtrim.o:
 
 # No general (`VPATH' variable) search path.
 
+ 
 # # of strings in strcache: 1
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun  9 10:39:55 2022
+# Finished Make data base on Fri Jun 10 14:45:13 2022
 
  
