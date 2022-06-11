@@ -42,6 +42,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int content);
+char	**lexer_space(char *line, char c);
 void	checker(char *line, t_list **node);
 char	*ft_strtrim(char *s1, char *set);
 char	**lexer(char *line, char c);
