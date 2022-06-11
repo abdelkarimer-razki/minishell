@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "../../minishell.h"
 
-extern char **environ;
-
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	char	*s;
@@ -157,6 +155,27 @@ char	**ft_strdup_2(char **source)
 	return (s);
 }
 
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '_'))
+		return (1);
+	return (0);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	ft_isalpha2(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '_') || ft_isdigit(c)) 
+		return (1);
+	return (0);
+}
+
 void	show_export(char **export)
 {
 	int	i;
@@ -185,11 +204,115 @@ void	show_export(char **export)
 	}
 }
 
+void	check_args(char **arg)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (arg[++i])
+	{
+		j = -1;
+		while (arg[i][++j] && arg[i][j] != '=')
+		{
+			if (ft_isalpha(arg[i][j]) == 0)
+			if ((j != 0 && ft_isdigit(arg[i][j]) == 0))
+			{
+				write(2, "syntax error", 12);
+				exit(1);
+			}	
+		}
+	}
+}
+
+
+void	*ft_free(char **c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+		i++;
+	while (--i >= 0)
+		free(c[i]);
+	free(c);
+	return (NULL);
+}
+
+char	**ft_realloc(char **table, int size)
+{
+	char	**t;
+	int		i;
+
+	i = 0;
+	t = malloc((size + 1) * sizeof(char *));
+	if (!t)
+		return (NULL);
+	while (table[i])
+	{
+		t[i] = ft_strdup(table[i]);
+		i++;
+	}
+	t[size] = NULL;
+	//ft_free(table);
+	return (t);
+}
+
+void	just_equal(int j, char *arg, t_list *table)
+{
+	environ = ft_realloc(environ, ft_strlen_2(environ) + 1);
+	environ[ft_strlen_2(environ) - 1] = ft_strdup(arg);
+	table->export = ft_strdup_2(environ);
+}
+
+void plus_equal(int j, char *arg, t_list *table)
+{
+	table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
+	table->export[ft_strlen_2(table->export) - 1] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
+	sort_strings(table->export);
+}
+
+void	fill_args(char **arg, t_list *table)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (arg[++i])
+	{
+		j = -1;
+		while (arg[i][++j])
+		{
+			if (arg[i][j] == '=')
+			{
+				just_equal(j, arg[i], table);
+				break ;
+			}
+			else if (arg[i][j] == '+' && arg[i][j + 1] == '=')
+			{
+				plus_equal(j, arg[i], table);
+				break ;
+			}
+		}
+		table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
+		table->export[ft_strlen_2(table->export) - 1] = ft_strjoin1("declare -x ", ft_strdup(arg[i]));
+	}
+	sort_strings(table->export);
+}
+
 int main(int arc, char **argv)
 {
+	t_list table;
 	char	**export;
 
-    export = ft_strdup_2(environ);
+    table.export = ft_strdup_2(environ);
 	if (arc == 1)
-		show_export(export);
+		show_export(table.export);
+	else
+	{
+		check_args(argv);
+		fill_args(argv, &table);
+	}
+	show_export(table.export);
+	while (1);
 }
