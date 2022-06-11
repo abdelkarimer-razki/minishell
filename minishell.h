@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/10 15:36:21 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:28:31 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ void	ft_putstr_fd(char *s, int fd);
 char	*clean_quote(char *str);
 int		parcer(t_list *node);
 int		cmd_and_args(t_list *node);
-char	*put_arg(char *str, char *index);
+char	*put_arg(char *str);
 int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_error(int Er);
 char	**lexer2(char *line, char c);
-
+int		check_dollar(char *str, int start, int end);
+char	*get_env(char *str);
 
 #endif

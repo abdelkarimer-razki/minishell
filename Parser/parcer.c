@@ -31,9 +31,10 @@ char	*add_char(char *str, char c)
 	return (s);
 }
 
-char	*put_arg(char *str, char *index)
+char	*put_arg(char *str)
 {
 	char	*s;
+	char	*env;
 	int		i;
 	int		j;
 
@@ -51,16 +52,41 @@ char	*put_arg(char *str, char *index)
 			if (str[j] != str[i])
 				ft_error(0);
 			if (str[j] == '"')
-				*index = '"';
-			else if (str[j] == 39)
-				*index = 39;
-			while (j++ < i - 1)
+			{
+				if (check_dollar(str, ++j, i))
+				{
+					env = ft_substr(str, j, (i - j));
+					env = get_env(env);
+					j = -1;
+					while (env[++j])
+						s = add_char(s,env[j]);
+					j = i;
+					free(env);
+				}			
+			}
+			else if (j != i)
+			{
+				while (j++ < i - 1)
 				s = add_char(s, str[j]);
+			}
 		}
 		else
 		{
-			s = add_char(s, str[i]);
-			*index = 'a';
+			if (str[i] == '$')
+			{
+				j = i++ - 1;
+				while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i])))
+					i++;
+				env = ft_substr(str, j, (i - j));
+				env = get_env(env);
+				j = -1;
+				while (env[++j])
+					s = add_char(s,env[j]);
+				j = i;
+				free(env);
+			}
+			else
+				s = add_char(s, str[i]);
 		}
 		i++;
 	}
@@ -80,17 +106,13 @@ int	parcer(t_list *node)
 	return (0);
 }
 
-int	check_dollar(char *str, char c)
+int	check_dollar(char *str, int start, int end)
 {
-	int	i;
-
-	i = -1;
-	if (c == 39)
-		return (0);
-	while (str[++i])
+	while (start < end && str[start])
 	{
-		if (str[i] == '$')
+		if (str[start] == '$')
 			return (1);
+		start++;
 	}
 	return (0);
 }
@@ -125,13 +147,13 @@ char	*get_env(char *str)
 	return (s1);
 }
 
-int	check_cmd(char *cmd)
-{
-	int	i;
+// int	check_cmd(char *cmd)
+// {
+// 	int	i;
 
-	i = 0;
+// 	i = 0;
 
-}
+// }
 
 int	cmd_and_args(t_list *node)
 {
@@ -148,24 +170,14 @@ int	cmd_and_args(t_list *node)
 	node->args = malloc(sizeof(char *) * i);
 	if (!node->args)
 		ft_error(1);
-	node->args_index = ft_calloc(i, 1);
-	if (!node->args_index)
-		ft_error(1);
 	i = 0;
 	while (node->table[++i])
 	{
-		node->args[j] = put_arg(node->table[i], &node->args_index[j]);
+		node->args[j] = put_arg(node->table[i]);
 		if (node->args[j++] == NULL)
 			ft_error(1);
 	}
-	node->args_index[j] = 0; 
-	i = -1;
 	node->args[j] = NULL;
-	while (node->args[++i])
-	{
-		if (check_dollar(node->args[i], node->args_index[i]))
-			node->args[i] = get_env(node->args[i]);
-	}
 	return (0);
 }
 

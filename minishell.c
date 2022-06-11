@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/10 16:01:17 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 09:33:19 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	print(t_list *node)
 	i = -1;
 	while (node)
 	{
+		//printf("%s\n", node->str);
 		printf("%s\n", node->cmd);
 		printf("||||||||||||\n");
 		while (node->args[++i])
@@ -73,7 +74,7 @@ void	free_all(t_list **node)
 		ft_free(tmp->table);
 		free(tmp->str);
 		free(tmp->cmd);
-		free(tmp->args_index);
+		//free(tmp->args_index);
 		ft_free(tmp->args);
 		*node = tmp;
 		tmp = tmp->next;
