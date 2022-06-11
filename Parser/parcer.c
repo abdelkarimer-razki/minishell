@@ -6,14 +6,11 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:04:51 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:20:55 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
-
 
 
 int	parcer(t_list *node)
@@ -28,8 +25,6 @@ int	parcer(t_list *node)
 	}
 	return (0);
 }
-
-
 
 // int	check_cmd(char *cmd)
 // {
@@ -46,9 +41,7 @@ int	cmd_and_args(t_list *node)
 	
 	j = 0;
 	i = 0;
-
 	node->cmd = ft_strdup(node->table[0]);
-
 	while (node->table[i])
 		i++;
 	node->args = malloc(sizeof(char *) * i);
