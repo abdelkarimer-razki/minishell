@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat Jun 11 12:18:03 2022
+# Make data base, printed on Sat Jun 11 14:16:17 2022
 
 # Variables
 
@@ -149,7 +149,7 @@ LANG = C
 # environment
 VSCODE_PID = 78559
 # makefile (from `Makefile', line 21)
-FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/parcer_utils.c 
+FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c 
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=3/98=3%
 
@@ -159,9 +159,9 @@ FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils
 
 # Directories
 
-# . (device 16777225, inode 2939200): 13 files, no impossibilities.
+# . (device 16777225, inode 2939200): 14 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -174,7 +174,8 @@ all: minishell
 #  Command-line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -182,14 +183,6 @@ all: minishell
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
-# Not a target:
-Parser/parcer_utils.o:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .SUFFIXES:
@@ -200,7 +193,7 @@ Parser/parcer_utils.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:18:01
+#  Last modified 2022-06-11 14:15:04
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -209,7 +202,7 @@ Makefile:
 # Not a target:
 utils/utils_2.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 13:55:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -218,16 +211,26 @@ utils/utils_2.o:
 # Not a target:
 Parser/lexer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 13:55:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o Parser/lexer.o Parser/parcer.o Parser/parcer_utils.o minishell.h
+# Not a target:
+Parser/set_args_utils.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 14:15:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o Parser/lexer.o Parser/parcer.o Parser/set_args_utils.o Parser/set_args.o minishell.h
 #  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-06-11 14:15:20
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 29):
@@ -237,7 +240,7 @@ minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_s
 # Not a target:
 minishell.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 13:55:53
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -255,7 +258,7 @@ fclean: clean
 # Not a target:
 utils/ft_strtrim.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 13:55:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -264,7 +267,7 @@ utils/ft_strtrim.o:
 # Not a target:
 Parser/parcer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:58
+#  Last modified 2022-06-11 14:13:14
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -292,9 +295,18 @@ clean:
 	
 
 # Not a target:
+Parser/set_args.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 14:13:14
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
 utils/ft_split.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 13:55:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -303,7 +315,7 @@ utils/ft_split.o:
 # Not a target:
 utils/utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 12:16:57
+#  Last modified 2022-06-11 14:13:14
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -311,12 +323,16 @@ utils/utils.o:
 
 # Not a target:
 minishell.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+ 
+#  Last modified 2022-06-11 14:07:42
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=18/1024=2%, Rehash=0, Collisions=2/48=4%
+# Load=19/1024=2%, Rehash=0, Collisions=2/50=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -326,11 +342,8 @@ minishell.h:
 # # of strings in strcache: 1
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
- 
-make: *** No rule to make target `Parser/parcer_utils.o', needed by `minishell'.  Stop.
-
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jun 11 12:18:03 2022
+# Finished Make data base on Sat Jun 11 14:16:17 2022
 
  

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 11:54:20 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:10:54 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_realloc(char **table, int size)
 		t[i] = ft_strdup(table[i]);
 		i++;
 	}
-	t[i] = NULL;
+	t[size] = NULL;
 	ft_free(table);
 	return (t);
 }
