@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Sat Jun 11 08:28:13 2022
+# Make data base, printed on Sat Jun 11 12:18:03 2022
 
 # Variables
 
@@ -148,7 +149,7 @@ LANG = C
 # environment
 VSCODE_PID = 78559
 # makefile (from `Makefile', line 21)
-FILES = minishell.c utils.c ft_split.c utils_2.c ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c 
+FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/parcer_utils.c 
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=3/98=3%
 
@@ -158,9 +159,9 @@ FILES = minishell.c utils.c ft_split.c utils_2.c ft_strtrim.c ./Parser/lexer.c .
 
 # Directories
 
-# . (device 16777225, inode 2939200): 18 files, no impossibilities.
+# . (device 16777225, inode 2939200): 13 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -183,16 +184,12 @@ all: minishell
 #  File has not been updated.
 
 # Not a target:
-utils_2.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
+Parser/parcer_utils.o:
+#  Implicit rule search has been done.
+#  File does not exist.
 #  File has not been updated.
-
-# Not a target:
-ft_split.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .SUFFIXES:
@@ -203,7 +200,16 @@ ft_split.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-08 11:22:44
+#  Last modified 2022-06-11 12:18:01
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+utils/utils_2.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:57
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -211,11 +217,14 @@ Makefile:
 
 # Not a target:
 Parser/lexer.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:57
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: minishell.o utils.o ft_split.o utils_2.o ft_strtrim.o Parser/lexer.o Parser/parcer.o minishell.h
+minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o Parser/lexer.o Parser/parcer.o Parser/parcer_utils.o minishell.h
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -228,8 +237,9 @@ minishell: minishell.o utils.o ft_split.o utils_2.o ft_strtrim.o Parser/lexer.o 
 # Not a target:
 minishell.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-06-11 12:16:57
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -243,10 +253,22 @@ fclean: clean
 	
 
 # Not a target:
+utils/ft_strtrim.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:57
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
 Parser/parcer.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:58
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .DEFAULT:
@@ -270,10 +292,22 @@ clean:
 	
 
 # Not a target:
-utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+utils/ft_split.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:57
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+utils/utils.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-11 12:16:57
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 minishell.h:
@@ -281,14 +315,8 @@ minishell.h:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-ft_strtrim.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
 # files hash-table stats:
-# Load=17/1024=2%, Rehash=0, Collisions=0/46=0%
+# Load=18/1024=2%, Rehash=0, Collisions=2/48=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -298,10 +326,11 @@ ft_strtrim.o:
 # # of strings in strcache: 1
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+ 
+make: *** No rule to make target `Parser/parcer_utils.o', needed by `minishell'.  Stop.
+
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jun 11 08:28:13 2022
+# Finished Make data base on Sat Jun 11 12:18:03 2022
 
  
-make: *** No rule to make target `minishell.o', needed by `minishell'.  Stop.
-

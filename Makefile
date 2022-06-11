@@ -6,7 +6,7 @@
 #    By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/21 14:06:22 by bboulhan          #+#    #+#              #
-#    Updated: 2022/06/08 11:22:44 by bboulhan         ###   ########.fr        #
+#    Updated: 2022/06/11 12:18:01 by bboulhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ CC = cc
 
 HEADER = minishell.h \
 
-FILES = minishell.c utils.c ft_split.c utils_2.c ft_strtrim.c \
-		./Parser/lexer.c ./Parser/parcer.c \
+FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c \
+		./Parser/lexer.c ./Parser/parcer.c ./Parser/parcer_utils.c \
 
 OBJS = $(FILES:%.c=%.o)
 

@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
@@ -6,35 +6,87 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/06 16:29:03 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:11:26 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*add_char(char *str, char c)
+char	*get_env_value(char *s, char *str, int *x, int *y)
 {
-	char	*s;
+	int		i;
+	int		j;
+	char	*env;
+
+	env = NULL;
+	i = *x;
+	j = *y;
+	j++;
+	env = ft_substr(str, j, (i - j));
+	env = get_env(env);
+	j = -1;
+	while (env[++j])
+		s = add_char(s,env[j]);
+	j = i;
+	free(env);
+	*x = i;
+	*y = j;
+	return (s);
+}
+
+char	*dollar_and_quote(char *s, char *str, int *x, int *y)
+{
+	char	*env;
+	int		i;
 	int		j;
 
-	j = -1;
-	s = ft_calloc(ft_strlen(str) + 2, 1);
-	if (!s)
-		return (NULL);
-	while (str[++j])
-		s[j] = str[j];
-	if (j == -1)
-		j = 0;
-	s[j++] = c;
-	s[j] = 0;
-	free(str);
+	i = *x;
+	j = *y;
+	j = i;
+	env = NULL;
+	i = quoted(str, i);
+	if (str[j] != str[i])
+		ft_error(0);
+	if (str[j] == '"')
+	{
+		if (check_dollar(str, j, i))
+			s = get_env_value(s, str, &i, &j);		
+	}
+	if (j != i)
+	{
+		while (j++ < i - 1)
+			s = add_char(s, str[j]);
+	}
+	*x = i;
+	*y = j;
+	return (s);
+}
+
+char	*only_dollar(char *s, char *str, int *x, int *y)
+{
+	int	i;
+	int	j;
+
+	i = *x;
+	j = *y;
+	if (str[i] == '$')
+	{
+		j = i++ - 1;
+		while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i])))
+			i++;
+		s = get_env_value(s, str ,&i, &j);
+		i--;
+	}
+	else
+		s = add_char(s, str[i]);
+	*x = i;
+	*y = j;
 	return (s);
 }
 
 char	*put_arg(char *str)
 {
 	char	*s;
-	char	*env;
 	int		i;
 	int		j;
 
@@ -46,48 +98,9 @@ char	*put_arg(char *str)
 	while (str[i])
 	{
 		if (str[i] == 39 || str[i] == '"')
-		{
-			j = i;
-			i = quoted(str, i);
-			if (str[j] != str[i])
-				ft_error(0);
-			if (str[j] == '"')
-			{
-				if (check_dollar(str, ++j, i))
-				{
-					env = ft_substr(str, j, (i - j));
-					env = get_env(env);
-					j = -1;
-					while (env[++j])
-						s = add_char(s,env[j]);
-					j = i;
-					free(env);
-				}			
-			}
-			else if (j != i)
-			{
-				while (j++ < i - 1)
-				s = add_char(s, str[j]);
-			}
-		}
+			s = dollar_and_quote(s, str, &i, &j);
 		else
-		{
-			if (str[i] == '$')
-			{
-				j = i++ - 1;
-				while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i])))
-					i++;
-				env = ft_substr(str, j, (i - j));
-				env = get_env(env);
-				j = -1;
-				while (env[++j])
-					s = add_char(s,env[j]);
-				j = i;
-				free(env);
-			}
-			else
-				s = add_char(s, str[i]);
-		}
+			s = only_dollar(s, str, &i, &j);
 		i++;
 	}
 	return (s);
@@ -106,46 +119,7 @@ int	parcer(t_list *node)
 	return (0);
 }
 
-int	check_dollar(char *str, int start, int end)
-{
-	while (start < end && str[start])
-	{
-		if (str[start] == '$')
-			return (1);
-		start++;
-	}
-	return (0);
-}
 
-char	*get_env(char *str)
-{
-	char	*s1;
-	char	*s2;
-	char	*s3;
-	char	*env;
-	int		i;
-
-	i = 0;
-	s1 = ft_calloc(1, 1);
-	s2 = ft_calloc(1, 1);
-	s3 = ft_calloc(1, 1);
-	while (str[i] && str[i] != '$')
-		s1 = add_char(s1, str[i++]);
-	i++;
-	while (ft_isalpha(str[i]) || ft_isalnum(str[i]))
-		s2 = add_char(s2, str[i++]);
-	while (str[i])
-		s3 = add_char(s3, str[i++]);
-	env = getenv(s2);
-	free(s2);
-	s2 = ft_strjoin(s1 ,env);
-	free(s1);
-	s1 = ft_strjoin(s2, s3);
-	free(s2);
-	free(s3);
-	free(str);
-	return (s1);
-}
 
 // int	check_cmd(char *cmd)
 // {
@@ -180,32 +154,3 @@ int	cmd_and_args(t_list *node)
 	node->args[j] = NULL;
 	return (0);
 }
-
-
-//----------------------------------------------------------------------------------------------------------------
-
-// char	*clean_quote(char *str)
-// {
-// 	char	*s;
-
-// 	s = NULL;
-// 	if (str[0] == '"' || str[0] == 39)
-// 		s = ft_strdup(&str[1]);
-// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
-// 		s[ft_strlen(s) - 1] = '\0';
-// 	if (*s)
-// 		return (s);
-// 	return (str);
-// }
-
-	// while (node->table[++i])
-	// {
-	// 	if ((node->table[i][0] == '"' && node->table[i][ft_strlen(node->table[i]) - 1] == '"') || 
-	// 		(node->table[i][0] == 39 && node->table[i][ft_strlen(node->table[i]) - 1] == 39))
-	// 	{
-	// 		node->args[j] = clean_quote(node->table[i]);
-	// 	}
-	// 	else
-	// 		node->args[j] = ft_strdup(node->table[i]);
-	// 	j++;
-	// }

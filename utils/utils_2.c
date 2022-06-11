@@ -6,11 +6,11 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:44:46 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 09:15:36 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:54:15 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_strdup(const char *source)
 {

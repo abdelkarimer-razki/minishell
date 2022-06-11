@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 11:28:31 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 12:14:27 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ int		ft_error(int Er);
 char	**lexer2(char *line, char c);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
+char	*add_char(char *str, char c);
+
+
 
 #endif
