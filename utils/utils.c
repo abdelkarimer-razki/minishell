@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/05/21 15:59:45 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:10:54 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -31,9 +31,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -80,7 +80,7 @@ char	**ft_realloc(char **table, int size)
 	int		i;
 
 	i = 0;
-	t = malloc((size + 1) * sizeof(char *));
+	t = malloc(sizeof(char *) * (size + 1));
 	if (!t)
 		return (NULL);
 	while (table[i])
@@ -88,7 +88,23 @@ char	**ft_realloc(char **table, int size)
 		t[i] = ft_strdup(table[i]);
 		i++;
 	}
-	t[i] = NULL;
+	t[size] = NULL;
 	ft_free(table);
 	return (t);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_isalnum(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
 }

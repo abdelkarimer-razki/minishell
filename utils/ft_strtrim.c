@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 20:29:00 by bboulhan          #+#    #+#             */
-/*   Updated: 2021/11/23 02:32:23 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:53:08 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+
+#include "../minishell.h"
 
 int	check(char *s1, char *set, int i)
 {
