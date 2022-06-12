@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:20:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/13 00:52:23 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,79 @@ int	parcer(t_list *node)
 		cmd_and_args(tmp);
 		tmp = tmp->next;
 	}
+	node->cmd = check_cmd(node->cmd);
+	if (!node->cmd)
+		return (1);
 	return (0);
 }
 
-// int	check_cmd(char *cmd)
+
+// void	lower_case(char	*str)
 // {
 // 	int	i;
 
-// 	i = 0;
-
+// 	i = -1;
+// 	while (str[++i])
+// 	{
+// 		if (str[i] >= 65 && str[i] <= 90)
+// 			str[i] += 32;	
+// 	}
 // }
+
+
+char	*delete_quote(char *str)
+{
+	char	*s;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = -1;
+	s = ft_calloc(1, 1);
+	s[0] = 0;
+	while (str[++i])
+	{
+		if (str[i] == 39 || str[i] == '"')
+		{
+			j = i + 1;
+			i = quoted(str, i);
+			while (str[j] && j < i)
+				s = add_char(s, str[j++]);
+		}
+		else
+			s = add_char(s, str[i]);
+	}
+	free(str);
+	return (s);
+}
+
+
+char	*check_cmd(char *str)
+{
+	int		i;
+	char	*cmd;
+
+	i = -1;
+	if (str[0] == '$')
+	{
+		cmd = put_arg(str);
+		free(str);
+		return (cmd);
+	}
+	cmd = delete_quote(str);
+	while (cmd[++i])
+	{
+		if (!ft_isalpha(cmd[i]))
+			return (NULL);		
+	}
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] >= 65 && cmd[i] <= 90)
+			cmd[i] += 32;	
+	}
+	return (cmd);
+}
 
 int	cmd_and_args(t_list *node)
 {
@@ -57,3 +120,22 @@ int	cmd_and_args(t_list *node)
 	node->args[j] = NULL;
 	return (0);
 }
+
+
+//------------------------------------------------
+
+
+
+// char	*clean_quote(char *str)
+// {
+// 	char	*s;
+
+// 	s = NULL;
+// 	if (str[0] == '"' || str[0] == 39)
+// 		s = ft_strdup(&str[1]);
+// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
+// 		s[ft_strlen(s) - 1] = '\0';
+// 	if (*s)
+// 		return (s);
+// 	return (str);
+// }

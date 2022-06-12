@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:07:42 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/13 00:23:28 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	checker(char *line, t_list **node);
 char	*ft_strtrim(char *s1, char *set);
 char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
-void	parcing(char *line, t_list *node);
+int		parcing(char *line, t_list *node);
 char	*ft_strdup(const char *source);
 char	**lexer_space(char *line, char c);
 void	ft_putstr_fd(char *s, int fd);
@@ -63,7 +63,7 @@ char	**lexer2(char *line, char c);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
 char	*add_char(char *str, char c);
-
+char	*check_cmd(char *cmd);
 
 
 #endif

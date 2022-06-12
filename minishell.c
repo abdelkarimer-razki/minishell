@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 09:33:19 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/13 00:32:37 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_error(int Er)
 		printf("command not found\n");
 	else if (Er == 3)
 		printf("syntax error\n");
+	else if (Er == 4)
+		printf("quote > \n");
 	
 	return (1);
 }
@@ -98,9 +100,11 @@ int	main(void)
 			free(node);
 			continue;
 		}
-		parcing(line, node);
-		if (!parcer(node))	
-			print(node);
+		if (parcing(line, node))
+			ft_error(4);
+		if (parcer(node))
+			ft_error(2);
+		print(node);
 		free(line);
 		free_all(&node);
 	}

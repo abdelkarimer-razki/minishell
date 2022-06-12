@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/10 15:57:34 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:15:06 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_node(t_list **node)
 	ft_lstadd_back(node, new);
 }
 
-void	parcing(char *line, t_list *node)
+int	parcing(char *line, t_list *node)
 {
 	t_list	*tmp;
 	char	**par;
@@ -59,16 +59,23 @@ void	parcing(char *line, t_list *node)
 	i = 0;
 	tmp = node;
 	par = lexer(line, '|');
+	if (!(*lexer))
+		return (1);
 	tmp->str = par[i];
 	tmp->table = lexer_space(par[i], ' ');
+	if (!(*lexer_space))
+		return (1);
 	while (par[++i])
 	{
 		add_node(&node);
 		tmp = tmp->next;
 		tmp->str = par[i];
 		tmp->table = lexer_space(par[i], ' ');
+		if (!(*lexer_space))
+			return (1);
 	}
 	free(par);
+	return (0);
 }
 
 char	**lexer(char *line, char c)

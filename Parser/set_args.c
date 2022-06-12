@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 14:03:28 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:04:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/13 00:15:52 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*dollar_and_quote(char *s, char *str, int *x, int *y)
 			s = get_env_value(s, str, &i, &j);		
 	}
 	if (j != i)
-	{
+	{ 
 		while (j++ < i - 1)
 			s = add_char(s, str[j]);
 	}
