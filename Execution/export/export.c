@@ -43,7 +43,7 @@ int	ft_memcmp(const void *str1, const void *str2, size_t n)
 	return (0);
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -58,7 +58,7 @@ int	ft_strlen_2(char **s)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] != NULL)
 		i++;
 	return (i);
 }
@@ -89,7 +89,7 @@ char	*ft_strdup(const char *source)
 	char	*s;
 	int		i;
 
-	s = malloc((ft_strlen(source) + 1) * sizeof(char *));
+	s = malloc((ft_strlen(source) + 1) * sizeof(char));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -135,7 +135,7 @@ char	**ft_strdup_2(char **source)
 		y = ft_strlen_2(source) + 1;
 	else
 		y = ft_strlen_2(source) + 1 + 1;
-	s = malloc((y) * sizeof(char **));
+	s = malloc((y) * sizeof(char *));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -146,12 +146,30 @@ char	**ft_strdup_2(char **source)
 	}
 	if (y == ft_strlen_2(source) + 1 + 1)
 	{
-		s[i] = "declare -x OLDPWD";
+		s[i] = ft_strdup("declare -x OLDPWD");
 		s[i + 1] = 0;
 	}
 	else
 		s[i] = 0;
 	sort_strings(s);
+	return (s);
+}
+
+char	**ft_strdup_0(char **source)
+{
+	char	**s;
+	int		i;
+
+	s = malloc((ft_strlen_2(source) + 1) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (source[i])
+	{
+		s[i] = ft_strdup(source[i]);
+		i++;
+	}
+	s[i] = 0;
 	return (s);
 }
 
@@ -190,7 +208,7 @@ void	show_export(char **export)
 		while (export[i][j])
 		{
 			printf("%c", export[i][j]);
-			if (export[i][j] == '=')
+			if (export[i][j] == '=' && n == 0)
 			{
 				printf("%c", 34);
 				n++;
@@ -239,13 +257,27 @@ void	*ft_free(char **c)
 	return (NULL);
 }
 
+void	*ft_calloc(size_t num, size_t size)
+{
+	char	*x;
+	int		y;
+
+	y = num * size;
+	x = malloc(y);
+	if (!x)
+		return (NULL);
+	while (y--)
+		x[y] = 0;
+	return (x);
+}
+
 char	**ft_realloc(char **table, int size)
 {
 	char	**t;
 	int		i;
 
 	i = 0;
-	t = malloc((size + 1) * sizeof(char *));
+	t = ft_calloc((size + 1), sizeof(char *));
 	if (!t)
 		return (NULL);
 	while (table[i])
@@ -254,21 +286,21 @@ char	**ft_realloc(char **table, int size)
 		i++;
 	}
 	t[size] = NULL;
-	//ft_free(table);
+	ft_free(table);
 	return (t);
 }
 
 void	just_equal(int j, char *arg, t_list *table)
 {
-	environ = ft_realloc(environ, ft_strlen_2(environ) + 1);
-	environ[ft_strlen_2(environ) - 1] = ft_strdup(arg);
-	table->export = ft_strdup_2(environ);
+	table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
+	table->env[ft_strlen_2(table->env) - 1] = ft_strdup(arg);
+	table->export = ft_strdup_2(table->env);
 }
 
 void plus_equal(int j, char *arg, t_list *table)
 {
 	table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-	table->export[ft_strlen_2(table->export) - 1] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
+	table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
 	sort_strings(table->export);
 }
 
@@ -280,7 +312,7 @@ void	fill_args(char **arg, t_list *table)
 	i = 0;
 	while (arg[++i])
 	{
-		j = -1;
+		/*j = -1;
 		while (arg[i][++j])
 		{
 			if (arg[i][j] == '=')
@@ -293,9 +325,11 @@ void	fill_args(char **arg, t_list *table)
 				plus_equal(j, arg[i], table);
 				break ;
 			}
-		}
+		}*/
 		table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-		table->export[ft_strlen_2(table->export) - 1] = ft_strjoin1("declare -x ", ft_strdup(arg[i]));
+		printf("ft_strlen : %s %d\n", table->export[ft_strlen_2(table->export)], ft_strlen_2(table->export));
+		table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strdup(arg[i]));
+		//printf("%s\n", table->export[ft_strlen_2(table->export) - 1]);
 	}
 	sort_strings(table->export);
 }
@@ -303,9 +337,9 @@ void	fill_args(char **arg, t_list *table)
 int main(int arc, char **argv)
 {
 	t_list table;
-	char	**export;
 
-    table.export = ft_strdup_2(environ);
+	table.env = ft_strdup_0(environ);
+    table.export = ft_strdup_2(table.env);
 	if (arc == 1)
 		show_export(table.export);
 	else
@@ -313,6 +347,6 @@ int main(int arc, char **argv)
 		check_args(argv);
 		fill_args(argv, &table);
 	}
-	show_export(table.export);
-	while (1);
+	if (arc != 1)
+		show_export(table.export);
 }

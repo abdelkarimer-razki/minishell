@@ -21,6 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+extern char **environ;
+
 typedef struct s_list
 {
 	char			**table;
@@ -28,6 +30,8 @@ typedef struct s_list
 	char			*args_index;
 	char			*cmd;
 	char			**args;
+	char			**env;
+	char			**export;
 	struct s_list	*next;
 }	t_list;
 
