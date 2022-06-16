@@ -80,6 +80,7 @@ char	*ft_strjoin1(char *s1, char *s2)
 	ft_memcpy(s + ft_strlen(s1), s2, ft_strlen(s2));
 	s[i] = 0;
 	free(s2);
+	free(s1);
 	return (s);
 }
 
@@ -341,8 +342,10 @@ int	check_table(char **table, char *arg)
 		str1 = ft_substr(arg, 0, find_equal(arg));
 		if (ft_memcmp(str, str1, find_equal(table[i])) == 0 && find_equal(table[i]) == find_equal(arg))
 			return (free(str), free(str1), i);
+		free(str);
+		free(str1);
 	}
-	return (free(str), free(str1), -1);
+	return (-1);
 }
 
 void	just_equal(int j, char *arg, t_list *table)
@@ -358,16 +361,49 @@ void	just_equal(int j, char *arg, t_list *table)
 	else
 	{
 		table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
-		table->env[ft_strlen_2(table->env) - 1] = ft_strdup(arg);
+		table->env[ft_strlen_2(table->env)] = ft_strdup(arg);
 	}
 	ft_free(table->export);
 	table->export = ft_strdup_2(table->env);
 }
 
+char	*remove_plus(char *source)
+{
+	char	*s;
+	int		i;
+	int		j;
+
+	s = malloc((ft_strlen(source)) * sizeof(char));
+	if (!s)
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (source[++i])
+	{
+		if (source[i] == '+')
+			continue ;
+		j++;
+		s[j] = source[i];
+	}
+	s[j + 1] = 0;
+	return (s);
+}
+
 void	plus_equal(int j, char *arg, t_list *table)
 {
-	table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-	table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
+	int		i;
+	char	*str;
+
+	i = check_table(table->env, arg);
+	if (i != -1)
+		table->env[i] = ft_strjoin1(table->env[i], ft_substr(arg, find_equal(arg) + 2, ft_strlen(arg) - 1));
+	else
+	{
+		table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
+		table->env[ft_strlen_2(table->env)] = remove_plus(arg);
+	}
+	ft_free(table->export);
+	table->export = ft_strdup_2(table->env);
 }
 
 void	no_value(int j, char *arg, t_list *table)
@@ -395,16 +431,16 @@ void	fill_args(char **arg, t_list *table)
 		n = 0;
 		while (arg[i][++j])
 		{
-			if (arg[i][j] == '=')
+			if (arg[i][j] == '=' && n == 0)
 			{
 				just_equal(j, arg[i], table);
 				n++;
 			}
-			/*else if (arg[i][j] == '+' && arg[i][j + 1] == '=')
+			else if (arg[i][j] == '+' && arg[i][j + 1] == '=' && n == 0)
 			{
 				plus_equal(j, arg[i], table);
-				break ;
-			}*/
+				n++;
+			}
 		}
 		if (n == 0)
 			no_value(j, arg[i], table);
@@ -422,7 +458,7 @@ int main(int arc, char **argv)
 		show_export(table.export);
 	else
 	{
-		check_args(argv);
+		//check_args(argv);
 		fill_args(argv, &table);
 	}
 	if (arc != 1)
