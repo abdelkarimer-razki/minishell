@@ -141,12 +141,12 @@ char	**ft_strdup_2(char **source)
 	i = 0;
 	while (source[i])
 	{
-		s[i] = ft_strjoin1("declare -x ", ft_strdup(source[i]));
+		s[i] =ft_strdup(source[i]);
 		i++;
 	}
 	if (y == ft_strlen_2(source) + 1 + 1)
 	{
-		s[i] = ft_strdup("declare -x OLDPWD");
+		s[i] = ft_strdup("OLDPWD");
 		s[i + 1] = 0;
 	}
 	else
@@ -205,6 +205,7 @@ void	show_export(char **export)
 	{
 		j = 0;
 		n = 0;
+		printf("declare -x ");
 		while (export[i][j])
 		{
 			printf("%c", export[i][j]);
@@ -290,46 +291,123 @@ char	**ft_realloc(char **table, int size)
 	return (t);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*str;
+
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s);
+	if (start < i)
+	{
+		if ((i - start) < len)
+			str = malloc(i - start + 1);
+		else
+			str = malloc(len + 1);
+		if (!str)
+			return (NULL);
+		i = 0;
+		while (i < len && s[start])
+			str[i++] = s[start++];
+		str[i] = 0;
+		return (str);
+	}
+	str = malloc(1);
+	str[0] = 0;
+	return (str);
+}
+
+int	find_equal(char *table)
+{
+	int	i;
+
+	i = 0;
+	while (table[i] && table[i] != '=' && table[i] != '+')
+		i++;
+	return (i);
+}
+
+int	check_table(char **table, char *arg)
+{
+	int		i;
+	char	*str;
+	char	*str1;
+
+	i = -1;
+	while (table[++i])
+	{
+		str = ft_substr(table[i], 0, find_equal(table[i]));
+		str1 = ft_substr(arg, 0, find_equal(arg));
+		if (ft_memcmp(str, str1, find_equal(table[i])) == 0 && find_equal(table[i]) == find_equal(arg))
+			return (free(str), free(str1), i);
+	}
+	return (free(str), free(str1), -1);
+}
+
 void	just_equal(int j, char *arg, t_list *table)
 {
-	table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
-	table->env[ft_strlen_2(table->env) - 1] = ft_strdup(arg);
+	int	i;
+
+	i = check_table(table->env, arg);
+	if (i != -1)
+	{
+		free(table->env[i]);
+		table->env[i] = ft_strdup(arg);
+	}
+	else
+	{
+		table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
+		table->env[ft_strlen_2(table->env) - 1] = ft_strdup(arg);
+	}
+	ft_free(table->export);
 	table->export = ft_strdup_2(table->env);
 }
 
-void plus_equal(int j, char *arg, t_list *table)
+void	plus_equal(int j, char *arg, t_list *table)
 {
 	table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
 	table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
-	sort_strings(table->export);
+}
+
+void	no_value(int j, char *arg, t_list *table)
+{
+	int		i;
+
+	i = check_table(table->export, arg);
+	if (i == -1)
+	{
+		table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
+		table->export[ft_strlen_2(table->export)] = ft_strdup(arg);
+	}
 }
 
 void	fill_args(char **arg, t_list *table)
 {
 	int	i;
 	int	j;
+	int	n;
 
 	i = 0;
 	while (arg[++i])
 	{
-		/*j = -1;
+		j = -1;
+		n = 0;
 		while (arg[i][++j])
 		{
 			if (arg[i][j] == '=')
 			{
 				just_equal(j, arg[i], table);
-				break ;
+				n++;
 			}
-			else if (arg[i][j] == '+' && arg[i][j + 1] == '=')
+			/*else if (arg[i][j] == '+' && arg[i][j + 1] == '=')
 			{
 				plus_equal(j, arg[i], table);
 				break ;
-			}
-		}*/
-		table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-		printf("ft_strlen : %s %d\n", table->export[ft_strlen_2(table->export)], ft_strlen_2(table->export));
-		table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strdup(arg[i]));
-		//printf("%s\n", table->export[ft_strlen_2(table->export) - 1]);
+			}*/
+		}
+		if (n == 0)
+			no_value(j, arg[i], table);
 	}
 	sort_strings(table->export);
 }
