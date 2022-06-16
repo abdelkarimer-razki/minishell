@@ -233,12 +233,16 @@ void	check_args(char **arg)
 	while (arg[++i])
 	{
 		j = -1;
-		while (arg[i][++j] && arg[i][j] != '=')
+		while (arg[i][++j] && arg[i][j] != '=' && (arg[i][j] != '+' || arg[i][j + 1] != '='))
 		{
-			if (ft_isalpha(arg[i][j]) == 0)
+			if (j == 0 &&ft_isalpha(arg[i][j]) == 0)
+			{
+				printf("syntax error\n");
+				exit(1);
+			}	
 			if ((j != 0 && ft_isdigit(arg[i][j]) == 0))
 			{
-				write(2, "syntax error", 12);
+				printf("syntax error\n");
 				exit(1);
 			}	
 		}
@@ -429,7 +433,7 @@ void	fill_args(char **arg, t_list *table)
 	{
 		j = -1;
 		n = 0;
-		while (arg[i][++j])
+		while (arg[i][++j] && ft_memcmp(arg[i], "_", find_equal(arg[i])) != 0)
 		{
 			if (arg[i][j] == '=' && n == 0)
 			{
@@ -458,7 +462,7 @@ int main(int arc, char **argv)
 		show_export(table.export);
 	else
 	{
-		//check_args(argv);
+		check_args(argv);
 		fill_args(argv, &table);
 	}
 	if (arc != 1)
