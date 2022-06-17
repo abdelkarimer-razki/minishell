@@ -235,12 +235,12 @@ void	check_args(char **arg)
 		j = -1;
 		while (arg[i][++j] && arg[i][j] != '=' && (arg[i][j] != '+' || arg[i][j + 1] != '='))
 		{
-			if (j == 0 &&ft_isalpha(arg[i][j]) == 0)
+			if (j == 0 && ft_isalpha(arg[i][j]) == 0)
 			{
 				printf("syntax error\n");
 				exit(1);
 			}	
-			if ((j != 0 && ft_isdigit(arg[i][j]) == 0))
+			else if ((j != 0 && ft_isalpha2(arg[i][j]) == 0))
 			{
 				printf("syntax error\n");
 				exit(1);
