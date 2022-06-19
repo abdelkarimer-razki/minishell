@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/12 22:15:06 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:07:26 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	parcing(char *line, t_list *node)
 	i = 0;
 	tmp = node;
 	par = lexer(line, '|');
-	if (!(*lexer))
+	if (!(*par))
 		return (1);
 	tmp->str = par[i];
 	tmp->table = lexer_space(par[i], ' ');
-	if (!(*lexer_space))
+	if (!(*tmp->table))
 		return (1);
 	while (par[++i])
 	{
@@ -71,7 +71,7 @@ int	parcing(char *line, t_list *node)
 		tmp = tmp->next;
 		tmp->str = par[i];
 		tmp->table = lexer_space(par[i], ' ');
-		if (!(*lexer_space))
+		if (!(*tmp->table))
 			return (1);
 	}
 	free(par);

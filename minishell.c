@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/13 00:32:37 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 00:21:35 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,14 @@ void	print(t_list *node)
 
 void	free_all(t_list **node)
 {
-	int		i;
 	t_list	*tmp;
 
 	tmp = *node;
-	i = 0;
 	while (tmp)
 	{
 		ft_free(tmp->table);
 		free(tmp->str);
 		free(tmp->cmd);
-		//free(tmp->args_index);
 		ft_free(tmp->args);
 		*node = tmp;
 		tmp = tmp->next;
@@ -101,12 +98,14 @@ int	main(void)
 			continue;
 		}
 		if (parcing(line, node))
-			ft_error(4);
-		if (parcer(node))
-			ft_error(2);
-		print(node);
+		{
+			parcer(node)
+			print(node);
+			free_all(&node);
+		}
+		else
+			free(node);
 		free(line);
-		free_all(&node);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/13 00:23:28 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 00:03:36 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,23 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_red
+{
+	char	**args;
+	char	**red_args;
+	char	*cmd;
+	char	type;
+}	t_red;
+
 typedef struct s_list
 {
 	char			**table;
 	char			*str;
-	char			*args_index;
 	char			*cmd;
 	char			**args;
 	struct s_list	*next;
+	struct t_red	*red;
+	
 }	t_list;
 
 char	*ft_strjoin(char const *s1, char const *s2);

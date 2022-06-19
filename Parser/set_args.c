@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 14:03:28 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/13 00:15:52 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:10:59 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ char	*get_env_value(char *s, char *str, int *x, int *y)
 
 char	*dollar_and_quote(char *s, char *str, int *x, int *y)
 {
-	char	*env;
 	int		i;
 	int		j;
 
 	i = *x;
 	j = *y;
 	j = i;
-	env = NULL;
 	i = quoted(str, i);
 	if (str[j] != str[i])
 		ft_error(0);
