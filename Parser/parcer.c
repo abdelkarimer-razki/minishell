@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 19:56:52 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 22:21:37 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ int	parcer(t_list *node)
 	tmp = node;
 	while (tmp)
 	{
-		if (node->table)
-			cmd_and_args(tmp);
+		if (!cmd_and_args(tmp))
+			return (0);
 		tmp = tmp->next;
 	}
-	node->cmd = check_cmd(node->cmd);
-	if (!node->cmd)
-		return (1);
-	return (0);
+	return (1);
 }
 
 
@@ -87,7 +84,7 @@ char	*check_cmd(char *str)
 	while (cmd[++i])
 	{
 		if (!ft_isalpha(cmd[i]))
-			return (NULL);		
+			return (ft_error(9, NULL, cmd));			
 	}
 	i = -1;
 	while (cmd[++i])
@@ -103,15 +100,19 @@ int	cmd_and_args(t_list *node)
 	int	i;
 	int	j;
 	
-	j = 0;
+	j = 1;
 	i = 0;
 	node->cmd = ft_strdup(node->table[0]);
+	node->cmd = check_cmd(node->cmd);
+	if (!node->cmd)
+		return ((int)ft_error(2, NULL, NULL));
 	while (node->table[i])
 		i++;
-	node->args = malloc(sizeof(char *) * i);
+	node->args = malloc(sizeof(char *) * (i + 1));
 	if (!node->args)
 		ft_error(1, NULL, NULL);
 	i = 0;
+	node->args[0] = ft_strdup(node->cmd);
 	while (node->table[++i])
 	{
 		node->args[j] = put_arg(node->table[i]);
@@ -119,7 +120,7 @@ int	cmd_and_args(t_list *node)
 			ft_error(1, NULL, NULL);
 	}
 	node->args[j] = NULL;
-	return (0);
+	return (1);
 }
 
 

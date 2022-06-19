@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 19:45:30 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:23:41 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,15 @@ void	print(t_list *node)
 
 void	check_memory(t_list *node)
 {
-	
 	if (node->table)
 		ft_free(node->table);
 	if (node->str)
 		free(node->str);
 	if (node->cmd)
+	{
+		//printf("2\n");
 		free(node->cmd);
+	}
 	if (node->args)
 		ft_free(node->args);
 }
@@ -118,12 +120,10 @@ int	main(void)
 			free(node);
 			continue;
 		}
-		if (parcing(line, node))
+		if (lexer(line, node))
 		{
-			//printf("-------------------------------------------------\n");
-			parcer(node);
-			//printf("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
-			print(node);
+			if (parcer(node))
+				print(node);
 			free_all(&node);
 		}
 		else
