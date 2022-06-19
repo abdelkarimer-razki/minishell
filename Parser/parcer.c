@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/13 00:52:23 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:56:52 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	parcer(t_list *node)
 	tmp = node;
 	while (tmp)
 	{
-		cmd_and_args(tmp);
+		if (node->table)
+			cmd_and_args(tmp);
 		tmp = tmp->next;
 	}
 	node->cmd = check_cmd(node->cmd);
@@ -109,13 +110,13 @@ int	cmd_and_args(t_list *node)
 		i++;
 	node->args = malloc(sizeof(char *) * i);
 	if (!node->args)
-		ft_error(1);
+		ft_error(1, NULL, NULL);
 	i = 0;
 	while (node->table[++i])
 	{
 		node->args[j] = put_arg(node->table[i]);
 		if (node->args[j++] == NULL)
-			ft_error(1);
+			ft_error(1, NULL, NULL);
 	}
 	node->args[j] = NULL;
 	return (0);

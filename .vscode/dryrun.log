@@ -1,6 +1,7 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/brahim/Desktop/minishell'
+make: Entering directory `/Users/bboulhan/Desktop/minishell'
 cc -Wall -Werror -Wextra   -c -o minishell.o minishell.c
+ 
 cc -Wall -Werror -Wextra   -c -o utils/utils.o utils/utils.c
 cc -Wall -Werror -Wextra   -c -o utils/ft_split.o utils/ft_split.c
 cc -Wall -Werror -Wextra   -c -o utils/utils_2.o utils/utils_2.c
@@ -10,5 +11,5 @@ cc -Wall -Werror -Wextra   -c -o Parser/parcer.o Parser/parcer.c
 cc -Wall -Werror -Wextra   -c -o Parser/set_args_utils.o Parser/set_args_utils.c
 cc -Wall -Werror -Wextra   -c -o Parser/set_args.o Parser/set_args.c
 cc -Wall -Werror -Wextra minishell.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/ft_strtrim.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o -lreadline -o minishell
-make: Leaving directory '/home/brahim/Desktop/minishell'
+make: Leaving directory `/Users/bboulhan/Desktop/minishell'
  

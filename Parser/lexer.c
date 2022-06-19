@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/17 15:07:26 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/19 19:47:07 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*cut_string(char *str, int i0, int i1)
 		i++;
 	}
 	line[i] = 0;
+	if (line[0] == 0)
+		return (line);
 	return (ft_strtrim(line, " "));
 }
 
@@ -34,10 +36,13 @@ int	quoted(char	*line, int i)
 {
 	int	j;
 
-	j = i + 1;
-	while (line[j] != line[i] && line[j])
-		j++;
-	return (j);
+	j = i;
+	while (line[++j])
+	{
+		if (line[j] == line[i])
+			return (j);
+	}
+	return (0);
 }
 
 void	add_node(t_list **node)
@@ -50,6 +55,7 @@ void	add_node(t_list **node)
 	ft_lstadd_back(node, new);
 }
 
+
 int	parcing(char *line, t_list *node)
 {
 	t_list	*tmp;
@@ -59,23 +65,29 @@ int	parcing(char *line, t_list *node)
 	i = 0;
 	tmp = node;
 	par = lexer(line, '|');
-	if (!(*par))
-		return (1);
+	if (!par)
+		return 0;
 	tmp->str = par[i];
 	tmp->table = lexer_space(par[i], ' ');
-	if (!(*tmp->table))
-		return (1);
+	if (!(tmp->table) || !(tmp->table[0]))
+	{
+		ft_free(par);
+		return ((int)ft_error(5, tmp->table, NULL));
+	}
 	while (par[++i])
 	{
 		add_node(&node);
 		tmp = tmp->next;
 		tmp->str = par[i];
 		tmp->table = lexer_space(par[i], ' ');
-		if (!(*tmp->table))
-			return (1);
+		if (!(tmp->table) || (tmp->table[0] == 0))
+		{
+			ft_free(par);
+			return ((int)ft_error(5, tmp->table, NULL));
+		}
 	}
 	free(par);
-	return (0);
+	return (1);
 }
 
 char	**lexer(char *line, char c)
@@ -94,8 +106,6 @@ char	**lexer(char *line, char c)
 	table[0] = NULL;
 	while (line[++i])
 	{
-		if (line[i] == '"' || line[i] == 39)
-			i = quoted(line, i);
 		if (line[i] == c || line[i + 1] == '\0')
 		{
 			j++;
@@ -124,11 +134,15 @@ char	**lexer_space(char *line, char c)
 	table = malloc(sizeof(char *) * 1);
 	if (!table)
 		return (NULL);
-	table[0] = NULL;
+	table[0] = 0;
 	while (line[++i])
 	{
 		if (line[i] == 39 || line[i] == '"')
+		{	
 			i = quoted(line, i);
+			if (i == 0)
+				return (ft_error(4, table, NULL));
+		}
 		if ((line[i] == c && line[i - 1] != c) || line[i + 1] == '\0')
 		{
 			j++;
@@ -142,4 +156,47 @@ char	**lexer_space(char *line, char c)
 		}
 	}
 	return (table);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int	put_zero(void *arg, int x, int y)
+{
+	char	**table;
+	char	*str;
+
+	table = NULL;
+	str = NULL;
+	if (x == 1)
+	{
+		table = malloc(sizeof(char *) * 1);
+		table[0] = ft_calloc(1, 1);
+		arg = table;
+	}
+	else
+	{
+		str = ft_calloc(1, 1);
+		arg = str;
+	}
+	return (y);
 }

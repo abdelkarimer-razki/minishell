@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 00:21:35 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/19 19:45:30 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_error(int Er)
+void	*ft_error(int Er, char **table, char *str)
 {
 	if (Er == 1)
 		printf("Error\n");
@@ -22,8 +22,19 @@ int	ft_error(int Er)
 		printf("syntax error\n");
 	else if (Er == 4)
 		printf("quote > \n");
-	
-	return (1);
+	else if (Er == 5)
+		printf("syntax error near unexpected token `||'\n");
+	if (table)
+	{
+		ft_free(table);
+		return (NULL);
+	}
+	if (str)
+	{
+		free(str);
+		return (NULL);
+	}
+	return (0);
 }
 
 int	check_pipe(char *line)
@@ -64,6 +75,19 @@ void	print(t_list *node)
 	}
 }
 
+void	check_memory(t_list *node)
+{
+	
+	if (node->table)
+		ft_free(node->table);
+	if (node->str)
+		free(node->str);
+	if (node->cmd)
+		free(node->cmd);
+	if (node->args)
+		ft_free(node->args);
+}
+
 void	free_all(t_list **node)
 {
 	t_list	*tmp;
@@ -71,10 +95,7 @@ void	free_all(t_list **node)
 	tmp = *node;
 	while (tmp)
 	{
-		ft_free(tmp->table);
-		free(tmp->str);
-		free(tmp->cmd);
-		ft_free(tmp->args);
+		check_memory(tmp);
 		*node = tmp;
 		tmp = tmp->next;
 		free(*node);
@@ -99,7 +120,9 @@ int	main(void)
 		}
 		if (parcing(line, node))
 		{
-			parcer(node)
+			//printf("-------------------------------------------------\n");
+			parcer(node);
+			//printf("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
 			print(node);
 			free_all(&node);
 		}
@@ -110,41 +133,3 @@ int	main(void)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// int	main(void)
-// {
-//  	char	*line;
-//  	char	*path;
-// 	char 	**argv;
-//  	int		pid;
-
-//  	path = "/bin/";
-//  	while (1)
-//  	{
-//  		line = readline("~$ ");
-//  		pid = fork();
-//  		if (pid == 0)
-//  		{
-//  			argv = ft_split(readline("~$ "), ' ');
-//  			if (execve(ft_strjoin(path, argv[0]), argv, NULL) == -1)
-//  				perror("");
-//  			ft_free(argv);
-//  			/*if (pipe_checker(line) == 1)
-//  				with_pipe(line, path);
-//  			else
-//  				without_pipe(line, path);*/
-//  		}
-//  		wait(NULL);
-//  	}
-// }

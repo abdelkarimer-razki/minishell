@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 14:03:28 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/17 15:10:59 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/19 18:45:49 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*dollar_and_quote(char *s, char *str, int *x, int *y)
 	j = i;
 	i = quoted(str, i);
 	if (str[j] != str[i])
-		ft_error(0);
+		ft_error(0, NULL, NULL);
 	if (str[j] == '"')
 	{
 		if (check_dollar(str, j, i))
