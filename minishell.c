@@ -82,16 +82,35 @@ void	free_all(t_list **node)
 	}
 }
 
+void	bulttins(t_list *node, t_env *table)
+{
+	if (ft_memcmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
+		export(table ,node);
+	else if (ft_memcmp(node->cmd, "echo", ft_strlen(node->cmd)) == 0)
+		echo(node->args);
+	else if (ft_memcmp(node->cmd, "cd", ft_strlen(node->cmd)) == 0)
+		cd(table, node);
+	else if (ft_memcmp(node->cmd, "pwd", ft_strlen(node->cmd)) == 0)
+		pwd();
+	else if (ft_memcmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
+		env(table);
+	else if (ft_memcmp(node->cmd, "exit", ft_strlen(node->cmd)) == 0)
+		ft_exit();
+}
+
 int	main(void)
 {
 	t_list	*node;
+	t_env	table;
 	char	*line;
 
+	table.env = ft_strdup_0(environ);
+	table.export = ft_strdup_2(table.env);
 	while (1)
 	{
 		node = malloc(sizeof(t_list) * 1);
 		node->next = NULL;
-		line = readline("~$ ");
+		line = readline("do3afa2-1.0$ ");
 		if (*line == 0)
 		{
 			free(line);
@@ -100,7 +119,7 @@ int	main(void)
 		}
 		parcing(line, node);
 		if (!parcer(node))	
-			print(node);
+			bulttins(node, &table);
 		free(line);
 		free_all(&node);
 	}

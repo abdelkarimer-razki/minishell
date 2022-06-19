@@ -1,10 +1,8 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "../../minishell.h"
 
-int main()
+void	pwd()
 {   
-    char s[100];
+	char s[100];
 
-    printf("%s\n", getcwd(s, 100));
+	printf("%s\n", getcwd(s, 100));
 }

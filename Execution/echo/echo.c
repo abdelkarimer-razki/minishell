@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "../../minishell.h"
 
-int	ft_strlen(const char *s)
+/*int	ft_strlen(const char *s)
 {
 	int	i;
 
@@ -10,13 +10,13 @@ int	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-
+*/
 int	parse_args(char **argv)
 {
 	int	i;
 	int	j;
 
-	i = 0;
+	i = -1;
 	while (argv[++i])
 	{
 		j = -1;
@@ -33,30 +33,18 @@ int	parse_args(char **argv)
 	return (i);
 }
 
-int main(int arc, char **argv)
+void	echo(char **argv)
 {
 	int	i;
 
 	i = parse_args(argv);
-	if (i != 1)
+	while (i < ft_strlen_2(argv))
 	{
-		while (i < arc)
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;
-		}
+		printf("%s", argv[i]);
+		if (argv[i + 1])
+			printf(" ");
+		i++;
 	}
-	else
-	{
-		while (i < arc)
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;
-		}
+	if (i == 0)
 		printf("\n");
-	}
 }
