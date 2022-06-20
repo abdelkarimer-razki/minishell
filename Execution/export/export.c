@@ -2,23 +2,23 @@
 #include <stdlib.h>
 #include "../../minishell.h"
 
-int	ft_memcmp(const void *str1, const void *str2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
-	unsigned char	*str3;
-	unsigned char	*str4;
+	unsigned char	*s3;
+	unsigned char	*s4;
 
 	i = 0;
-	str3 = (unsigned char *)str1;
-	str4 = (unsigned char *)str2;
-	if (str1 != NULL || str2 != NULL)
+	s3 = (unsigned char *)s1;
+	s4 = (unsigned char *)s2;
+	if (s3 != NULL || s4 != NULL)
 	{
-		while (n--)
+		while ((s3[i] != '\0' || s4[i] != '\0')
+			&& i != n)
 		{
-			if (*str3 != *str4)
-				return (*str3 - *str4);
-			str4++;
-			str3++;
+			if (s3[i] != s4[i])
+				return (s3[i] - s4[i]);
+			i++;
 		}
 	}
 	return (0);
@@ -67,7 +67,7 @@ void	sort_strings(char **string)
 		j = i + 1;
 		while (string[j])
 		{
-			if (ft_memcmp(string[i], string[j], 20) > 0)
+			if (ft_strncmp(string[i], string[j], 20) > 0)
 			{
 				c = string[i];
 				string[i] = string[j];
@@ -142,7 +142,8 @@ int	ft_isdigit(int c)
 
 int	ft_isalpha2(int c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '_') || ft_isdigit(c)) 
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)
+		|| (c == '_') || ft_isdigit(c))
 		return (1);
 	return (0);
 }
@@ -181,7 +182,8 @@ int	check_args(char *arg)
 	int	j;
 
 	j = -1;
-	while (arg[++j] && ((arg[j] != '=' && (arg[j] != '+' || arg[j + 1] != '=')) || j == 0))
+	while (arg[++j]
+		&& ((arg[j] != '=' && (arg[j] != '+' || arg[j + 1] != '=')) || j == 0))
 	{
 		if (j == 0 && ft_isalpha1(arg[j]) == 0)
 			return (-1);
@@ -212,7 +214,8 @@ int	check_table(char **table, char *arg)
 	{
 		str = ft_substr(table[i], 0, find_equal(table[i]));
 		str1 = ft_substr(arg, 0, find_equal(arg));
-		if (ft_memcmp(str, str1, find_equal(table[i])) == 0 && find_equal(table[i]) == find_equal(arg))
+		if (ft_strncmp(str, str1, find_equal(table[i])) == 0
+			&& find_equal(table[i]) == find_equal(arg))
 			return (free(str), free(str1), i);
 		free(str);
 		free(str1);
@@ -233,7 +236,7 @@ void	just_equal(char *arg, t_env *env)
 	else
 	{
 		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
-		env->env[ft_strlen_2(env->env)] = ft_strdup(arg);
+		env->env[ft_strlen_2(env->env) - 1] = ft_strdup(arg);
 	}
 	ft_free(env->export);
 	env->export = ft_strdup_2(env->env);
@@ -267,11 +270,12 @@ void	plus_equal(char *arg, t_env *env)
 
 	i = check_table(env->env, arg);
 	if (i != -1)
-		env->env[i] = ft_strjoin1(env->env[i], ft_substr(arg, find_equal(arg) + 2, ft_strlen(arg) - 1));
+		env->env[i] = ft_strjoin1(env->env[i], ft_substr(arg, find_equal(arg)
+					+ 2, ft_strlen(arg) - 1));
 	else
 	{
 		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
-		env->env[ft_strlen_2(env->env)] = remove_plus(arg);
+		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
 	ft_free(env->export);
 	env->export = ft_strdup_2(env->env);
@@ -282,10 +286,11 @@ void	no_value(char *arg, t_env *env)
 	int		i;
 
 	i = check_table(env->export, arg);
+	printf("%s %d\n ", arg, i);
 	if (i == -1)
 	{
 		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
-		env->export[ft_strlen_2(env->export)] = ft_strdup(arg);
+		env->export[ft_strlen_2(env->export) - 1] = ft_strdup(arg);
 	}
 }
 
@@ -295,24 +300,27 @@ void	fill_args(t_env *env, t_list *table)
 	int	j;
 	int	n;
 
-	i = -1;
+	i = 0;
 	while (table->args[++i])
 	{
 		j = -1;
 		n = 0;
 		if (check_args(table->args[i]) == -1)
 		{
-			printf("bash: export: `%s': not a valid identifier\n", table->args[i]);
+			printf("do3afa2: export: `%s': not a valid identifier\n",
+				table->args[i]);
 			continue ;
 		}
-		while (table->args[i][++j] && ft_memcmp(table->args[i], "_", find_equal(table->args[i])) != 0)
+		while (table->args[i][++j] && ft_strncmp(table->args[i], "_",
+				find_equal(table->args[i])) != 0)
 		{
 			if (table->args[i][j] == '=' && n == 0)
 			{
 				just_equal(table->args[i], env);
 				n++;
 			}
-			else if (table->args[i][j] == '+' && table->args[i][j + 1] == '=' && n == 0)
+			else if (table->args[i][j] == '+'
+				&& table->args[i][j + 1] == '=' && n == 0)
 			{
 				plus_equal(table->args[i], env);
 				n++;
@@ -326,7 +334,7 @@ void	fill_args(t_env *env, t_list *table)
 
 void	export(t_env *env, t_list *table)
 {
-	if (ft_strlen_2(table->args) == 0)
+	if (ft_strlen_2(table->args) == 1)
 		show_export(env->export);
 	else
 		fill_args(env, table);

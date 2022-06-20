@@ -74,7 +74,7 @@ int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 void	*ft_error(int Er, char **table, char *str);
-int		ft_memcmp(const void *str1, const void *str2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
 char	*ft_strjoin1(char *s1, char *s2);
@@ -104,8 +104,8 @@ char	**ft_strdup_2(char **source);
 void	export(t_env *env, t_list *table);
 void	echo(char **argv);
 void    cd(t_env *env, t_list *table);
-void    pwd();
-void    ft_exit();
+void	pwd();
+void	ft_exit();
 void	env(t_env *env);
 
 

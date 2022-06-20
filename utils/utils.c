@@ -86,6 +86,7 @@ char	**ft_realloc(char **table, int size)
 		t[i] = ft_strdup(table[i]);
 		i++;
 	}
+	t[i] = "realloc";
 	t[size] = NULL;
 	ft_free(table);
 	return (t);
