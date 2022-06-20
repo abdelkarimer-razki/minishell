@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:07:42 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 22:17:34 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,24 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_red
+{
+	char	**args;
+	char	**red_args;
+	char	*cmd;
+	char	type;
+}	t_red;
 extern char **environ;
 
 typedef struct s_list
 {
 	char			**table;
 	char			*str;
-	char			*args_index;
 	char			*cmd;
 	char			**args;
 	struct s_list	*next;
+	struct t_red	*red;
+	
 }	t_list;
 
 typedef struct s_env
@@ -52,29 +60,43 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int content);
-char	**lexer_space(char *line, char c);
 void	checker(char *line, t_list **node);
 char	*ft_strtrim(char *s1, char *set);
-char	**lexer(char *line, char c);
 char	*cut_string(char *str, int i0, int i1);
-void	parcing(char *line, t_list *node);
+int		parcing(char *line, t_list *node);
 char	*ft_strdup(const char *source);
-char	**lexer_space(char *line, char c);
+char	**lexer_space(char *line);
 void	ft_putstr_fd(char *s, int fd);
-char	*clean_quote(char *str);
 int		parcer(t_list *node);
 int		cmd_and_args(t_list *node);
 char	*put_arg(char *str);
 int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
-int		ft_error(int Er);
-char	**lexer2(char *line, char c);
+void	*ft_error(int Er, char **table, char *str);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
 char	*ft_strjoin1(char *s1, char *s2);
 char	*add_char(char *str, char c);
+char	*check_cmd(char *cmd);
+int		put_zero(void *arg, int x, int y);
+int		lexer(char *line, t_list *node);
+char	**lexer_pipe(char *line);
+int		lexer2(t_list *node, t_list *tmp, char **par);
+char	**lexer_space(char *line);
+void	add_node(t_list **node);
+
+
+
+
+
+
+
+
+
+
+
 int		check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 

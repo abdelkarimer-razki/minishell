@@ -1,6 +1,6 @@
 make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/bboulhan/Desktop/ibra'
-make: Nothing to be done for `all'.
- 
-make: Leaving directory `/Users/bboulhan/Desktop/ibra'
+make: Entering directory `/Users/bboulhan/Desktop/minishell'
+cc -Wall -Werror -Wextra   -c -o Parser/lexer_utils.o Parser/lexer_utils.c
+cc -Wall -Werror -Wextra minishell.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/ft_strtrim.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o -lreadline -o minishell
+make: Leaving directory `/Users/bboulhan/Desktop/minishell'
  

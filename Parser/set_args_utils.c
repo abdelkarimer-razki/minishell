@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcer_utils.c                                     :+:      :+:    :+:   */
+/*   set_args_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:57:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:02:00 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:14:17 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_dollar(char *str, int start, int end)
 {
 	while (start < end && str[start])
 	{
-		if (str[start] == '$')
+		if (str[start] == '$' && ft_isalpha(str[start + 1]))
 			return (1);
 		start++;
 	}

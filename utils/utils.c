@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:10:54 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:05:53 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
-	int		j;
 	char	*s;
 
 	if (!s1 || !s2)
 		return (NULL);
-	j = 0;
 	i = ft_strlen(s1) + ft_strlen(s2);
 	s = malloc(i + 1);
 	if (!s)

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 14:03:28 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 14:04:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:13:15 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,22 @@ char	*get_env_value(char *s, char *str, int *x, int *y)
 
 char	*dollar_and_quote(char *s, char *str, int *x, int *y)
 {
-	char	*env;
 	int		i;
 	int		j;
 
 	i = *x;
 	j = *y;
 	j = i;
-	env = NULL;
 	i = quoted(str, i);
 	if (str[j] != str[i])
-		ft_error(0);
+		ft_error(0, NULL, NULL);
 	if (str[j] == '"')
 	{
 		if (check_dollar(str, j, i))
 			s = get_env_value(s, str, &i, &j);		
 	}
 	if (j != i)
-	{
+	{ 
 		while (j++ < i - 1)
 			s = add_char(s, str[j]);
 	}
@@ -69,7 +67,7 @@ char	*only_dollar(char *s, char *str, int *x, int *y)
 
 	i = *x;
 	j = *y;
-	if (str[i] == '$')
+	if (str[i] == '$' && str[i + 1] && ft_isalpha(str[i + 1]))
 	{
 		j = i++ - 1;
 		while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i])))

@@ -6,13 +6,13 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 09:33:19 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:23:41 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_error(int Er)
+void	*ft_error(int Er, char **table, char *str)
 {
 	if (Er == 1)
 		printf("Error\n");
@@ -20,8 +20,21 @@ int	ft_error(int Er)
 		printf("command not found\n");
 	else if (Er == 3)
 		printf("syntax error\n");
-	
-	return (1);
+	else if (Er == 4)
+		printf("quote > \n");
+	else if (Er == 5)
+		printf("syntax error near unexpected token `||'\n");
+	if (table)
+	{
+		ft_free(table);
+		return (NULL);
+	}
+	if (str)
+	{
+		free(str);
+		return (NULL);
+	}
+	return (0);
 }
 
 int	check_pipe(char *line)
@@ -62,20 +75,29 @@ void	print(t_list *node)
 	}
 }
 
+void	check_memory(t_list *node)
+{
+	if (node->table)
+		ft_free(node->table);
+	if (node->str)
+		free(node->str);
+	if (node->cmd)
+	{
+		//printf("2\n");
+		free(node->cmd);
+	}
+	if (node->args)
+		ft_free(node->args);
+}
+
 void	free_all(t_list **node)
 {
-	int		i;
 	t_list	*tmp;
 
 	tmp = *node;
-	i = 0;
 	while (tmp)
 	{
-		ft_free(tmp->table);
-		free(tmp->str);
-		free(tmp->cmd);
-		//free(tmp->args_index);
-		ft_free(tmp->args);
+		check_memory(tmp);
 		*node = tmp;
 		tmp = tmp->next;
 		free(*node);
@@ -117,53 +139,19 @@ int	main(void)
 			free(node);
 			continue;
 		}
-		parcing(line, node);
-		if (!parcer(node))
+		if (lexer(line, node))
 		{
-			print(node);
-			bulttins(node, &table);
+			if (parcer(node))
+      {
+				print(node);
+        bulttins(node, &table);
+      }
+			free_all(&node);
 		}
+		else
+			free(node);
 		free(line);
-		free_all(&node);
 	}
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// int	main(void)
-// {
-//  	char	*line;
-//  	char	*path;
-// 	char 	**argv;
-//  	int		pid;
-
-//  	path = "/bin/";
-//  	while (1)
-//  	{
-//  		line = readline("~$ ");
-//  		pid = fork();
-//  		if (pid == 0)
-//  		{
-//  			argv = ft_split(readline("~$ "), ' ');
-//  			if (execve(ft_strjoin(path, argv[0]), argv, NULL) == -1)
-//  				perror("");
-//  			ft_free(argv);
-//  			/*if (pipe_checker(line) == 1)
-//  				with_pipe(line, path);
-//  			else
-//  				without_pipe(line, path);*/
-//  		}
-//  		wait(NULL);
-//  	}
-// }

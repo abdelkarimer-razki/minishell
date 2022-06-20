@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat Jun 11 14:16:17 2022
+# Make data base, printed on Sun Jun 19 22:18:16 2022
 
 # Variables
 
@@ -25,7 +25,7 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/bboulhan/Desktop/ibra
+CURDIR := /Users/bboulhan/Desktop/minishell
 # makefile
 SHELL = /bin/sh
 # environment
@@ -38,16 +38,16 @@ CFLAGS = -Wall -Werror -Wextra
 MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 24)
+# makefile (from `Makefile', line 25)
 OBJS = $(FILES:%.c=%.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-87f9a32d-cce3-4e2e-a3d3-dfce0bb50057.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-9f8e3d47-abb6-4544-9561-c5d2d43d73ca.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /usr/bin:/bin:/usr/sbin:/sbin
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
-LaunchInstanceID = 952C4527-52C9-47C4-A448-8D15002610E6
+LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -55,13 +55,13 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.GcLfSK3eeV/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.aoVWpkB5Ne/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/bboulhan/Desktop/ibra
+PWD = /Users/bboulhan/Desktop/minishell
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
@@ -76,6 +76,8 @@ VSCODE_CODE_CACHE_PATH = /Users/bboulhan/Library/Application Support/Code/Cached
 LOGNAME = bboulhan
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+ZSH = /Users/bboulhan/.oh-my-zsh
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -98,6 +100,8 @@ USER = bboulhan
 .DEFAULT_GOAL := all
 # makefile (from `Makefile', line 13)
 NAME = minishell
+# environment
+LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -117,25 +121,23 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
+XPC_SERVICE_NAME = com.microsoft.VSCode.2136
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x18D8C:0x0:0x0
-# environment
-COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
 # environment
+PAGER = less
+# environment
 LC_ALL = C
 # makefile (from `Makefile', line 19)
 HEADER = minishell.h 
-# environment
-SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -147,11 +149,11 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 78559
+VSCODE_PID = 3676
 # makefile (from `Makefile', line 21)
-FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c 
+FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c ./Parser/lexer_utils.c 
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=3/98=3%
+# Load=70/1024=7%, Rehash=0, Collisions=3/99=3%
 
 # Pattern-specific Variable Values
 
@@ -159,9 +161,9 @@ FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils
 
 # Directories
 
-# . (device 16777225, inode 2939200): 14 files, no impossibilities.
+# . (device 16777225, inode 10758): 16 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -174,8 +176,7 @@ all: minishell
 #  Command-line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has been updated.
-#  Successfully updated.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -193,7 +194,7 @@ all: minishell
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 14:15:04
+#  Last modified 2022-06-19 22:18:09
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -202,7 +203,7 @@ Makefile:
 # Not a target:
 utils/utils_2.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 13:55:54
+#  Last modified 2022-06-19 22:17:19
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -211,7 +212,7 @@ utils/utils_2.o:
 # Not a target:
 Parser/lexer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 13:55:54
+#  Last modified 2022-06-19 22:17:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -220,27 +221,26 @@ Parser/lexer.o:
 # Not a target:
 Parser/set_args_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 14:15:20
+#  Last modified 2022-06-19 22:17:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o Parser/lexer.o Parser/parcer.o Parser/set_args_utils.o Parser/set_args.o minishell.h
+minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o Parser/lexer.o Parser/parcer.o Parser/set_args_utils.o Parser/set_args.o Parser/lexer_utils.o minishell.h
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-11 14:15:20
-#  File has been updated.
-#  Successfully updated.
+#  File does not exist.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 29):
+#  commands to execute (from `Makefile', line 30):
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 	
 
 # Not a target:
 minishell.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 13:55:53
+#  Last modified 2022-06-19 22:17:19
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -251,14 +251,14 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 35):
+#  commands to execute (from `Makefile', line 36):
 	rm -f $(NAME)
 	
 
 # Not a target:
 utils/ft_strtrim.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 13:55:54
+#  Last modified 2022-06-19 22:17:19
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -267,7 +267,7 @@ utils/ft_strtrim.o:
 # Not a target:
 Parser/parcer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 14:13:14
+#  Last modified 2022-06-19 22:17:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -290,14 +290,14 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 32):
+#  commands to execute (from `Makefile', line 33):
 	rm -f $(OBJS)
 	
 
 # Not a target:
 Parser/set_args.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 14:13:14
+#  Last modified 2022-06-19 22:17:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -306,7 +306,7 @@ Parser/set_args.o:
 # Not a target:
 utils/ft_split.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 13:55:54
+#  Last modified 2022-06-19 22:17:19
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -315,7 +315,7 @@ utils/ft_split.o:
 # Not a target:
 utils/utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-11 14:13:14
+#  Last modified 2022-06-19 22:17:19
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -323,16 +323,23 @@ utils/utils.o:
 
 # Not a target:
 minishell.h:
-#  Implicit rule search has been done.
+#  Implicit rule search has not been done.
  
-#  Last modified 2022-06-11 14:07:42
-#  File has been updated.
-#  Successfully updated.
+make: *** No rule to make target `Parser/lexer_utils.o', needed by `minishell'.  Stop.
+
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Parser/lexer_utils.o:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=2/50=4%
+# Load=20/1024=2%, Rehash=0, Collisions=2/52=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -344,6 +351,6 @@ minishell.h:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jun 11 14:16:17 2022
+# Finished Make data base on Sun Jun 19 22:18:16 2022
 
  
