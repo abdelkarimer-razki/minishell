@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 22:08:33 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 22:19:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:27:44 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	lexer2(t_list *node, t_list *tmp, char **par)
 		if (!(tmp->table) || (tmp->table[0] == 0))
 		{
 			ft_free(par);
-			return ((int)ft_error(3, tmp->table, NULL));
+			ft_error(3, tmp->table, NULL);
+			return (0);
 		}
 	}
 	return (1);

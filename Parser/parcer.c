@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 22:21:37 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:27:09 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	cmd_and_args(t_list *node)
 	node->cmd = ft_strdup(node->table[0]);
 	node->cmd = check_cmd(node->cmd);
 	if (!node->cmd)
-		return ((int)ft_error(2, NULL, NULL));
+		return (0);
 	while (node->table[i])
 		i++;
 	node->args = malloc(sizeof(char *) * (i + 1));
