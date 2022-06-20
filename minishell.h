@@ -70,7 +70,7 @@ int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_error(int Er);
 char	**lexer2(char *line, char c);
-int		ft_memcmp(const void *str1, const void *str2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
 char	*ft_strjoin1(char *s1, char *s2);
@@ -81,11 +81,9 @@ char	**ft_strdup_2(char **source);
 //bultins
 void	export(t_env *env, t_list *table);
 void	echo(char **argv);
-void    cd(t_env *env, t_list *table);
-void    pwd();
-void    ft_exit();
+void	cd(t_env *env, t_list *table);
+void	pwd(void);
+void	ft_exit(void);
 void	env(t_env *env);
-
-
 
 #endif

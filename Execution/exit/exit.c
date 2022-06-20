@@ -1,7 +1,7 @@
 #include "../../minishell.h"
 
-void    ft_exit()
+void	ft_exit(void)
 {
-    printf("exit\n");
-    exit(0);
+	printf("exit\n");
+	exit(0);
 }

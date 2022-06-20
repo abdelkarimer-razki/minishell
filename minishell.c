@@ -20,7 +20,6 @@ int	ft_error(int Er)
 		printf("command not found\n");
 	else if (Er == 3)
 		printf("syntax error\n");
-	
 	return (1);
 }
 
@@ -43,7 +42,7 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
-	
+
 	i = -1;
 	while (node)
 	{
@@ -84,17 +83,17 @@ void	free_all(t_list **node)
 
 void	bulttins(t_list *node, t_env *table)
 {
-	if (ft_memcmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
+	if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
 		export(table ,node);
-	else if (ft_memcmp(node->cmd, "echo", ft_strlen(node->cmd)) == 0)
+	else if (ft_strncmp(node->cmd, "echo", ft_strlen(node->cmd)) == 0)
 		echo(node->args);
-	else if (ft_memcmp(node->cmd, "cd", ft_strlen(node->cmd)) == 0)
+	else if (ft_strncmp(node->cmd, "cd", ft_strlen(node->cmd)) == 0)
 		cd(table, node);
-	else if (ft_memcmp(node->cmd, "pwd", ft_strlen(node->cmd)) == 0)
+	else if (ft_strncmp(node->cmd, "pwd", ft_strlen(node->cmd)) == 0)
 		pwd();
-	else if (ft_memcmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
+	else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
 		env(table);
-	else if (ft_memcmp(node->cmd, "exit", ft_strlen(node->cmd)) == 0)
+	else if (ft_strncmp(node->cmd, "exit", ft_strlen(node->cmd)) == 0)
 		ft_exit();
 }
 
@@ -115,7 +114,7 @@ int	main(void)
 		{
 			free(line);
 			free(node);
-			continue;
+			continue ;
 		}
 		parcing(line, node);
 		if (!parcer(node))
