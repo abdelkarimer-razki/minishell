@@ -143,7 +143,7 @@ int	main(void)
 		{
 			if (parcer(node))
       		{
-				//print(node);
+				print(node);
         		bulttins(node, &table);
       		}
 			free_all(&node);

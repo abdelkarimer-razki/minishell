@@ -226,20 +226,24 @@ int	check_table(char **table, char *arg)
 void	just_equal(char *arg, t_env *env)
 {
 	int	i;
+	int	j;
 
 	i = check_table(env->env, arg);
+	j = check_table(env->export, arg);
 	if (i != -1)
 	{
 		free(env->env[i]);
 		env->env[i] = ft_strdup(arg);
+		free(env->export[j]);
+		env->export[j] = ft_strdup(arg);
 	}
 	else
 	{
 		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
 		env->env[ft_strlen_2(env->env) - 1] = ft_strdup(arg);
+		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
+		env->export[ft_strlen_2(env->export) - 1] = ft_strdup(arg);
 	}
-	ft_free(env->export);
-	env->export = ft_strdup_2(env->env);
 }
 
 char	*remove_plus(char *source)
@@ -267,8 +271,12 @@ char	*remove_plus(char *source)
 void	plus_equal(char *arg, t_env *env)
 {
 	int		i;
+	int		j;
 
 	i = check_table(env->env, arg);
+	j = check_table(env->export, arg);
+	printf("%d\n", j);
+	printf("%d\n", i);
 	if (i != -1)
 		env->env[i] = ft_strjoin1(env->env[i], ft_substr(arg, find_equal(arg)
 					+ 2, ft_strlen(arg) - 1));
@@ -277,8 +285,14 @@ void	plus_equal(char *arg, t_env *env)
 		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
 		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
-	ft_free(env->export);
-	env->export = ft_strdup_2(env->env);
+	if (j != -1)
+		env->export[j - 1] = ft_strjoin1(env->export[j], ft_substr(arg,
+					find_equal(arg) + 2, ft_strlen(arg) - 1));
+	else
+	{
+		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
+		env->export[ft_strlen_2(env->export) - 1] = remove_plus(arg);
+	}
 }
 
 void	no_value(char *arg, t_env *env)
@@ -286,7 +300,6 @@ void	no_value(char *arg, t_env *env)
 	int		i;
 
 	i = check_table(env->export, arg);
-	printf("%s %d\n ", arg, i);
 	if (i == -1)
 	{
 		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
