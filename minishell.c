@@ -118,8 +118,11 @@ int	main(void)
 			continue;
 		}
 		parcing(line, node);
-		if (!parcer(node))	
+		if (!parcer(node))
+		{
+			print(node);
 			bulttins(node, &table);
+		}
 		free(line);
 		free_all(&node);
 	}

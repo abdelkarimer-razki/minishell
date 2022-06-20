@@ -2,25 +2,6 @@
 #include <stdlib.h>
 #include "../../minishell.h"
 
-/*void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	char	*s;
-	char	*d;
-
-	s = (char *)dest;
-	d = (char *)src;
-	if (src != NULL || dest != NULL)
-	{
-		while (n--)
-		{
-			*s = *d;
-			s++;
-			d++;
-		}
-	}
-	return (dest);
-}*/
-
 int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
 	size_t			i;
@@ -42,16 +23,6 @@ int	ft_memcmp(const void *str1, const void *str2, size_t n)
 	}
 	return (0);
 }
-
-/*int	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}*/
 
 int	ft_strlen_2(char **s)
 {
@@ -83,25 +54,6 @@ char	*ft_strjoin1(char *s1, char *s2)
 	free(s1);
 	return (s);
 }
-
-
-/*char	*ft_strdup(const char *source)
-{
-	char	*s;
-	int		i;
-
-	s = malloc((ft_strlen(source) + 1) * sizeof(char));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (source[i])
-	{
-		s[i] = source[i];
-		i++;
-	}
-	s[i] = 0;
-	return (s);
-}*/
 
 void	sort_strings(char **string)
 {
@@ -224,104 +176,20 @@ void	show_export(char **export)
 	}
 }
 
-void	check_args(char **arg)
+int	check_args(char *arg)
 {
-	int	i;
 	int	j;
 
-	i = -1;
-	while (arg[++i])
+	j = -1;
+	while (arg[++j] && ((arg[j] != '=' && (arg[j] != '+' || arg[j + 1] != '=')) || j == 0))
 	{
-		j = -1;
-		while (arg[i][++j] && arg[i][j] != '=' && (arg[i][j] != '+' || arg[i][j + 1] != '='))
-		{
-			if (j == 0 && ft_isalpha1(arg[i][j]) == 0)
-			{
-				printf("syntax error\n");
-				exit(1);
-			}	
-			else if ((j != 0 && ft_isalpha2(arg[i][j]) == 0))
-			{
-				printf("syntax error\n");
-				exit(1);
-			}	
-		}
+		if (j == 0 && ft_isalpha1(arg[j]) == 0)
+			return (-1);
+		else if ((j != 0 && ft_isalpha2(arg[j]) == 0))
+			return (-1);
 	}
+	return (1);
 }
-
-
-/*void	*ft_free(char **c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-		i++;
-	while (--i >= 0)
-		free(c[i]);
-	free(c);
-	return (NULL);
-}
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	char	*x;
-	int		y;
-
-	y = num * size;
-	x = malloc(y);
-	if (!x)
-		return (NULL);
-	while (y--)
-		x[y] = 0;
-	return (x);
-}
-
-char	**ft_realloc(char **table, int size)
-{
-	char	**t;
-	int		i;
-
-	i = 0;
-	t = ft_calloc((size + 1), sizeof(char *));
-	if (!t)
-		return (NULL);
-	while (table[i])
-	{
-		t[i] = ft_strdup(table[i]);
-		i++;
-	}
-	t[size] = NULL;
-	ft_free(table);
-	return (t);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*str;
-
-	if (!s)
-		return (NULL);
-	i = ft_strlen(s);
-	if (start < i)
-	{
-		if ((i - start) < len)
-			str = malloc(i - start + 1);
-		else
-			str = malloc(len + 1);
-		if (!str)
-			return (NULL);
-		i = 0;
-		while (i < len && s[start])
-			str[i++] = s[start++];
-		str[i] = 0;
-		return (str);
-	}
-	str = malloc(1);
-	str[0] = 0;
-	return (str);
-}*/
 
 int	find_equal(char *table)
 {
@@ -432,6 +300,11 @@ void	fill_args(t_env *env, t_list *table)
 	{
 		j = -1;
 		n = 0;
+		if (check_args(table->args[i]) == -1)
+		{
+			printf("bash: export: `%s': not a valid identifier\n", table->args[i]);
+			continue ;
+		}
 		while (table->args[i][++j] && ft_memcmp(table->args[i], "_", find_equal(table->args[i])) != 0)
 		{
 			if (table->args[i][j] == '=' && n == 0)
@@ -456,8 +329,5 @@ void	export(t_env *env, t_list *table)
 	if (ft_strlen_2(table->args) == 0)
 		show_export(env->export);
 	else
-	{
-		check_args(table->args);
 		fill_args(env, table);
-	}
 }
