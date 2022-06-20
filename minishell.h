@@ -28,6 +28,7 @@ typedef struct s_red
 	char	*cmd;
 	char	type;
 }	t_red;
+extern char **environ;
 
 typedef struct s_list
 {
@@ -40,11 +41,19 @@ typedef struct s_list
 	
 }	t_list;
 
+typedef struct s_env
+{
+	char			**env;
+	char			**export;
+}	t_env;
+
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t num, size_t size);
 void	*ft_free(char **c);
+char	**ft_strdup_0(char **source);
+int		ft_strlen_2(char **s);
 char	**ft_split(char const *s, char c);
 char	**ft_realloc(char **table, int size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -65,8 +74,10 @@ int		quoted(char	*line, int i);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 void	*ft_error(int Er, char **table, char *str);
+int		ft_memcmp(const void *str1, const void *str2, size_t n);
 int		check_dollar(char *str, int start, int end);
 char	*get_env(char *str);
+char	*ft_strjoin1(char *s1, char *s2);
 char	*add_char(char *str, char c);
 char	*check_cmd(char *cmd);
 int		put_zero(void *arg, int x, int y);
@@ -86,6 +97,16 @@ void	add_node(t_list **node);
 
 
 
+int		check_table(char **table, char *arg);
+char	**ft_strdup_2(char **source);
+
+//bultins
+void	export(t_env *env, t_list *table);
+void	echo(char **argv);
+void    cd(t_env *env, t_list *table);
+void    pwd();
+void    ft_exit();
+void	env(t_env *env);
 
 
 

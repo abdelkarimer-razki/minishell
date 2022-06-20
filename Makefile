@@ -21,6 +21,8 @@ HEADER = minishell.h \
 FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c \
 		./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c \
 		./Parser/lexer_utils.c \
+		./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c \
+		./Execution/env/env.c ./Execution/exit/exit.c
 
 OBJS = $(FILES:%.c=%.o)
 
