@@ -2,25 +2,6 @@
 #include <stdlib.h>
 #include "../../minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	char	*s;
-	char	*d;
-
-	s = (char *)dest;
-	d = (char *)src;
-	if (src != NULL || dest != NULL)
-	{
-		while (n--)
-		{
-			*s = *d;
-			s++;
-			d++;
-		}
-	}
-	return (dest);
-}
-
 int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
 	size_t			i;
@@ -41,16 +22,6 @@ int	ft_memcmp(const void *str1, const void *str2, size_t n)
 		}
 	}
 	return (0);
-}
-
-int	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }
 
 int	ft_strlen_2(char **s)
@@ -80,25 +51,7 @@ char	*ft_strjoin1(char *s1, char *s2)
 	ft_memcpy(s + ft_strlen(s1), s2, ft_strlen(s2));
 	s[i] = 0;
 	free(s2);
-	return (s);
-}
-
-
-char	*ft_strdup(const char *source)
-{
-	char	*s;
-	int		i;
-
-	s = malloc((ft_strlen(source) + 1) * sizeof(char));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (source[i])
-	{
-		s[i] = source[i];
-		i++;
-	}
-	s[i] = 0;
+	free(s1);
 	return (s);
 }
 
@@ -141,12 +94,12 @@ char	**ft_strdup_2(char **source)
 	i = 0;
 	while (source[i])
 	{
-		s[i] = ft_strjoin1("declare -x ", ft_strdup(source[i]));
+		s[i] =ft_strdup(source[i]);
 		i++;
 	}
 	if (y == ft_strlen_2(source) + 1 + 1)
 	{
-		s[i] = ft_strdup("declare -x OLDPWD");
+		s[i] = ft_strdup("OLDPWD");
 		s[i + 1] = 0;
 	}
 	else
@@ -173,7 +126,7 @@ char	**ft_strdup_0(char **source)
 	return (s);
 }
 
-int	ft_isalpha(int c)
+int	ft_isalpha1(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '_'))
 		return (1);
@@ -205,6 +158,7 @@ void	show_export(char **export)
 	{
 		j = 0;
 		n = 0;
+		printf("declare -x ");
 		while (export[i][j])
 		{
 			printf("%c", export[i][j]);
@@ -222,131 +176,158 @@ void	show_export(char **export)
 	}
 }
 
-void	check_args(char **arg)
+int	check_args(char *arg)
 {
-	int	i;
 	int	j;
 
-	i = 0;
-	while (arg[++i])
+	j = -1;
+	while (arg[++j] && ((arg[j] != '=' && (arg[j] != '+' || arg[j + 1] != '=')) || j == 0))
 	{
-		j = -1;
-		while (arg[i][++j] && arg[i][j] != '=')
-		{
-			if (ft_isalpha(arg[i][j]) == 0)
-			if ((j != 0 && ft_isdigit(arg[i][j]) == 0))
-			{
-				write(2, "syntax error", 12);
-				exit(1);
-			}	
-		}
+		if (j == 0 && ft_isalpha1(arg[j]) == 0)
+			return (-1);
+		else if ((j != 0 && ft_isalpha2(arg[j]) == 0))
+			return (-1);
 	}
+	return (1);
 }
 
-
-void	*ft_free(char **c)
+int	find_equal(char *table)
 {
 	int	i;
 
 	i = 0;
-	while (c[i])
+	while (table[i] && table[i] != '=' && table[i] != '+')
 		i++;
-	while (--i >= 0)
-		free(c[i]);
-	free(c);
-	return (NULL);
+	return (i);
 }
 
-void	*ft_calloc(size_t num, size_t size)
+int	check_table(char **table, char *arg)
 {
-	char	*x;
-	int		y;
-
-	y = num * size;
-	x = malloc(y);
-	if (!x)
-		return (NULL);
-	while (y--)
-		x[y] = 0;
-	return (x);
-}
-
-char	**ft_realloc(char **table, int size)
-{
-	char	**t;
 	int		i;
+	char	*str;
+	char	*str1;
 
-	i = 0;
-	t = ft_calloc((size + 1), sizeof(char *));
-	if (!t)
-		return (NULL);
-	while (table[i])
+	i = -1;
+	while (table[++i])
 	{
-		t[i] = ft_strdup(table[i]);
-		i++;
+		str = ft_substr(table[i], 0, find_equal(table[i]));
+		str1 = ft_substr(arg, 0, find_equal(arg));
+		if (ft_memcmp(str, str1, find_equal(table[i])) == 0 && find_equal(table[i]) == find_equal(arg))
+			return (free(str), free(str1), i);
+		free(str);
+		free(str1);
 	}
-	t[size] = NULL;
-	ft_free(table);
-	return (t);
+	return (-1);
 }
 
-void	just_equal(int j, char *arg, t_list *table)
-{
-	table->env = ft_realloc(table->env, ft_strlen_2(table->env) + 1);
-	table->env[ft_strlen_2(table->env) - 1] = ft_strdup(arg);
-	table->export = ft_strdup_2(table->env);
-}
-
-void plus_equal(int j, char *arg, t_list *table)
-{
-	table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-	table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strjoin1(ft_strdup(arg), arg));
-	sort_strings(table->export);
-}
-
-void	fill_args(char **arg, t_list *table)
+void	just_equal(char *arg, t_env *env)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	while (arg[++i])
+	i = check_table(env->env, arg);
+	if (i != -1)
 	{
-		/*j = -1;
-		while (arg[i][++j])
-		{
-			if (arg[i][j] == '=')
-			{
-				just_equal(j, arg[i], table);
-				break ;
-			}
-			else if (arg[i][j] == '+' && arg[i][j + 1] == '=')
-			{
-				plus_equal(j, arg[i], table);
-				break ;
-			}
-		}*/
-		table->export = ft_realloc(table->export, ft_strlen_2(table->export) + 1);
-		printf("ft_strlen : %s %d\n", table->export[ft_strlen_2(table->export)], ft_strlen_2(table->export));
-		table->export[ft_strlen_2(table->export)] = ft_strjoin1("declare -x ", ft_strdup(arg[i]));
-		//printf("%s\n", table->export[ft_strlen_2(table->export) - 1]);
+		free(env->env[i]);
+		env->env[i] = ft_strdup(arg);
 	}
-	sort_strings(table->export);
-}
-
-int main(int arc, char **argv)
-{
-	t_list table;
-
-	table.env = ft_strdup_0(environ);
-    table.export = ft_strdup_2(table.env);
-	if (arc == 1)
-		show_export(table.export);
 	else
 	{
-		check_args(argv);
-		fill_args(argv, &table);
+		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
+		env->env[ft_strlen_2(env->env)] = ft_strdup(arg);
 	}
-	if (arc != 1)
-		show_export(table.export);
+	ft_free(env->export);
+	env->export = ft_strdup_2(env->env);
+}
+
+char	*remove_plus(char *source)
+{
+	char	*s;
+	int		i;
+	int		j;
+
+	s = malloc((ft_strlen(source)) * sizeof(char));
+	if (!s)
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (source[++i])
+	{
+		if (source[i] == '+')
+			continue ;
+		j++;
+		s[j] = source[i];
+	}
+	s[j + 1] = 0;
+	return (s);
+}
+
+void	plus_equal(char *arg, t_env *env)
+{
+	int		i;
+
+	i = check_table(env->env, arg);
+	if (i != -1)
+		env->env[i] = ft_strjoin1(env->env[i], ft_substr(arg, find_equal(arg) + 2, ft_strlen(arg) - 1));
+	else
+	{
+		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
+		env->env[ft_strlen_2(env->env)] = remove_plus(arg);
+	}
+	ft_free(env->export);
+	env->export = ft_strdup_2(env->env);
+}
+
+void	no_value(char *arg, t_env *env)
+{
+	int		i;
+
+	i = check_table(env->export, arg);
+	if (i == -1)
+	{
+		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
+		env->export[ft_strlen_2(env->export)] = ft_strdup(arg);
+	}
+}
+
+void	fill_args(t_env *env, t_list *table)
+{
+	int	i;
+	int	j;
+	int	n;
+
+	i = -1;
+	while (table->args[++i])
+	{
+		j = -1;
+		n = 0;
+		if (check_args(table->args[i]) == -1)
+		{
+			printf("bash: export: `%s': not a valid identifier\n", table->args[i]);
+			continue ;
+		}
+		while (table->args[i][++j] && ft_memcmp(table->args[i], "_", find_equal(table->args[i])) != 0)
+		{
+			if (table->args[i][j] == '=' && n == 0)
+			{
+				just_equal(table->args[i], env);
+				n++;
+			}
+			else if (table->args[i][j] == '+' && table->args[i][j + 1] == '=' && n == 0)
+			{
+				plus_equal(table->args[i], env);
+				n++;
+			}
+		}
+		if (n == 0)
+			no_value(table->args[i], env);
+	}
+	sort_strings(env->export);
+}
+
+void	export(t_env *env, t_list *table)
+{
+	if (ft_strlen_2(table->args) == 0)
+		show_export(env->export);
+	else
+		fill_args(env, table);
 }
