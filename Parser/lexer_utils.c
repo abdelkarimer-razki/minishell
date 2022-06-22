@@ -6,7 +6,7 @@
 /*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 22:08:33 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/20 14:27:44 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/21 17:59:44 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	lexer2(t_list *node, t_list *tmp, char **par)
 		tmp->table = lexer_space(par[i]);
 		if (!(tmp->table) || (tmp->table[0] == 0))
 		{
-			ft_free(par);
-			ft_error(3, tmp->table, NULL);
+			free(par);
+			//ft_error(3, tmp->table, NULL);
 			return (0);
 		}
 	}

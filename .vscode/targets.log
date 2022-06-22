@@ -8,7 +8,7 @@ make: *** No rule to make target 'minishell.o', needed by 'minishell'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun 20 14:23:36 2022
+# Make data base, printed on Tue Jun 21 15:47:22 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
 SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a1defc7f-7f4f-44ff-aae3-a2ccafb13277.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-fc2b5bda-856b-4f74-82cc-81b3ae5cf6e2.sock
 # environment
 LC_NAME = en_GB.UTF-8
 # environment
@@ -61,13 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/brahim/.config/Code/CachedData/c3511e6c69bb39013c
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.P2FCO1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.RKLNO1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.120
+GNOME_TERMINAL_SERVICE = :1.483
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +99,13 @@ ZSH = /home/brahim/.oh-my-zsh
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 3293
+VSCODE_PID = 17241
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/ibra-pc:@/tmp/.ICE-unix/1927,unix/ibra-pc:/tmp/.ICE-unix/1927
+SESSION_MANAGER = local/ibra-pc:@/tmp/.ICE-unix/1917,unix/ibra-pc:/tmp/.ICE-unix/1917
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/967407ec_1ff6_4082_a542_b19f481d652c
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ff522e94_4d9e_4797_99a4_bcaaf5d272b6
 # environment
 MAKELEVEL := 0
 # default
@@ -181,7 +181,7 @@ LOGNAME = brahim
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 1970
+SYSTEMD_EXEC_PID = 2113
 # environment
 DISPLAY = :0
 # environment
@@ -251,7 +251,7 @@ LC_IDENTIFICATION = en_GB.UTF-8
 
 # Directories
 
-# . (device 66309, inode 2635862): 13 files, no impossibilities.
+# . (device 66309, inode 262212): 13 files, no impossibilities.
 
 # 13 files, no impossibilities in 1 directories.
 
@@ -290,13 +290,13 @@ Parser/set_args_utils.o:
 utils/ft_strtrim.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
- 
 #  File has not been updated.
 
 # Not a target:
+ 
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-20 14:20:20.272461284
+#  Last modified 2022-06-21 15:47:07.439221319
 #  File has been updated.
 #  Successfully updated.
 
@@ -432,6 +432,6 @@ Parser/lexer_utils.o:
 # strcache performance: lookups = 59 / hit rate = 33%
 # hash-table stats:
 # Load=39/8192=0%, Rehash=0, Collisions=2/59=3%
-# Finished Make data base on Mon Jun 20 14:23:36 2022
+# Finished Make data base on Tue Jun 21 15:47:22 2022
 
  
