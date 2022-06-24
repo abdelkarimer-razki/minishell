@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/21 17:58:57 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:51:02 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ void	check_memory(t_list *node)
 	if (node->str)
 		free(node->str);
 	if (node->cmd)
-	{
-		//printf("2\n");
 		free(node->cmd);
-	}
 	if (node->args)
 		ft_free(node->args);
 }
@@ -149,18 +146,17 @@ int	main(void)
 			free(node);
 			continue;
 		}
+		add_history(line);
 		if (lexer(line, node))
 		{
 			if (parcer(node))
       		{
-				//print(node);
+				print(node);
         		bulttins(node, &table);
       		}
 		}
-		//else
-		//	free(node);
-			free_all(&node);
 		free(line);
+		free_all(&node);
 	}
 }
 

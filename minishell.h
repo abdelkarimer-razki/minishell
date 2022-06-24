@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 22:17:34 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/24 09:18:13 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,13 @@ char	*get_env(char *str);
 char	*ft_strjoin1(char *s1, char *s2);
 char	*add_char(char *str, char c);
 char	*check_cmd(char *cmd);
-int		put_zero(void *arg, int x, int y);
 int		lexer(char *line, t_list *node);
 char	**lexer_pipe(char *line);
 int		lexer2(t_list *node, t_list *tmp, char **par);
 char	**lexer_space(char *line);
 void	add_node(t_list **node);
-
-
+void	init_node(t_list *node);
+char	*check_cmd(char *str);
 
 
 
