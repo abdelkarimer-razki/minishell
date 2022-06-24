@@ -135,10 +135,12 @@ void	bulttins(t_list *node, t_env *table)
 					break;
 				i++;
 			}
+			if (i == 8)
+				printf("do3afa2: %s: command not found\n", node->cmd);
 		}
 	}
-	ft_free(path);
 	wait(NULL);
+	ft_free(path);
 }
 
 int	main(void)

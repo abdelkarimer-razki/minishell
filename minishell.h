@@ -47,7 +47,7 @@ typedef struct s_env
 	char			**export;
 }	t_env;
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char *s2);
 int		ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t num, size_t size);
