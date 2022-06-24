@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/24 09:18:13 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/24 11:04:18 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_list
 	char			*cmd;
 	char			**args;
 	struct s_list	*next;
-	struct t_red	*red;
+	struct s_red	*red;
 	
 }	t_list;
 
@@ -88,7 +88,7 @@ void	add_node(t_list **node);
 void	init_node(t_list *node);
 char	*check_cmd(char *str);
 
-
+int	red_parcer(t_list *node);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/24 09:51:02 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/24 11:37:25 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,23 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
+	t_red	*red;
 	
+	red = node->red;
 	i = -1;
 	while (node)
 	{
 		//printf("%s\n", node->str);
-		printf("%s\n", node->cmd);
+		// printf("%s\n", node->cmd);
+		while (red->args[++i])
+			printf("%s\n", red->args[i]);
 		printf("||||||||||||\n");
-		while (node->args[++i])
-			printf("%s\n", node->args[i]);
+		// while (node->args[++i])
+		// 	printf("%s\n", node->args[i]);
 		i = -1;
+		while (red->red_args[++i])
+			printf("%s\n", red->red_args[i]);
+		// i = -1;
 		// while (node->table[++i])
 		// 	printf("%s\n", node->table[i]);
 		//printf("%s\n" ,node->args_index);
@@ -122,9 +129,9 @@ void	init_node(t_list *node)
 	node->args = NULL;
 	node->cmd = NULL;
 	node->next = NULL;
-	node->red = NULL;
 	node->str = NULL;
 	node->table = NULL;
+	node->red = NULL;
 }
 
 int	main(void)
@@ -149,11 +156,13 @@ int	main(void)
 		add_history(line);
 		if (lexer(line, node))
 		{
-			if (parcer(node))
-      		{
-				print(node);
-        		bulttins(node, &table);
-      		}
+			red_parcer(node);
+			print(node);
+			// if (parcer(node))
+      		// {
+			// 	print(node);
+        	// 	//bulttins(node, &table);
+      		// }
 		}
 		free(line);
 		free_all(&node);
