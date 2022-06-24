@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 22:19:09 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:59:27 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	lexer(char *line, t_list *node)
 	tmp->table = lexer_space(par[0]);
 	if (!(tmp->table) || !(tmp->table[0]))
 	{
-		ft_free(par);
-		return ((int)ft_error(3, tmp->table, NULL));
+		free(par);
+		//ft_error(3, tmp->table, NULL);
+		return (0);
 	}
 	if (!lexer2(node, tmp, par))
 		return (0);

@@ -37,12 +37,10 @@ int	ft_strlen_2(char **s)
 char	*ft_strjoin1(char *s1, char *s2)
 {
 	int		i;
-	int		j;
 	char	*s;
 
 	if (!s1 || !s2)
 		return (NULL);
-	j = 0;
 	i = ft_strlen(s1) + ft_strlen(s2);
 	s = malloc(i + 1);
 	if (!s)

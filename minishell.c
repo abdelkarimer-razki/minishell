@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/19 21:23:41 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:58:57 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,16 @@ void	bulttins(t_list *node, t_env *table)
 	ft_free(path);
 }
 
+void	init_node(t_list *node)
+{
+	node->args = NULL;
+	node->cmd = NULL;
+	node->next = NULL;
+	node->red = NULL;
+	node->str = NULL;
+	node->table = NULL;
+}
+
 int	main(void)
 {
 	t_list	*node;
@@ -154,7 +164,7 @@ int	main(void)
 	while (1)
 	{
 		node = malloc(sizeof(t_list) * 1);
-		node->next = NULL;
+		init_node(node);
 		line = readline("do3afa2-1.0$ ");
 		if (*line == 0)
 		{
@@ -170,10 +180,10 @@ int	main(void)
 				//print(node);
         		bulttins(node, &table);
       		}
-			free_all(&node);
 		}
-		else
-			free(node);
+		//else
+		//	free(node);
+			free_all(&node);
 		free(line);
 	}
 }
