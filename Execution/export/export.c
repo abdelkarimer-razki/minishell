@@ -37,10 +37,12 @@ int	ft_strlen_2(char **s)
 char	*ft_strjoin1(char *s1, char *s2)
 {
 	int		i;
+	int		j;
 	char	*s;
 
 	if (!s1 || !s2)
 		return (NULL);
+	j = 0;
 	i = ft_strlen(s1) + ft_strlen(s2);
 	s = malloc(i + 1);
 	if (!s)
@@ -232,13 +234,19 @@ void	just_equal(char *arg, t_env *env)
 	{
 		free(env->env[i]);
 		env->env[i] = ft_strdup(arg);
-		free(env->export[j]);
-		env->export[j] = ft_strdup(arg);
 	}
 	else
 	{
 		env->env = ft_realloc(env->env, ft_strlen_2(env->env) + 1);
 		env->env[ft_strlen_2(env->env) - 1] = ft_strdup(arg);
+	}
+	if (j != -1)
+	{
+		free(env->export[j]);
+		env->export[j] = ft_strdup(arg);
+	}
+	else
+	{
 		env->export = ft_realloc(env->export, ft_strlen_2(env->export) + 1);
 		env->export[ft_strlen_2(env->export) - 1] = ft_strdup(arg);
 	}
@@ -273,8 +281,8 @@ void	plus_equal(char *arg, t_env *env)
 
 	i = check_table(env->env, arg);
 	j = check_table(env->export, arg);
-	printf("%d\n", j);
-	printf("%d\n", i);
+	printf("env :%d\n", i);
+	printf("export :%d\n", j);
 	if (i != -1)
 		env->env[i] = ft_strjoin1(env->env[i], ft_substr(arg, find_equal(arg)
 					+ 2, ft_strlen(arg) - 1));
@@ -284,7 +292,7 @@ void	plus_equal(char *arg, t_env *env)
 		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
 	if (j != -1)
-		env->export[j - 1] = ft_strjoin1(env->export[j], ft_substr(arg,
+		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j], ft_strdup("=")), ft_substr(arg,
 					find_equal(arg) + 2, ft_strlen(arg) - 1));
 	else
 	{
