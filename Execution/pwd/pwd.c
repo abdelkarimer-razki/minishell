@@ -1,8 +1,8 @@
 #include "../../minishell.h"
 
-void	pwd()
-{   
-	char s[100];
+void	pwd(void)
+{
+	char	s[100];
 
 	printf("%s\n", getcwd(s, 100));
 }

@@ -56,7 +56,7 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
-	
+
 	i = -1;
 	while (node)
 	{
@@ -171,7 +171,7 @@ int	main(void)
 		{
 			free(line);
 			free(node);
-			continue;
+			continue ;
 		}
 		add_history(line);
 		if (lexer(line, node))

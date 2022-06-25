@@ -95,7 +95,7 @@ int check_redirection(char **table);
 int check_redirection_index(char **table, int index);
 int simulate_redirection(t_list *node);
 
-	int check_table(char **table, char *arg);
+int check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
