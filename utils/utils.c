@@ -107,3 +107,25 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
+
+
+/*test*/
+char **ft_strdup_red(char **source)
+{
+	char **s;
+	int i;
+	int y;
+
+	s = malloc(check_redirection_index(source, 0) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	y = 0;
+	i = check_redirection_index(source, 0);
+	while (y < i)
+	{
+		s[y] = ft_strdup(source[y]);
+		y++;
+	}
+	s[y] = 0;
+	return (s);
+}
