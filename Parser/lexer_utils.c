@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 22:08:33 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/21 17:59:44 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:51:24 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	add_node(t_list **node)
 	new = malloc(sizeof(t_list) * 1);
 	if (!new)
 		exit (0);
+	init_node(new);
 	ft_lstadd_back(node, new);
 }
 
@@ -64,12 +65,11 @@ int	lexer2(t_list *node, t_list *tmp, char **par)
 	{
 		add_node(&node);
 		tmp = tmp->next;
-		tmp->str = par[i];
+		tmp->str = ft_strdup(par[i]);
 		tmp->table = lexer_space(par[i]);
 		if (!(tmp->table) || (tmp->table[0] == 0))
 		{
-			free(par);
-			//ft_error(3, tmp->table, NULL);
+			ft_free(par);
 			return (0);
 		}
 	}

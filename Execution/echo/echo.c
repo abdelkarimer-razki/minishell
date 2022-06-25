@@ -1,4 +1,3 @@
-#include "stdio.h"
 #include "../../minishell.h"
 
 int	parse_args(char **argv)

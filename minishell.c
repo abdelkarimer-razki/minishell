@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <brahim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/21 17:58:57 by brahim           ###   ########.fr       */
+/*   Updated: 2022/06/25 21:41:09 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,23 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
+	t_red	*red;
 	
+	red = node->red;
 	i = -1;
 	while (node)
 	{
-		//printf("%s\n", node->str);
-		printf("%s\n", node->cmd);
+		printf("%s\n", node->red->cmd);
+		// printf("%s\n", node->cmd);
+		while (red->args[++i])
+			printf("%s\n", red->args[i]);
 		printf("||||||||||||\n");
-		while (node->args[++i])
-			printf("%s\n", node->args[i]);
+		// while (node->args[++i])
+		// 	printf("%s\n", node->args[i]);
 		i = -1;
+		while (red->red_args[++i])
+			printf("%s\n", red->red_args[i]);
+		// i = -1;
 		// while (node->table[++i])
 		// 	printf("%s\n", node->table[i]);
 		//printf("%s\n" ,node->args_index);
@@ -82,12 +89,26 @@ void	check_memory(t_list *node)
 	if (node->str)
 		free(node->str);
 	if (node->cmd)
-	{
-		//printf("2\n");
 		free(node->cmd);
-	}
 	if (node->args)
 		ft_free(node->args);
+	if (node->red)
+	{
+		if (node->red->args)
+			ft_free(node->red->args);
+		if (node->red->red_args)
+			ft_free(node->red->red_args);
+		if (node->red->cmd)
+			free(node->red->cmd);
+		free(node->red);
+	}
+}
+
+void	init_red(t_red *red)
+{
+	red->args = NULL;
+	red->red_args = NULL;
+	red->cmd = NULL;
 }
 
 void	free_all(t_list **node)
@@ -148,9 +169,22 @@ void	init_node(t_list *node)
 	node->args = NULL;
 	node->cmd = NULL;
 	node->next = NULL;
-	node->red = NULL;
 	node->str = NULL;
 	node->table = NULL;
+	node->red = NULL;
+}
+
+int	check_redirection(t_list *node)
+{
+	int	i;
+
+	i = -1;
+	while (node->table[++i])
+	{
+		if (check_red(node->table[i]))
+			return (1);
+	}
+	return (0);
 }
 
 int	main(void)
@@ -158,7 +192,9 @@ int	main(void)
 	t_list	*node;
 	t_env	table;
 	char	*line;
-
+	int		i;
+	
+	i = -1;
 	table.env = ft_strdup_0(environ);
 	table.export = ft_strdup_2(table.env);
 	while (1)
@@ -175,16 +211,18 @@ int	main(void)
 		add_history(line);
 		if (lexer(line, node))
 		{
-			if (parcer(node))
-      		{
-				//print(node);
-        		bulttins(node, &table);
-      		}
+			if (check_redirection(node))	
+				i = red_parcer(node);
+			else
+				i = parcer(node);
+      		if (i == 1)
+			{	
+        		//bulttins(node, &table);
+				print(node);
+			}
 		}
-		//else
-		//	free(node);
-			free_all(&node);
 		free(line);
+		free_all(&node);
 	}
 }
 
