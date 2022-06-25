@@ -6,134 +6,68 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/25 16:27:05 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:13:05 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-int	is_red(char c)
+void	split_args_2(char ***tab, int *j, char *arg)
 {
-	if (c == '>' || c == '<')
-		return (1);
-	return (0); 
-}
-
-int	check_red(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == 39 || str[i] == '"')
-			i = quoted(str, i);
-		if (is_red(str[i]))
-			return (1);
-	}
-	return (0);
-}
-
-
-char    **split_with_red(char *str)
-{
+	int		i;
+	int		y;
+	char	**s;
 	char	**table;
-    int 	i;
-	int		j;
-	int		k;
 
-	j = 0;
-    i = 0;
-	k = 0;
-	table = malloc(sizeof(char *) * 1);
-    table[0] = NULL;
-	while (str[i])
+	table = *tab;
+	i = -1;
+	y = *j;
+	s = split_with_red(arg);
+	while (s[++i])
 	{
-		if (str[i] && !is_red(str[i]))
-		{
-			table = ft_realloc(table, ++j);
-			table[j - 1] = ft_calloc(1, 1);
-			if (str[i] == 39 || str[i] == '"')
-			{	
-				k = i;
-				i =  quoted(str, i);
-				while (str[k] && k <= i)
-					table[j - 1] = add_char(table[j - 1], str[k++]);
-				i++;
-			}
-			else
-			{
-				while (str[i] && !is_red(str[i]) && (str[i] != '"' && str[i] != 39))
-					table[j - 1] = add_char(table[j - 1], str[i++]);
-			}
-		}
-		else
-		{
-			table = ft_realloc(table , ++j);
-			table[j - 1] = ft_calloc(1, 1);
-			while (str[i] && is_red(str[i]))
-				table[j - 1] = add_char(table[j - 1], str[i++]);
-		}
+		table = ft_realloc(table, ++y);
+		table[y - 1] = ft_strdup(s[i]);
 	}
-	table[j] = NULL;
-	return (table);
+	*j = y;
+	*tab = table;
+	ft_free(s);
 }
 
 char	**split_args(t_list *node)
 {
 	char	**table;
-	char	**s;
 	int		i;
 	int		j;
-	int		k;
 
 	j = 0;
 	i = -1;
-	k = -1;
-	s = NULL;
 	table = malloc(sizeof(char *) * 1);
 	table[0] = NULL;
 	while (node->table[++i])
 	{	
 		if (check_red(node->table[i]))
-		{
-			s = split_with_red(node->table[i]);
-			while (s[++k])
-			{
-				table = ft_realloc(table, ++j);
-				table[j - 1] = ft_strdup(s[k]);
-				//printf("%s\n", table[j - 1]);
-			}
-			k = -1;
-			ft_free(s);
-		}
+			split_args_2(&table, &j, node->table[i]);
 		else
 		{
 			table = ft_realloc(table, ++j);
 			table[j - 1] = ft_strdup(node->table[i]);
 		}
-		//printf("%s\n", table[j - 1]);	
 		}
 	table[j] = NULL;
 	return (table);
 }
 
-
-int	red_parcer(t_list *node)
+int	red_parcer_2(t_list *node, char **table)
 {
-	char	**table;
 	int		i;
-	int		j;
-	int		k;
+	int	j;
 
 	i = -1;
 	j = 0;
-	k = 0;
-	
 	node->red = malloc(sizeof(t_red ) * 1);
 	if (!node->red)
 		return (0);
+	init_red(node->red);
 	table = split_args(node);
 	while (table[++i])
 	{
@@ -146,8 +80,22 @@ int	red_parcer(t_list *node)
 	node->red->red_args = malloc(sizeof(char *) * (j * 2 + 1));
 	if (!node->red->red_args)
 		return (0);
+	ft_free(table);
+	return (1);
+}
+
+int	red_parcer(t_list *node)
+{
+	char	**table;
+	int		i;
+	int		j;
+	int		k;
+
 	i = -1;
 	j = 0;
+	k = 0;
+	table = split_args(node);
+	red_parcer_2(node, table);
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)

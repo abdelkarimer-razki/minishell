@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 16:28:38 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:24:00 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	check_memory(t_list *node)
 	}
 }
 
-init_red(t_red *red)
+void	init_red(t_red *red)
 {
 	red->args = NULL;
 	red->red_args = NULL;
@@ -193,8 +193,10 @@ int	main(void)
 			else
 				i = parcer(node);
       		if (i == 1)
-				print(node);
+			{	
         		//bulttins(node, &table);
+				print(node);
+			}
 		}
 		free(line);
 		free_all(&node);
