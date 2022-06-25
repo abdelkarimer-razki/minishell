@@ -6,45 +6,12 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/24 12:11:15 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:27:05 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_typeOf_red(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '>' && str[i + 1] && str[i + 1] == '>')
-			return (2);
-		else if (str[i] == '>')
-			return (1);
-		else if (str[i] == '<' && str[i + 1] && str[i + 1] == '<')
-			return (4);
-		else if (str[i] == '<')
-			return (3);		
-	}
-	return (0);
-}
-
-int	check_dif_red(char *str)
-{
-	int	i;
-	char	c;
-	
-	i = 0;
-	c = str[i];
-	while (str[++i])
-	{
-		if (str[i] != c)
-			return (1);
-	}
-	return (0);
-}
 
 int	is_red(char c)
 {
@@ -74,28 +41,40 @@ char    **split_with_red(char *str)
 	char	**table;
     int 	i;
 	int		j;
+	int		k;
 
 	j = 0;
-    i = -1;
+    i = 0;
+	k = 0;
 	table = malloc(sizeof(char *) * 1);
     table[0] = NULL;
-	while (str[++i])
+	while (str[i])
 	{
-		if (!is_red(str[i]))
+		if (str[i] && !is_red(str[i]))
 		{
 			table = ft_realloc(table, ++j);
 			table[j - 1] = ft_calloc(1, 1);
-			while (!is_red(str[i]))
-				table[j - 1] = add_char(table[j - 1], str[i++]);
+			if (str[i] == 39 || str[i] == '"')
+			{	
+				k = i;
+				i =  quoted(str, i);
+				while (str[k] && k <= i)
+					table[j - 1] = add_char(table[j - 1], str[k++]);
+				i++;
+			}
+			else
+			{
+				while (str[i] && !is_red(str[i]) && (str[i] != '"' && str[i] != 39))
+					table[j - 1] = add_char(table[j - 1], str[i++]);
+			}
 		}
 		else
 		{
 			table = ft_realloc(table , ++j);
 			table[j - 1] = ft_calloc(1, 1);
-			while (is_red(str[i]))
+			while (str[i] && is_red(str[i]))
 				table[j - 1] = add_char(table[j - 1], str[i++]);
 		}
-		i--;
 	}
 	table[j] = NULL;
 	return (table);
@@ -124,17 +103,18 @@ char	**split_args(t_list *node)
 			{
 				table = ft_realloc(table, ++j);
 				table[j - 1] = ft_strdup(s[k]);
+				//printf("%s\n", table[j - 1]);
 			}
 			k = -1;
-			if (s)
-				free(s);
+			ft_free(s);
 		}
 		else
 		{
 			table = ft_realloc(table, ++j);
-			table[j - 1] = put_arg(node->table[i]);
+			table[j - 1] = ft_strdup(node->table[i]);
 		}
-	}
+		//printf("%s\n", table[j - 1]);	
+		}
 	table[j] = NULL;
 	return (table);
 }
@@ -142,7 +122,6 @@ char	**split_args(t_list *node)
 
 int	red_parcer(t_list *node)
 {
-	t_red	*tmp;
 	char	**table;
 	int		i;
 	int		j;
@@ -151,40 +130,38 @@ int	red_parcer(t_list *node)
 	i = -1;
 	j = 0;
 	k = 0;
+	
 	node->red = malloc(sizeof(t_red ) * 1);
 	if (!node->red)
 		return (0);
-	tmp = node->red;
 	table = split_args(node);
 	while (table[++i])
 	{
-		if (check_typeOf_red(table[i]) > 0)
+		if (check_red(table[i]) > 0)
 			j++;
-		//printf("%s\n", table[i]);
 	}
-	tmp->args = malloc(sizeof(char *) * (i - (j * 2) + 1));
-	if (!tmp->args)
+	node->red->args = malloc(sizeof(char *) * (i - (j * 2) + 1));
+	if (!node->red->args)
 		return (0);
-	tmp->red_args = malloc(sizeof(char *) * (j * 2 + 1));
-	if (!tmp->red_args)
+	node->red->red_args = malloc(sizeof(char *) * (j * 2 + 1));
+	if (!node->red->red_args)
 		return (0);
-	//printf("%d\t%d\n", i, j);
 	i = -1;
 	j = 0;
 	while (table[++i])
 	{
-		if (check_typeOf_red(table[i]) > 0)
+		if (check_red(table[i]) > 0)
 		{
-			tmp->red_args[j++] = ft_strdup(table[i++]);
-			tmp->red_args[j++] = ft_strdup(table[i]);
+			node->red->red_args[j++] = ft_strdup(table[i++]);
+			node->red->red_args[j++] = ft_strdup(table[i]);
 		}
 		else
-			tmp->args[k++] = ft_strdup(table[i]);
+			node->red->args[k++] = put_arg(table[i]);
 	}
-	tmp->args[k] = NULL;
-	tmp->red_args[j] = NULL;
-	node->red = tmp;
-    return (0);	
+	node->red->args[k] = NULL;
+	node->red->red_args[j] = NULL;
+	ft_free(table);
+    return (1);	
 }
 
 
@@ -192,3 +169,45 @@ int	red_parcer(t_list *node)
 
 
 
+
+
+
+
+
+
+
+
+
+// int	check_typeOf_red(char *str)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (str[++i])
+// 	{
+// 		if (str[i] == '>' && str[i + 1] && str[i + 1] == '>')
+// 			return (2);
+// 		else if (str[i] == '>')
+// 			return (1);
+// 		else if (str[i] == '<' && str[i + 1] && str[i + 1] == '<')
+// 			return (4);
+// 		else if (str[i] == '<')
+// 			return (3);		
+// 	}
+// 	return (0);
+// }
+
+// int	check_dif_red(char *str)
+// {
+// 	int	i;
+// 	char	c;
+	
+// 	i = 0;
+// 	c = str[i];
+// 	while (str[++i])
+// 	{
+// 		if (str[i] != c)
+// 			return (1);
+// 	}
+// 	return (0);
+// }

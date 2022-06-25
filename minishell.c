@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/24 11:37:25 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:28:38 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,23 @@ void	check_memory(t_list *node)
 		free(node->cmd);
 	if (node->args)
 		ft_free(node->args);
+	if (node->red)
+	{
+		if (node->red->args)
+			ft_free(node->red->args);
+		if (node->red->red_args)
+			ft_free(node->red->red_args);
+		if (node->red->cmd)
+			free(node->red->cmd);
+		free(node->red);
+	}
+}
+
+init_red(t_red *red)
+{
+	red->args = NULL;
+	red->red_args = NULL;
+	red->cmd = NULL;
 }
 
 void	free_all(t_list **node)
@@ -134,12 +151,27 @@ void	init_node(t_list *node)
 	node->red = NULL;
 }
 
+int	check_redirection(t_list *node)
+{
+	int	i;
+
+	i = -1;
+	while (node->table[++i])
+	{
+		if (check_red(node->table[i]))
+			return (1);
+	}
+	return (0);
+}
+
 int	main(void)
 {
 	t_list	*node;
 	t_env	table;
 	char	*line;
-
+	int		i;
+	
+	i = -1;
 	table.env = ft_strdup_0(environ);
 	table.export = ft_strdup_2(table.env);
 	while (1)
@@ -156,13 +188,13 @@ int	main(void)
 		add_history(line);
 		if (lexer(line, node))
 		{
-			red_parcer(node);
-			print(node);
-			// if (parcer(node))
-      		// {
-			// 	print(node);
-        	// 	//bulttins(node, &table);
-      		// }
+			if (check_redirection(node))	
+				i = red_parcer(node);
+			else
+				i = parcer(node);
+      		if (i == 1)
+				print(node);
+        		//bulttins(node, &table);
 		}
 		free(line);
 		free_all(&node);

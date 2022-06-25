@@ -1,4 +1,3 @@
-#include "stdio.h"
 #include "../../minishell.h"
 
 /*int	ft_strlen(const char *s)
