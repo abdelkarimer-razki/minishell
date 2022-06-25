@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 11:47:11 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 22:53:37 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*check_cmd(char *str)
 	char	*cmd;
 
 	i = -1;
-	if (str[0] == '$')
+	if (str[0] == '$' || str[0] == '.' || str[0] == '/')
 	{
 		cmd = put_arg(str);
 		free(str);

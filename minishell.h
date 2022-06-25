@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 21:27:22 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 22:58:58 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_red
-{
-	char	**args;
-	char	**red_args;
-	char	*cmd;
-	char	type;
-}	t_red;
+// typedef struct s_red
+// {
+// 	char	**args;
+// 	char	**red_args;
+// 	char	*cmd;
+// 	char	type;
+// }	t_red;
+
 extern char **environ;
 
 typedef struct s_list
@@ -38,9 +39,10 @@ typedef struct s_list
 	char			**table;
 	char			*str;
 	char			*cmd;
+	char			**red_args;
 	char			**args;
 	struct s_list	*next;
-	struct s_red	*red;
+	//struct s_red	*red;
 	
 }	t_list;
 
@@ -50,7 +52,8 @@ typedef struct s_env
 	char			**export;
 }	t_env;
 
-char	*ft_strjoin(char const *s1, char const *s2);
+//utils
+char	*ft_strjoin(char const *s1, char *s2);
 int		ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t num, size_t size);
@@ -99,7 +102,6 @@ void	checker(char *line, t_list **node);
 //redirection
 int		red_parcer(t_list *node);
 int		check_red(char *str);
-void	init_red(t_red *red);
 int		is_red(char c);
 int		check_red(char *str);
 char	*red_with_quote(char *str, int *i);
