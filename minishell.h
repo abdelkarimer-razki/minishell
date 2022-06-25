@@ -12,11 +12,14 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define ANSI_COLOR_RED "\x1b[31m"
+# define ANSI_COLOR_RESET "\x1b[0m"
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -105,6 +108,12 @@ char    **split_with_red(char *str);
 
 
 int		check_table(char **table, char *arg);
+//check for redirections
+int check_redirection(char **table);
+int check_redirection_index(char **table, int index);
+int simulate_redirection(t_list *node);
+
+int check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
@@ -115,6 +124,5 @@ void	pwd();
 void	ft_exit();
 void	env(t_env *env);
 
-
-
+char **ft_strdup_red(char **source);
 #endif

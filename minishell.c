@@ -21,9 +21,9 @@ void	*ft_error(int Er, char **table, char *str)
 	else if (Er == 3)
 		printf("syntax error\n");
 	else if (Er == 4)
-		printf("quote > \n");
+		printf(ANSI_COLOR_RED "do3afa2: quote not closed \n" ANSI_COLOR_RESET);
 	else if (Er == 5)
-		printf("syntax error near unexpected token `||'\n");
+		printf(ANSI_COLOR_RED "syntax error near unexpected token `||'\n" ANSI_COLOR_RESET);
 	if (table)
 	{
 		ft_free(table);
@@ -56,9 +56,11 @@ int	check_pipe(char *line)
 void	print(t_list *node)
 {
 	int	i;
+
 	t_red	*red;
 	
 	red = node->red;
+
 	i = -1;
 	while (node)
 	{
@@ -136,8 +138,9 @@ void	bulttins(t_list *node, t_env *table)
 	path = ft_split(getenv("PATH"), ':');
 	if (pid == 0)
 	{
-		if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
-			export(table ,node);
+		simulate_redirection(node); 
+		if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0) 
+			export(table, node);
 		else if (ft_strncmp(node->cmd, "echo", ft_strlen(node->cmd)) == 0)
 			echo(node->args);
 		else if (ft_strncmp(node->cmd, "cd", ft_strlen(node->cmd)) == 0)
@@ -152,12 +155,12 @@ void	bulttins(t_list *node, t_env *table)
 		{
 			while (i < 8)
 			{
-				if (execve(ft_strjoin(path[i], ft_strjoin("/", node->cmd)), node->args, table->env) != -1)
+				if (execve(ft_strjoin(path[i], ft_strjoin("/", node->cmd)), ft_strdup_red(node->args), table->env) != -1)
 					break;
 				i++;
 			}
 			if (i == 8)
-				printf("do3afa2: %s: command not found\n", node->cmd);
+				printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n" ANSI_COLOR_RESET, node->cmd);
 		}
 	}
 	wait(NULL);
@@ -206,7 +209,7 @@ int	main(void)
 		{
 			free(line);
 			free(node);
-			continue;
+			continue ;
 		}
 		add_history(line);
 		if (lexer(line, node))

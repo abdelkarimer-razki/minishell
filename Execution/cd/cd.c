@@ -22,7 +22,7 @@ void	cd(t_env *env, t_list *table)
 				ft_strdup(getcwd(s, 100)));
 	}
 	if (chdir(table->args[1]) == -1)
-		printf("cd: no such file or directory: %s\n", table->args[0]);
+		printf(ANSI_COLOR_RED "cd: no such file or directory: %s\n" ANSI_COLOR_RESET, table->args[0]);
 	i = check_table(env->env, "PWD");
 	free(env->env[i]);
 	env->env[i] = ft_strjoin1(pwd, ft_strdup(getcwd(s, 100)));
