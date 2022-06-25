@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/25 21:13:05 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:40:02 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	red_parcer_2(t_list *node, char **table)
 	if (!node->red)
 		return (0);
 	init_red(node->red);
-	table = split_args(node);
+	node->red->cmd = ft_strdup(table[0]);
+	node->red->cmd = check_cmd(node->red->cmd);
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)
@@ -80,7 +81,6 @@ int	red_parcer_2(t_list *node, char **table)
 	node->red->red_args = malloc(sizeof(char *) * (j * 2 + 1));
 	if (!node->red->red_args)
 		return (0);
-	ft_free(table);
 	return (1);
 }
 

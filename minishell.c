@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 21:24:00 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:41:09 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print(t_list *node)
 	i = -1;
 	while (node)
 	{
-		//printf("%s\n", node->str);
+		printf("%s\n", node->red->cmd);
 		// printf("%s\n", node->cmd);
 		while (red->args[++i])
 			printf("%s\n", red->args[i]);
