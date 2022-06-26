@@ -104,7 +104,7 @@ int	red_parcer(t_list *node)
 	}
 	node->args[k] = NULL;
 	node->red_args[j] = NULL;
-	printf("in red parcer\n");
+	//printf("in red parcer\n");
 	ft_free(table);
     return (1);	
 }

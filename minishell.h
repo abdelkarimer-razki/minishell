@@ -23,7 +23,6 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 // typedef struct s_red
 // {
 // 	char	**args;
@@ -106,13 +105,12 @@ int		is_red(char c);
 int		check_red(char *str);
 char	*red_with_quote(char *str, int *i);
 char    **split_with_red(char *str);
+int		check_fd(int *fd, int k, char **str, int c);
 
-
-
-int		check_table(char **table, char *arg);
+	int check_table(char **table, char *arg);
 //check for redirections
 int check_redirection(char **table);
-int check_redirection_index(char **table, int index);
+int	check_redirection_index(char **table, int index , int k);
 int simulate_redirection(t_list *node);
 
 int check_table(char **table, char *arg);
@@ -126,5 +124,5 @@ void	pwd();
 void	ft_exit();
 void	env(t_env *env);
 
-char **ft_strdup_red(char **source);
+//char **ft_strdup_red(char **source);
 #endif
