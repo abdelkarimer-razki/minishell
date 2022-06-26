@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/26 23:57:32 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/27 00:46:09 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,30 @@ char	**split_args(t_list *node)
 
 int	red_parcing_2(t_list *node, char **table)
 {
-	int		i;
+	int	i;
 	int	j;
+	int	k;
 
 	i = -1;
 	j = 0;
+	k = 0;
 	node->cmd = ft_strdup(table[0]);
 	node->cmd = check_cmd(node->cmd);
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)
-			j++;
+		{
+			node->red_args = ft_realloc(node->red_args, ++j + 1);
+			node->red_args[j - 1] = ft_strdup(table[i++]);
+			if (table[i])
+				node->red_args[j++] = ft_strdup(table[i]);
+		}
+		else
+		{
+			node->args = ft_realloc(node->args, ++k);
+			node->args[k - 1] = put_arg(table[i]);
+		}
 	}
-	node->args = malloc(sizeof(char *) * (i - (j * 2) + 1));
-	if (!node->args)
-		return (0);
-	node->red_args = malloc(sizeof(char *) * (j * 2 + 1));
-	if (!node->red_args)
-		return (0);
 	return (1);
 }
 
@@ -97,27 +103,13 @@ int	red_parcer(t_list *node)
 int	red_parcing(t_list *node)
 {
 	char	**table;
-	int		i;
-	int		j;
-	int		k;
-
-	i = -1;
-	j = 0;
-	k = 0;
+	
 	table = split_args(node);
+	node->args = malloc(sizeof(char *) * 1);
+	node->red_args = malloc(sizeof(char *) * 1);
+	node->args[0] = NULL;
+	node->red_args[0] = NULL;
 	red_parcing_2(node, table);
-	while (table[++i])
-	{
-		if (check_red(table[i]) > 0)
-		{
-			node->red_args[j++] = ft_strdup(table[i++]);
-			node->red_args[j++] = ft_strdup(table[i]);
-		}
-		else
-			node->args[k++] = put_arg(table[i]);
-	}
-	node->args[k] = NULL;
-	node->red_args[j] = NULL;
 	ft_free(table);
     return (1);	
 }
@@ -133,7 +125,17 @@ int	red_parcing(t_list *node)
 
 
 
-
+// if (check_red(table[i]) > 0)
+// 		{
+// 			node->red_args = ft_realloc(node->red_args, ++j + 1);
+// 			node->red_args[j - 1] = ft_strdup(table[i++]);
+// 			node->red_args[j] = ft_strdup(table[i]);
+// 		}
+// 		else
+// 		{
+// 			node->args = ft_realloc(node->args, ++k);
+// 			node->args[k - 1] = put_arg(table[i]);
+// 		}	
 
 
 // int	check_typeOf_red(char *str)
