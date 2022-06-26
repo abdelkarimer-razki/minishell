@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/25 22:57:28 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/26 23:57:32 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**split_args(t_list *node)
 	return (table);
 }
 
-int	red_parcer_2(t_list *node, char **table)
+int	red_parcing_2(t_list *node, char **table)
 {
 	int		i;
 	int	j;
@@ -82,6 +82,20 @@ int	red_parcer_2(t_list *node, char **table)
 
 int	red_parcer(t_list *node)
 {
+	t_list	*tmp;
+
+	tmp = node;
+	while (tmp)
+	{
+		if (!red_parcing(tmp))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	red_parcing(t_list *node)
+{
 	char	**table;
 	int		i;
 	int		j;
@@ -91,7 +105,7 @@ int	red_parcer(t_list *node)
 	j = 0;
 	k = 0;
 	table = split_args(node);
-	red_parcer_2(node, table);
+	red_parcing_2(node, table);
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)
@@ -104,7 +118,6 @@ int	red_parcer(t_list *node)
 	}
 	node->args[k] = NULL;
 	node->red_args[j] = NULL;
-	printf("in red parcer\n");
 	ft_free(table);
     return (1);	
 }

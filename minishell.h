@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 22:58:58 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/26 23:56:31 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		is_red(char c);
 int		check_red(char *str);
 char	*red_with_quote(char *str, int *i);
 char    **split_with_red(char *str);
-
+int		red_parcing(t_list *node);
 
 
 int		check_table(char **table, char *arg);

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 22:57:54 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/26 23:53:29 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,6 @@ void	check_memory(t_list *node)
 	if (node->red_args)
 		ft_free(node->red_args);
 }
-
-// void	init_red(t_red *red)
-// {
-// 	red->args = NULL;
-// 	red->red_args = NULL;
-// 	red->cmd = NULL;
-// }
 
 void	free_all(t_list **node)
 {
