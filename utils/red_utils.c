@@ -1,42 +1,6 @@
 #include "../minishell.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
-
-int	check_redirection(char **table)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-    j = 0;
-    while (table && table[i])
-    {
-        if (ft_strncmp(table[i], ">>", ft_strlen(table[i])) == 0 || ft_strncmp(table[i], ">", ft_strlen(table[i])) == 0
-            || ft_strncmp(table[i], "<", ft_strlen(table[i])) == 0 || ft_strncmp(table[i], "<<", ft_strlen(table[i])) == 0)
-            j++;
-        i++;
-	}
-    return (j);
-}
-
-int	check_redirection_index(char **table, int index , int k)
-{
-	int	i;
-
-	if (k == 0)
-		i = 0;
-	else
-		i = index + 1;
-	while (table && table[i])
-	{
-		if (ft_strncmp(table[i], ">>", ft_strlen(table[i])) == 0 || ft_strncmp(table[i], ">", ft_strlen(table[i])) == 0
-			|| ft_strncmp(table[i], "<", ft_strlen(table[i])) == 0 || ft_strncmp(table[i], "<<", ft_strlen(table[i])) == 0)
-			break ;
-		i++;
-	}
-	return (i);
-}
 
 void	here_doc(char *arg, int *fd, int k, int i)
 {
@@ -48,8 +12,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(fd[i + 1], 0);
-		dup2(fd[i], 1);
+		error_dup(fd, i);
 		while (ft_strncmp(arg, str, ft_strlen(str)) != 0)
 		{
 			free(str);
@@ -68,7 +31,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 	close(fd[k]);
 }
 
-void	redirect_output(int i, int *fd, int k , char *arg, char **str)
+void	redirect_output(int i, int *fd, int k, char *arg, char **str)
 {
 	if (i == 0 && check_fd(fd, k, str, 1) != -1)
 	{
@@ -84,12 +47,6 @@ void	redirect_output(int i, int *fd, int k , char *arg, char **str)
 	}
 }
 
-void error_dup(int *fd, int i)
-{
-	dup2(fd[i], 1);
-	dup2(fd[i + 1], 0);
-}
-
 int	check_fd(int *fd, int k, char **str, int c)
 {
 	int	i;
@@ -100,7 +57,8 @@ int	check_fd(int *fd, int k, char **str, int c)
 		if (fd[i] == -1)
 		{
 			if (c == 0)
-				printf(ANSI_COLOR_RED "do3afa2: %s:no such file or directory\n" ANSI_COLOR_RESET, str[(i * 2) + 1]);
+				printf(ANSI_COLOR_RED "do3afa2: %s:no such file or directory\n"
+					ANSI_COLOR_RESET, str[(i * 2) + 1]);
 			return (-1);
 		}
 		i++;

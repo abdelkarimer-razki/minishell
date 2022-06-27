@@ -195,16 +195,6 @@ int	check_args(char *arg)
 	return (1);
 }
 
-int	find_equal(char *table)
-{
-	int	i;
-
-	i = 0;
-	while (table[i] && table[i] != '=' && table[i] != '+')
-		i++;
-	return (i);
-}
-
 int	check_table(char **table, char *arg)
 {
 	int		i;

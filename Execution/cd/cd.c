@@ -21,7 +21,16 @@ void	cd(t_env *env, t_list *table)
 		env->env[ft_strlen_2(env->env)] = ft_strjoin1(oldpwd,
 				ft_strdup(getcwd(s, 100)));
 	}
-	if (chdir(table->args[1]) == -1)
+	if (!table->args[1] || !ft_strncmp(table->args[1], "~", ft_strlen(table->args[1])))
+		chdir(getenv("HOME"));
+	else if (!ft_strncmp(table->args[1], "-", ft_strlen(table->args[1])))
+	{
+		if (chdir(getenv("OLDPWD")) == -1)
+			printf("do3afa2: cd: OLDPWD not set\n");
+		else
+			printf("%s\n", getenv("OLDPWD"));
+	}
+	else if (chdir(table->args[1]) == -1)
 		printf(ANSI_COLOR_RED "cd: no such file or directory: %s\n" ANSI_COLOR_RESET, table->args[0]);
 	i = check_table(env->env, "PWD");
 	free(env->env[i]);

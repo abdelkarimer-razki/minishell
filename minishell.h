@@ -42,7 +42,6 @@ typedef struct s_list
 	char			**args;
 	struct s_list	*next;
 	//struct s_red	*red;
-	
 }	t_list;
 
 typedef struct s_env
@@ -104,24 +103,29 @@ int		check_red(char *str);
 int		is_red(char c);
 int		check_red(char *str);
 char	*red_with_quote(char *str, int *i);
-char    **split_with_red(char *str);
+char	**split_with_red(char *str);
 int		check_fd(int *fd, int k, char **str, int c);
+void	error_dup(int *fd, int i);
 
-	int check_table(char **table, char *arg);
+int		check_table(char **table, char *arg);
 //check for redirections
-int check_redirection(char **table);
-int	check_redirection_index(char **table, int index , int k);
-int simulate_redirection(t_list *node);
+int		check_redirection(char **table);
+int		check_redirection_index(char **table, int index, int k);
+int		simulate_redirection(t_list *node);
 
-int check_table(char **table, char *arg);
+int		check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
+//export
 void	export(t_env *env, t_list *table);
+char	*getmyenv(char *str, char **env);
+int		find_equal(char *table);
+//
 void	echo(char **argv);
-void    cd(t_env *env, t_list *table);
-void	pwd();
-void	ft_exit();
+void	cd(t_env *env, t_list *table);
+void	pwd(void);
+void	ft_exit(void);
 void	env(t_env *env);
 
 //char **ft_strdup_red(char **source);

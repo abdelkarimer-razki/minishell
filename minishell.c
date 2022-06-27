@@ -47,8 +47,8 @@ void	print(t_list *node)
 	{
 		printf("%s\n", node->cmd);
 		printf("||||||||||||\n");
-		while (node->args[++i])
-			printf("%s\n", node->args[i]);
+		// while (node->args[++i])
+		// 	printf("%s\n", node->args[i]);
 		i = -1;
 		//printf("*************************\n");
 		if (node->red_args)
@@ -106,11 +106,8 @@ void	bulttins(t_list *node, t_env *table)
 	int	i;
 	char **path;
 
-	pid = fork();
 	i = 0;
 	path = ft_split(getenv("PATH"), ':');
-	if (pid == 0 )
-	{
 		if (simulate_redirection(node) == 1)
 		{
 			if (ft_strncmp(node->args[0], "export", ft_strlen(node->args[0])) == 0)
@@ -127,18 +124,23 @@ void	bulttins(t_list *node, t_env *table)
 				ft_exit();
 			else
 			{
-				while (i < 8)
+				pid = fork();
+				if (pid == 0)
 				{
-					if (execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])), node->args, table->env) != -1)
-						break;
-					i++;
+					while (i < 8)
+					{
+						if (execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])), node->args, table->env) != -1)
+							break;
+						i++;
+					}
+					if (execve(node->args[0], node->args, table->env) == -1)
+						i++;
+					if (i == 9)
+						printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n" ANSI_COLOR_RESET, node->args[0]);
+					exit(0);
 				}
-				if (i == 8)
-					printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n" ANSI_COLOR_RESET, node->args[0]);
 			}
 		}
-		exit(0);
-	}
 	wait(NULL);
 	ft_free(path);
 }
