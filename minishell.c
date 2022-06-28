@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 02:41:40 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 06:11:24 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,18 @@ int	check_redirect(t_list *node)
 	return (0);
 }
 
+
+
+
+void	handler(int sig)
+{
+	// if (sig == SIGINT)
+	// 	return ;
+	if (sig == SIGTTOU)
+		printf("hey\n");
+}
+
+
 int	main(void)
 {
 	t_list	*node;
@@ -132,6 +144,7 @@ int	main(void)
         		//bulttins(node, &table);
 			}
 		}
+		signal(SIGTTOU, handler);
 		free(line);
 		free_all(&node);
 	}

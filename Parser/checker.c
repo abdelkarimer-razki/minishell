@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 02:02:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 03:03:43 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 05:16:50 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ int red_errors(t_list *node)
 		return (1);
 	while (node->red_args[++i])
 	{
+		printf("%s\n", node->red_args[i + 1]);
 		if (check_red(node->red_args[i]) && node->red_args[i + 1] && check_red(node->red_args[i + 1]))
 			return (0);
 		else if (check_red(node->red_args[i]) && !node->red_args[i + 1])
 			return (0);
-		else if (!check_dif_red(node->red_args[i]))
+		if (check_red(node->red_args[i]) && !check_dif_red(node->red_args[i]))
 			return (0);
 	}
 	return (1);
