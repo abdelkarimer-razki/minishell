@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/28 03:12:18 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 05:17:30 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,10 @@ int	red_parcing(t_list *node)
 	node->red_args = malloc(sizeof(char *) * 1);
 	node->args[0] = NULL;
 	node->red_args[0] = NULL;
-	red_parcing_2(node, table);
+	if (!red_parcing_2(node, table))
+		return (ft_error_2(3, table, NULL));
 	ft_free(table);
-    return (1);	
+	return (1);	
 }
 
 

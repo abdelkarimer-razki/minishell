@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 03:14:56 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 06:03:07 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
 // typedef struct s_red
 // {
 // 	char	**args;
@@ -98,7 +99,7 @@ void	checker(char *line, t_list **node);
 int		error_checker(t_list *node);
 int 	red_errors(t_list *node);
 int		check_pipe(t_list *node);
-int red_errors(t_list *node);
+int 	red_errors(t_list *node);
 
 //redirection
 int		red_parcer(t_list *node);

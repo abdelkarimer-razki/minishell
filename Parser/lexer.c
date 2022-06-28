@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 02:42:27 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 03:37:40 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	lexer(char *line, t_list *node)
 	tmp = node;
 	par = lexer_pipe(line);
 	if (!par)
-		return (ft_error_2(5, NULL, NULL));
+		return (ft_error_2(0, NULL, NULL));
 	tmp->str = ft_strdup(par[0]);
 	tmp->table = lexer_space(par[0]);
-	if (!(tmp->table) || !(tmp->table[0]))
+	if (!(tmp->table))
+		return (ft_error_2(0, par, NULL));
+	if (tmp->table[0] == 0)
 		return (ft_error_2(3, par, NULL));
 	if (!lexer2(node, tmp, par))
 		return (0);
