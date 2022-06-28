@@ -6,13 +6,13 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:20:47 by brahim            #+#    #+#             */
-/*   Updated: 2022/06/27 00:46:09 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 03:03:26 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	split_args_2(char ***tab, int *j, char *arg)
+int	split_args_2(char ***tab, int *j, char *arg)
 {
 	int		i;
 	int		y;
@@ -23,6 +23,8 @@ void	split_args_2(char ***tab, int *j, char *arg)
 	i = -1;
 	y = *j;
 	s = split_with_red(arg);
+	if (!s)
+		return (0);
 	while (s[++i])
 	{
 		table = ft_realloc(table, ++y);
@@ -31,6 +33,7 @@ void	split_args_2(char ***tab, int *j, char *arg)
 	*j = y;
 	*tab = table;
 	ft_free(s);
+	return (1);
 }
 
 char	**split_args(t_list *node)
@@ -46,7 +49,10 @@ char	**split_args(t_list *node)
 	while (node->table[++i])
 	{	
 		if (check_red(node->table[i]))
-			split_args_2(&table, &j, node->table[i]);
+		{
+			if (!split_args_2(&table, &j, node->table[i]))
+				return (ft_error(0, table, NULL));
+		}
 		else
 		{
 			table = ft_realloc(table, ++j);
@@ -66,16 +72,19 @@ int	red_parcing_2(t_list *node, char **table)
 	i = -1;
 	j = 0;
 	k = 0;
-	node->cmd = ft_strdup(table[0]);
-	node->cmd = check_cmd(node->cmd);
+	if (ft_strlen_2(table) < 2)
+		return (0);
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)
 		{
-			node->red_args = ft_realloc(node->red_args, ++j + 1);
-			node->red_args[j - 1] = ft_strdup(table[i++]);
+			node->red_args = ft_realloc(node->red_args, ++j);
+			node->red_args[j - 1] = ft_strdup(table[i++]);	
 			if (table[i])
-				node->red_args[j++] = ft_strdup(table[i]);
+			{
+				node->red_args = ft_realloc(node->red_args, ++j);
+				node->red_args[j - 1] = ft_strdup(table[i]);
+			}
 		}
 		else
 		{
@@ -105,6 +114,10 @@ int	red_parcing(t_list *node)
 	char	**table;
 	
 	table = split_args(node);
+	if (!table)
+		return (0);
+	node->cmd = ft_strdup(table[0]);
+	node->cmd = check_cmd(node->cmd);
 	node->args = malloc(sizeof(char *) * 1);
 	node->red_args = malloc(sizeof(char *) * 1);
 	node->args[0] = NULL;
@@ -153,21 +166,6 @@ int	red_parcing(t_list *node)
 // 			return (4);
 // 		else if (str[i] == '<')
 // 			return (3);		
-// 	}
-// 	return (0);
-// }
-
-// int	check_dif_red(char *str)
-// {
-// 	int	i;
-// 	char	c;
-	
-// 	i = 0;
-// 	c = str[i];
-// 	while (str[++i])
-// 	{
-// 		if (str[i] != c)
-// 			return (1);
 // 	}
 // 	return (0);
 // }

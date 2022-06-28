@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sun Jun 26 12:05:10 2022
+# Make data base, printed on Tue Jun 28 02:34:27 2022
 
 # Variables
 
@@ -38,10 +38,10 @@ CFLAGS = -Wall -Werror -Wextra
 MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 27)
+# makefile (from `Makefile', line 28)
 OBJS = $(FILES:%.c=%.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-42a55a17-50ce-466e-ab35-63d33f818d93.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cdjh0033cc/T/vscode-ipc-1ffee2ab-206a-4623-a437-da7f341d4d93.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -49,15 +49,13 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = D88F8A2F-39AE-4E49-A62E-D16231026F35
-# environment
 VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.BzgKdwzhyb/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.tgtobsY7Rj/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -123,15 +121,13 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
+XPC_SERVICE_NAME = com.microsoft.VSCode.2132
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x18D8C:0:0
-# environment
-COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
@@ -142,8 +138,6 @@ PAGER = less
 LC_ALL = C
 # makefile (from `Makefile', line 19)
 HEADER = minishell.h 
-# environment
-SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -155,11 +149,11 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 622
+VSCODE_PID = 1240
 # makefile (from `Makefile', line 21)
-FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./utils/red_utils.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c ./Parser/lexer_utils.c ./Parser/redirection_parcer.c ./Parser/red_parcer_utils.c ./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c ./Execution/env/env.c ./Execution/exit/exit.c 
+FILES = minishell.c main_2.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c ./Parser/lexer_utils.c ./Parser/redirection_parcer.c ./Parser/red_parcer_utils.c ./utils/red_utils.c ./utils/ft_strtrim.c ./Parser/checker.c ./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c ./Execution/env/env.c ./Execution/exit/exit.c 
 # variable set hash-table stats:
-# Load=73/1024=7%, Rehash=0, Collisions=3/102=3%
+# Load=70/1024=7%, Rehash=0, Collisions=3/99=3%
 
 # Pattern-specific Variable Values
 
@@ -167,9 +161,9 @@ FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils
 
 # Directories
 
-# . (device 16777225, inode 96129): 18 files, no impossibilities.
+# . (device 16777225, inode 96129): 19 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -181,6 +175,7 @@ all: minishell
 #  Phony target (prerequisite of .PHONY).
 #  Command-line target.
 #  Implicit rule search has not been done.
+ 
 #  File does not exist.
 #  File has been updated.
 #  Successfully updated.
@@ -193,9 +188,18 @@ all: minishell
 #  File has not been updated.
 
 # Not a target:
+main_2.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-28 02:27:38
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
 Parser/redirection_parcer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -210,7 +214,7 @@ Parser/redirection_parcer.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:23
+#  Last modified 2022-06-28 02:22:24
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -219,7 +223,7 @@ Makefile:
 # Not a target:
 utils/utils_2.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:39
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -228,7 +232,7 @@ utils/utils_2.o:
 # Not a target:
 Parser/lexer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -237,20 +241,29 @@ Parser/lexer.o:
 # Not a target:
 Parser/set_args_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_strtrim.o utils/red_utils.o Parser/lexer.o Parser/parcer.o Parser/set_args_utils.o Parser/set_args.o Parser/lexer_utils.o Parser/redirection_parcer.o Parser/red_parcer_utils.o Execution/export/export.o Execution/echo/echo.o Execution/cd/cd.o Execution/pwd/pwd.o Execution/env/env.o Execution/exit/exit.o minishell.h
-#  Implicit rule search has not been done.
-#  Last modified 2022-06-25 23:00:40
+# Not a target:
+Parser/checker.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-28 02:29:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
+
+minishell: minishell.o main_2.o utils/utils.o utils/ft_split.o utils/utils_2.o Parser/lexer.o Parser/parcer.o Parser/set_args_utils.o Parser/set_args.o Parser/lexer_utils.o Parser/redirection_parcer.o Parser/red_parcer_utils.o utils/red_utils.o utils/ft_strtrim.o Parser/checker.o Execution/export/export.o Execution/echo/echo.o Execution/cd/cd.o Execution/pwd/pwd.o Execution/env/env.o Execution/exit/exit.o minishell.h
+#  Implicit rule search has not been done.
+#  Last modified 2022-06-28 02:29:51
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 33):
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 	clear
 	
@@ -258,7 +271,7 @@ minishell: minishell.o utils/utils.o utils/ft_split.o utils/utils_2.o utils/ft_s
 # Not a target:
 minishell.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:39
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -269,7 +282,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 40):
+#  commands to execute (from `Makefile', line 41):
 	rm -f $(NAME)
 	clear
 	
@@ -277,7 +290,7 @@ fclean: clean
 # Not a target:
 Execution/env/env.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -286,7 +299,7 @@ Execution/env/env.o:
 # Not a target:
 utils/ft_strtrim.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -295,7 +308,7 @@ utils/ft_strtrim.o:
 # Not a target:
 Parser/parcer.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -304,9 +317,8 @@ Parser/parcer.o:
 # Not a target:
 Parser/red_parcer_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -320,7 +332,7 @@ Parser/red_parcer_utils.o:
 # Not a target:
 Execution/exit/exit.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:07
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -329,7 +341,7 @@ Execution/exit/exit.o:
 # Not a target:
 Execution/pwd/pwd.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -338,7 +350,7 @@ Execution/pwd/pwd.o:
 # Not a target:
 Execution/cd/cd.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -355,7 +367,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 36):
+#  commands to execute (from `Makefile', line 37):
 	rm -f $(OBJS)
 	clear
 	
@@ -363,7 +375,7 @@ clean:
 # Not a target:
 Parser/set_args.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -372,7 +384,7 @@ Parser/set_args.o:
 # Not a target:
 utils/red_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -381,7 +393,7 @@ utils/red_utils.o:
 # Not a target:
 utils/ft_split.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:39
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -390,7 +402,7 @@ utils/ft_split.o:
 # Not a target:
 Execution/echo/echo.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -399,7 +411,7 @@ Execution/echo/echo.o:
 # Not a target:
 Execution/export/export.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:27:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -408,7 +420,7 @@ Execution/export/export.o:
 # Not a target:
 utils/utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:39
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -417,7 +429,7 @@ utils/utils.o:
 # Not a target:
 minishell.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:23
+#  Last modified 2022-06-28 02:24:30
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -426,14 +438,14 @@ minishell.h:
 # Not a target:
 Parser/lexer_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 23:00:40
+#  Last modified 2022-06-28 02:24:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=29/1024=3%, Rehash=0, Collisions=6/70=9%
+# Load=31/1024=3%, Rehash=0, Collisions=6/74=8%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -445,6 +457,6 @@ Parser/lexer_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jun 26 12:05:10 2022
+# Finished Make data base on Tue Jun 28 02:34:27 2022
 
  

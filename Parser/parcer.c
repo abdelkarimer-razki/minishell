@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/25 22:53:37 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 02:46:45 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*check_cmd(char *str)
 	while (cmd[++i])
 	{
 		if (!ft_isalpha(cmd[i]))
-			return (ft_error(9, NULL, cmd));			
+			return (ft_error(0, NULL, cmd));			
 	}
 	i = -1;
 	while (cmd[++i])
@@ -105,19 +105,19 @@ int	cmd_and_args(t_list *node)
 	node->cmd = ft_strdup(node->table[0]);
 	node->cmd = check_cmd(node->cmd);
 	if (!node->cmd)
-		return (0);
+		return (ft_error_2(2, NULL, node->cmd));
 	while (node->table[i])
 		i++;
 	node->args = malloc(sizeof(char *) * (i + 1));
 	if (!node->args)
-		ft_error(1, NULL, NULL);
+		return (ft_error_2(1, NULL, NULL));
 	i = 0;
 	node->args[0] = ft_strdup(node->cmd);
 	while (node->table[++i])
 	{
 		node->args[j] = put_arg(node->table[i]);
 		if (node->args[j++] == NULL)
-			ft_error(1, NULL, NULL);
+			return (ft_error_2(1, NULL, NULL));
 	}
 	node->args[j] = NULL;
 	return (1);

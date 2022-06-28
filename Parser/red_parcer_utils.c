@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:45:59 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/27 00:35:48 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/27 06:06:19 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char    **split_with_red(char *str)
 			table[j - 1] = ft_calloc(1, 1);
 			while (str[i] && is_red(str[i]))
 				table[j - 1] = add_char(table[j - 1], str[i++]);
+			if (ft_strlen(table[j - 1]) > 2)
+				return (ft_error(3, table, NULL));
 		}
 	}
 	table[j] = NULL;

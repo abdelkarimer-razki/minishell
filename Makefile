@@ -6,7 +6,7 @@
 #    By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/21 14:06:22 by bboulhan          #+#    #+#              #
-#    Updated: 2022/06/25 16:58:10 by bboulhan         ###   ########.fr        #
+#    Updated: 2022/06/28 02:22:24 by bboulhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ CC = cc
 
 HEADER = minishell.h \
 
-FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils/ft_strtrim.c ./utils/red_utils.c \
+FILES = minishell.c main_2.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c \
 		./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c \
 		./Parser/lexer_utils.c ./Parser/redirection_parcer.c ./Parser/red_parcer_utils.c \
+		./utils/red_utils.c ./utils/ft_strtrim.c ./Parser/checker.c \
 		./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c \
 		./Execution/env/env.c ./Execution/exit/exit.c\
 

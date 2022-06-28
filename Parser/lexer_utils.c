@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 22:08:33 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/24 09:51:24 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 01:50:13 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ int	lexer2(t_list *node, t_list *tmp, char **par)
 		tmp->str = ft_strdup(par[i]);
 		tmp->table = lexer_space(par[i]);
 		if (!(tmp->table) || (tmp->table[0] == 0))
-		{
-			ft_free(par);
-			return (0);
-		}
+			return (ft_error_2(0, par, NULL));
 	}
 	return (1);
 }

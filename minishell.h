@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/26 23:56:31 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 02:54:08 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		lexer2(t_list *node, t_list *tmp, char **par);
 //parcer
 int		cmd_and_args(t_list *node);
 char	*put_arg(char *str);
-void	*ft_error(int Er, char **table, char *str);
 int		parcer(t_list *node);
 int		parcing(char *line, t_list *node);
 int		check_dollar(char *str, int start, int end);
@@ -98,6 +97,10 @@ char	*ft_strjoin1(char *s1, char *s2);
 void	init_node(t_list *node);
 char	*check_cmd(char *str);
 void	checker(char *line, t_list **node);
+int		error_checker(t_list *node);
+int 	red_errors(t_list *node);
+int		check_pipe(t_list *node);
+int red_errors(t_list *node);
 
 //redirection
 int		red_parcer(t_list *node);
@@ -110,6 +113,7 @@ int		red_parcing(t_list *node);
 
 
 int		check_table(char **table, char *arg);
+
 //check for redirections
 int check_redirection(char **table);
 int check_redirection_index(char **table, int index);
@@ -125,6 +129,14 @@ void    cd(t_env *env, t_list *table);
 void	pwd();
 void	ft_exit();
 void	env(t_env *env);
-
 char **ft_strdup_red(char **source);
+
+
+//main
+void	free_all(t_list **node);
+int 	ft_error_2(int Er, char **table, char *str);
+void	*ft_error(int Er, char **table, char *str);
+
+
+
 #endif
