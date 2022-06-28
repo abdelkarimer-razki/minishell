@@ -11,6 +11,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	s3 = (unsigned char *)s1;
 	s4 = (unsigned char *)s2;
+	if (s3[0] == '\0' || s4[0] == '\0')
+		return (-1);
 	if (s3 != NULL || s4 != NULL)
 	{
 		while ((s3[i] != '\0' || s4[i] != '\0')
@@ -191,16 +193,6 @@ int	check_args(char *arg)
 			return (-1);
 	}
 	return (1);
-}
-
-int	find_equal(char *table)
-{
-	int	i;
-
-	i = 0;
-	while (table[i] && table[i] != '=' && table[i] != '+')
-		i++;
-	return (i);
 }
 
 int	check_table(char **table, char *arg)

@@ -21,8 +21,8 @@ void	print(t_list *node)
 	{
 		printf("%s\n", node->cmd);
 		printf("||||||||||||\n");
-		while (node->args[++i])
-			printf("%s\n", node->args[i]);
+		// while (node->args[++i])
+		// 	printf("%s\n", node->args[i]);
 		i = -1;
 		//printf("*************************\n");
 		if (node->red_args)
@@ -45,36 +45,41 @@ void	bulttins(t_list *node, t_env *table)
 	int	i;
 	char **path;
 
-	pid = fork();
 	i = 0;
 	path = ft_split(getenv("PATH"), ':');
-	if (pid == 0)
-	{
-		simulate_redirection(node); 
-		if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0) 
-			export(table, node);
-		else if (ft_strncmp(node->cmd, "echo", ft_strlen(node->cmd)) == 0)
-			echo(node->args);
-		else if (ft_strncmp(node->cmd, "cd", ft_strlen(node->cmd)) == 0)
-			cd(table, node);
-		else if (ft_strncmp(node->cmd, "pwd", ft_strlen(node->cmd)) == 0)
-			pwd();
-		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
-			env(table);
-		else if (ft_strncmp(node->cmd, "exit", ft_strlen(node->cmd)) == 0)
-			ft_exit();
-		else
+		if (simulate_redirection(node) == 1)
 		{
-			while (i < 8)
+			if (ft_strncmp(node->args[0], "export", ft_strlen(node->args[0])) == 0)
+				export(table, node);
+			else if (ft_strncmp(node->args[0], "echo", ft_strlen(node->args[0])) == 0)
+				echo(node->args);
+			else if (ft_strncmp(node->args[0], "cd", ft_strlen(node->args[0])) == 0)
+				cd(table, node);
+			else if (ft_strncmp(node->args[0], "pwd", ft_strlen(node->args[0])) == 0)
+				pwd();
+			else if (ft_strncmp(node->args[0], "env", ft_strlen(node->args[0])) == 0)
+				env(table);
+			else if (ft_strncmp(node->args[0], "exit", ft_strlen(node->args[0])) == 0)
+				ft_exit();
+			else
 			{
-				if (execve(ft_strjoin(path[i], ft_strjoin("/", node->cmd)), ft_strdup_red(node->args), table->env) != -1)
-					break;
-				i++;
+				pid = fork();
+				if (pid == 0)
+				{
+					while (i < 8)
+					{
+						if (execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])), node->args, table->env) != -1)
+							break;
+						i++;
+					}
+					if (execve(node->args[0], node->args, table->env) == -1)
+						i++;
+					if (i == 9)
+						printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n" ANSI_COLOR_RESET, node->args[0]);
+					exit(0);
+				}
 			}
-			if (i == 8)
-				printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n" ANSI_COLOR_RESET, node->cmd);
 		}
-	}
 	wait(NULL);
 	ft_free(path);
 }

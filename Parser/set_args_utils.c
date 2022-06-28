@@ -42,10 +42,10 @@ int	check_dollar(char *str, int start, int end)
 	return (0);
 }
 
-char	*get_env_2(char **s1, char **s2, char **s3 ,char *str)
+char	*get_env_2(char **s1, char **s2, char **s3,char *str)
 {
 	char	*env;
-	int	i;
+	int		i;
 
 	i = 0;
 	*s1 = ft_calloc(1, 1);

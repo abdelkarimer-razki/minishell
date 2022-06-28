@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 02:54:08 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/28 03:14:56 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 // typedef struct s_red
 // {
 // 	char	**args;
@@ -43,7 +42,6 @@ typedef struct s_list
 	char			**args;
 	struct s_list	*next;
 	//struct s_red	*red;
-	
 }	t_list;
 
 typedef struct s_env
@@ -112,31 +110,36 @@ char    **split_with_red(char *str);
 int		red_parcing(t_list *node);
 
 
-int		check_table(char **table, char *arg);
+
+int		check_fd(int *fd, int k, char **str, int c);
+void	error_dup(int *fd, int i);
+
 
 //check for redirections
-int check_redirection(char **table);
-int check_redirection_index(char **table, int index);
-int simulate_redirection(t_list *node);
-
-int check_table(char **table, char *arg);
+int		check_redirection(char **table);
+int		check_redirection_index(char **table, int index, int k);
+int		simulate_redirection(t_list *node);
+int		check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
+//export
 void	export(t_env *env, t_list *table);
+char	*getmyenv(char *str, char **env);
+int		find_equal(char *table);
+
+//
 void	echo(char **argv);
-void    cd(t_env *env, t_list *table);
-void	pwd();
-void	ft_exit();
+void	cd(t_env *env, t_list *table);
+void	pwd(void);
+void	ft_exit(void);
 void	env(t_env *env);
 char **ft_strdup_red(char **source);
-
 
 //main
 void	free_all(t_list **node);
 int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
-
 
 
 #endif

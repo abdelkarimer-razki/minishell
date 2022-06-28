@@ -110,7 +110,7 @@ int	ft_isalnum(int c)
 
 
 /*test*/
-char **ft_strdup_red(char **source)
+/*char **ft_strdup_red(char **source)
 {
 	char **s;
 	int i;
@@ -128,4 +128,4 @@ char **ft_strdup_red(char **source)
 	}
 	s[y] = 0;
 	return (s);
-}
+}*/

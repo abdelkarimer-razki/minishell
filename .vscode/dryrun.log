@@ -1,28 +1,29 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/bboulhan/Desktop/minishell'
-cc -Wall -Werror -Wextra   -c -o minishell.o minishell.c
-cc -Wall -Werror -Wextra   -c -o main_2.o main_2.c
-cc -Wall -Werror -Wextra   -c -o utils/utils.o utils/utils.c
-cc -Wall -Werror -Wextra   -c -o utils/ft_split.o utils/ft_split.c
-cc -Wall -Werror -Wextra   -c -o utils/utils_2.o utils/utils_2.c
-cc -Wall -Werror -Wextra   -c -o Parser/lexer.o Parser/lexer.c
-cc -Wall -Werror -Wextra   -c -o Parser/parcer.o Parser/parcer.c
-cc -Wall -Werror -Wextra   -c -o Parser/set_args_utils.o Parser/set_args_utils.c
-cc -Wall -Werror -Wextra   -c -o Parser/set_args.o Parser/set_args.c
-cc -Wall -Werror -Wextra   -c -o Parser/lexer_utils.o Parser/lexer_utils.c
-cc -Wall -Werror -Wextra   -c -o Parser/redirection_parcer.o Parser/redirection_parcer.c
-cc -Wall -Werror -Wextra   -c -o Parser/red_parcer_utils.o Parser/red_parcer_utils.c
-cc -Wall -Werror -Wextra   -c -o utils/red_utils.o utils/red_utils.c
-cc -Wall -Werror -Wextra   -c -o utils/ft_strtrim.o utils/ft_strtrim.c
-cc -Wall -Werror -Wextra   -c -o Parser/checker.o Parser/checker.c
-cc -Wall -Werror -Wextra   -c -o Execution/export/export.o Execution/export/export.c
-cc -Wall -Werror -Wextra   -c -o Execution/echo/echo.o Execution/echo/echo.c
-cc -Wall -Werror -Wextra   -c -o Execution/cd/cd.o Execution/cd/cd.c
+cc -Wall -Werror -Wextra    -c -o minishell.o minishell.c
  
-cc -Wall -Werror -Wextra   -c -o Execution/pwd/pwd.o Execution/pwd/pwd.c
-cc -Wall -Werror -Wextra   -c -o Execution/env/env.o Execution/env/env.c
-cc -Wall -Werror -Wextra   -c -o Execution/exit/exit.o Execution/exit/exit.c
-cc -Wall -Werror -Wextra minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o -lreadline -o minishell
+cc -Wall -Werror -Wextra    -c -o main_2.o main_2.c
+cc -Wall -Werror -Wextra    -c -o utils/utils.o utils/utils.c
+cc -Wall -Werror -Wextra    -c -o utils/ft_split.o utils/ft_split.c
+cc -Wall -Werror -Wextra    -c -o utils/utils_2.o utils/utils_2.c
+cc -Wall -Werror -Wextra    -c -o Parser/lexer.o Parser/lexer.c
+cc -Wall -Werror -Wextra    -c -o Parser/parcer.o Parser/parcer.c
+cc -Wall -Werror -Wextra    -c -o Parser/set_args_utils.o Parser/set_args_utils.c
+cc -Wall -Werror -Wextra    -c -o Parser/set_args.o Parser/set_args.c
+cc -Wall -Werror -Wextra    -c -o Parser/lexer_utils.o Parser/lexer_utils.c
+cc -Wall -Werror -Wextra    -c -o Parser/redirection_parcer.o Parser/redirection_parcer.c
+cc -Wall -Werror -Wextra    -c -o Parser/red_parcer_utils.o Parser/red_parcer_utils.c
+cc -Wall -Werror -Wextra    -c -o utils/red_utils.o utils/red_utils.c
+cc -Wall -Werror -Wextra    -c -o utils/ft_strtrim.o utils/ft_strtrim.c
+cc -Wall -Werror -Wextra    -c -o Parser/checker.o Parser/checker.c
+cc -Wall -Werror -Wextra    -c -o Execution/export/export.o Execution/export/export.c
+cc -Wall -Werror -Wextra    -c -o Execution/echo/echo.o Execution/echo/echo.c
+cc -Wall -Werror -Wextra    -c -o Execution/cd/cd.o Execution/cd/cd.c
+cc -Wall -Werror -Wextra    -c -o Execution/pwd/pwd.o Execution/pwd/pwd.c
+ 
+cc -Wall -Werror -Wextra    -c -o Execution/env/env.o Execution/env/env.c
+cc -Wall -Werror -Wextra    -c -o Execution/exit/exit.o Execution/exit/exit.c
+cc -Wall -Werror -Wextra  minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o -lreadline -o minishell
 clear
 make: Leaving directory `/Users/bboulhan/Desktop/minishell'
  
