@@ -117,16 +117,24 @@ int		check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
-//export
+void	non_bulltins(t_list *node, t_env *table);
+void	bulttins_simulator(t_list *node, t_env *table);
+void	bulttins(t_list *node, t_env *table);
+// export
 void	export(t_env *env, t_list *table);
 char	*getmyenv(char *str, char **env);
 int		find_equal(char *table);
-//
+void	just_equal(char *arg, t_env *env);
+void	setmyenv(char *str, char *value, t_env *env);
+	//
 void	echo(char **argv);
 void	cd(t_env *env, t_list *table);
-void	pwd(void);
+void	pwd(t_env *table);
 void	ft_exit(void);
 void	env(t_env *env);
 
 //char **ft_strdup_red(char **source);
+//pipe
+void	pipeit(t_list *node, t_env *table);
+void	bulttins(t_list *node, t_env *table);
 #endif
