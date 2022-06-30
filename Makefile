@@ -6,7 +6,7 @@
 #    By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/21 14:06:22 by bboulhan          #+#    #+#              #
-#    Updated: 2022/06/28 03:22:42 by bboulhan         ###   ########.fr        #
+#    Updated: 2022/06/30 02:58:13 by bboulhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,12 @@ CC = cc
 
 HEADER = minishell.h \
 
+INCLUDE_READLINE = $(addprefix $(READLINE),/include)
+
+LIB_READLINE = $(addprefix $(READLINE),/lib)
+
+READLINE = $(shell brew --prefix readline)
+
 FILES = minishell.c main_2.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c \
 		./utils/red_utils_2.c ./Execution/export/export_utils.c \
 		./utils/red_utils.c ./utils/ft_strtrim.c ./Parser/checker.c \
@@ -26,12 +32,20 @@ FILES = minishell.c main_2.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.
 		./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c \
 		./Execution/env/env.c ./Execution/exit/exit.c \
 
-OBJS = $(FILES:%.c=%.o)
+
+# FLAGS := -L$(shell brew --prefix readline)/lib -lreadline \
+#     -L$(shell brew --prefix readline)/lib -lhistory \
+#     -I -L$(shell brew --prefix readline)/include
+
+OBJS = $(FILES:.c=.o)
+
+%.o : %.c $(HEADER)
+	$(CC) $(CFLAGS) -I $(INCLUDE_READLINE) -c $< -o $@
 
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE_READLINE)  -L $(LIB_READLINE) -o $(NAME) -lreadline
 	clear
 
 clean : 

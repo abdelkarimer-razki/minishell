@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 14:03:28 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 01:52:52 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/30 00:32:15 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ char	*only_dollar(char *s, char *str, int *x, int *y)
 	if (str[i] == '$' && str[i + 1] && ft_isalpha(str[i + 1]))
 	{
 		j = i++ - 1;
-		while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i])))
+		while (str[i] && (ft_isalnum(str[i]) || ft_isalpha(str[i]) || str[i] == '_'))
 			i++;
 		s = get_env_value(s, str ,&i, &j);
 		i--;
 	}
-	else
+	else if (str[i] == '$' && str[i + 1] && (str[i + 1] != 39 && str[i + 1] != '"'))
+		i++;
+	else if (str[i] != '$')
 		s = add_char(s, str[i]);
 	*x = i;
 	*y = j;

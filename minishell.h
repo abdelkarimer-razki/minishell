@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 06:03:07 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/06/30 03:33:19 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <string.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <readline/readline.h>
@@ -34,6 +35,12 @@
 
 extern char **environ;
 
+typedef struct s_env
+{
+	char			**env;
+	char			**export;
+}	t_env;
+
 typedef struct s_list
 {
 	char			**table;
@@ -42,14 +49,10 @@ typedef struct s_list
 	char			**red_args;
 	char			**args;
 	struct s_list	*next;
+	struct s_env	*env;
 	//struct s_red	*red;
 }	t_list;
 
-typedef struct s_env
-{
-	char			**env;
-	char			**export;
-}	t_env;
 
 //utils
 char	*ft_strjoin(char const *s1, char *s2);
@@ -141,6 +144,6 @@ char **ft_strdup_red(char **source);
 void	free_all(t_list **node);
 int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
-
+void	handler(int sig);
 
 #endif
