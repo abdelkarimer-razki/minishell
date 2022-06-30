@@ -23,15 +23,14 @@ int	**fdalloc(t_list *node)
 
 	i = nodelen(node);
 	if (i > 1)
-	{			
-		fd = malloc(sizeof(int *) * i);
+	{
+		fd = malloc(sizeof(int *) * i - 1);
 		c = 0;
-		while (c < i)
+		while (c < i - 1)
 		{
 			fd[c] = malloc(sizeof(int) * 2);
 			c++;
 		}
-		fd[c] = NULL;
 		return (fd);
 	}
 	return (NULL);
@@ -50,31 +49,29 @@ void free_fd(int **fd)
 	free(fd);
 }
 
-void  close_fd(int **fd, int d, int c)
+void  close_fd(int **fd, int i, int d)
 {
-	int	i;
+	int	n;
 
-	i = 0;
-	if (d != -1)
+	n = 0;
+	if (i != -1)
 	{
-		if (d == 0)
-			close(fd[0][0]);
-		while (i < c)
+		while (n < d)
 		{
-			if (i != d - 1)
-				close(fd[i][0]);
-			if (i != d)
-				close(fd[i][1]);
-			i++;
+			if (n != i - 1)
+				close(fd[n][0]);
+			if (n != i)
+				close(fd[n][1]);
+			n++;
 		}
 	}
 	else
 	{
-		while (i < c)
+		while (n < d)
 		{
-			close(fd[i][0]);
-			close(fd[i][1]);
-			i++;
+			close(fd[n][0]);
+			close(fd[n][1]);
+			n++;
 		}
 	}
 }
@@ -104,8 +101,6 @@ void	pipeit(t_list *node, t_env *table)
 				{
 					dup2(fd[i][1], STDOUT_FILENO);
 					close(fd[i][1]);
-					if (i == 0)
-						close(fd[i][0]);
 				}
 				if (i != 0)
 				{
@@ -121,11 +116,12 @@ void	pipeit(t_list *node, t_env *table)
 			close_fd(fd, -1, d - 1);
 			waitpid(pid, NULL, 0);
 		}
-		if (i == 0 && !node->next)
+		if (d == 1 && i == 0)
+		{
 			bulttins(node, table);
+			break ;
+		}
 		node = node->next;
 		i++;
 	}
-	/*if (d > 1)
-		free_fd(fd);*/
 }

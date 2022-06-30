@@ -23,8 +23,9 @@ void	non_bulltins(t_list *node, t_env *table)
 		if (i == 9)
 			printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n"
 				ANSI_COLOR_RESET, node->args[0]);
+		exit(0);
 	}
-	wait(NULL);
+	waitpid(pid, NULL, 0);
 	ft_free(path);
 }
 
