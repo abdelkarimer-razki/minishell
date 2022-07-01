@@ -32,6 +32,16 @@ void	here_doc(char *arg, int *fd, int k, int i)
 	close(fd[k]);
 }
 
+void	redirect_input(int *fd, int k, char **str, int j)
+{
+	fd[k] = open(str[j + 1], O_RDWR, 0777);
+	if (fd[k] == -1)
+		error_dup(fd, check_redirection(str));
+	else if (fd[k] != -1)
+		dup2(fd[k], 0);
+	close(fd[k]);
+}
+
 void	redirect_output(int i, int *fd, int k, char *arg, char **str)
 {
 	if (i == 0 && check_fd(fd, k, str, 1) != -1)
@@ -51,8 +61,6 @@ void	redirect_output(int i, int *fd, int k, char *arg, char **str)
 int	check_fd(int *fd, int k, char **str, int c)
 {
 	int	i;
-	int	in;
-	int	out;
 
 	i = 0;
 	while (i < k)
@@ -66,26 +74,7 @@ int	check_fd(int *fd, int k, char **str, int c)
 		}
 		i++;
 	}
-	i = 0;
-	in = 0;
-	out = 0;
-	while (i < k * 2)
-	{
-		if (ft_strncmp(str[i], ">", 1) == 0
-			|| ft_strncmp(str[i], ">>", 2) == 0)
-			out++;
-		else if (ft_strncmp(str[i], "<", 4) == 0
-			|| ft_strncmp(str[i], "<<", 2) == 0)
-			in++;
-		i++;
-	}
-	if (out > 0 && in > 0)
-		return (3);
-	if (out > 0)
-		return (2);
-	if (in > 0)
-		return (1);
-	return (0);
+	return (count_red(k, str));
 }
 
 int	simulate_redirection(t_list *node)
@@ -109,14 +98,7 @@ int	simulate_redirection(t_list *node)
 			if (!ft_strncmp(node->red_args[j], ">", 1))
 				redirect_output(0, fd, k, node->red_args[j + 1], node->red_args);
 			else if (!ft_strncmp(node->red_args[j], "<", 1))
-			{
-				fd[k] = open(node->red_args[j + 1], O_RDWR, 0777);
-				if (fd[k] == -1)
-					error_dup(fd, i);
-				else if (fd[k] != -1)
-					dup2(fd[k], 0);
-				close(fd[k]);
-			}
+				redirect_input(fd, k, node->red_args, j);
 			else if (!ft_strncmp(node->red_args[j], ">>", 2))
 				redirect_output(1, fd, k, node->red_args[j + 1], node->red_args);
 			else if (!ft_strncmp(node->red_args[j], "<<", 2))

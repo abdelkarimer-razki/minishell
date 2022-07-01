@@ -14,7 +14,7 @@ void	setmyenv(char *str, char *value, t_env *env)
 {
 	char	*tmp;
 	char	*value1;
-	char  	*equal;
+	char	*equal;
 
 	tmp = ft_strdup(str);
 	value1 = ft_strdup(value);
@@ -22,9 +22,9 @@ void	setmyenv(char *str, char *value, t_env *env)
 	just_equal(ft_strjoin1(tmp, ft_strjoin1(equal, value1)), env);
 }
 
-int find_equal(char *table)
+int	find_equal(char *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (table[i] && table[i] != '=' && table[i] != '+')

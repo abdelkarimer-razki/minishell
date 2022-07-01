@@ -284,7 +284,8 @@ void	plus_equal(char *arg, t_env *env)
 		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
 	if (j != -1)
-		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j], ft_strdup("=")), ft_substr(arg,
+		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j],
+					ft_strdup("=")), ft_substr(arg,
 					find_equal(arg) + 2, ft_strlen(arg) - 1));
 	else
 	{
@@ -318,8 +319,9 @@ void	fill_args(t_env *env, t_list *table)
 		n = 0;
 		if (check_args(table->args[i]) == -1)
 		{
-			printf(ANSI_COLOR_RED "do3afa2: export: `%s': not a valid identifier\n" ANSI_COLOR_RESET,
-				   table->args[i]);
+			printf(ANSI_COLOR_RED
+				"do3afa2: export: `%s': not a valid identifier\n"
+				ANSI_COLOR_RESET, table->args[i]);
 			continue ;
 		}
 		while (table->args[i][++j] && ft_strncmp(table->args[i], "_",

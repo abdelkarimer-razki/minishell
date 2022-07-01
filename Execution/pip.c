@@ -37,7 +37,7 @@ int	**fdalloc(t_list *node)
 	return (NULL);
 }
 
-void free_fd(int **fd)
+void	free_fd(int **fd)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void free_fd(int **fd)
 	free(fd);
 }
 
-void  close_fd(int **fd, int i, int d)
+void	close_fd(int **fd, int i, int d)
 {
 	int	n;
 
@@ -95,7 +95,6 @@ void	pipeit(t_list *node, t_env *table)
 {
 	int		**fd;
 	int		pid;
-	int		fd1;
 	int		i;
 	int		f;
 	int		d;
@@ -106,7 +105,6 @@ void	pipeit(t_list *node, t_env *table)
 	fi[0] = dup(1);
 	fi[1] = dup(0);
 	i = -1;
-	fd1 = dup(1);
 	while (++i < d - 1 && d > 1)
 		pipe(fd[i]);
 	i = 0;
@@ -125,7 +123,6 @@ void	pipeit(t_list *node, t_env *table)
 					dup_and_close(fd, i, 0);
 				if (f != -1)
 					bulttins(node, table);
-				//error_dup(fi, 0);
 				exit(0);
 			}
 		}
@@ -145,7 +142,4 @@ void	pipeit(t_list *node, t_env *table)
 		node = node->next;
 		i++;
 	}
-	/*if (d > 1)
-		free_fd(fd);*/
-	
 }
