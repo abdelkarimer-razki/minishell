@@ -11,6 +11,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	s3 = (unsigned char *)s1;
 	s4 = (unsigned char *)s2;
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (-1);
 	if (s3[0] == '\0' || s4[0] == '\0')
 		return (-1);
 	if (s3 != NULL || s4 != NULL)
@@ -282,7 +284,8 @@ void	plus_equal(char *arg, t_env *env)
 		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
 	if (j != -1)
-		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j], ft_strdup("=")), ft_substr(arg,
+		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j],
+					ft_strdup("=")), ft_substr(arg,
 					find_equal(arg) + 2, ft_strlen(arg) - 1));
 	else
 	{
@@ -316,8 +319,9 @@ void	fill_args(t_env *env, t_list *table)
 		n = 0;
 		if (check_args(table->args[i]) == -1)
 		{
-			printf(ANSI_COLOR_RED "do3afa2: export: `%s': not a valid identifier\n" ANSI_COLOR_RESET,
-				   table->args[i]);
+			printf(ANSI_COLOR_RED
+				"do3afa2: export: `%s': not a valid identifier\n"
+				ANSI_COLOR_RESET, table->args[i]);
 			continue ;
 		}
 		while (table->args[i][++j] && ft_strncmp(table->args[i], "_",

@@ -72,8 +72,15 @@ int	red_parcing_2(t_list *node, char **table)
 	i = -1;
 	j = 0;
 	k = 0;
-	if (ft_strlen_2(table) < 2)
+	while (table[++i])
+	{
+		if (check_red(table[i]))
+			j++;
+	}
+	if (ft_strlen_2(table) < 2 && j > 0)
 		return (0);
+	i = -1;
+	j = 0;
 	while (table[++i])
 	{
 		if (check_red(table[i]) > 0)
@@ -94,6 +101,7 @@ int	red_parcing_2(t_list *node, char **table)
 	}
 	return (1);
 }
+
 
 int	red_parcer(t_list *node)
 {

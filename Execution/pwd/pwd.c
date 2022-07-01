@@ -1,8 +1,11 @@
 #include "../../minishell.h"
 
-void	pwd(void)
+void	pwd(t_env *table)
 {
-	char	s[100];
+	char	s[1000];
 
-	printf("%s\n", getcwd(s, 100));
+	if (getcwd(s, 1000) == NULL)
+		printf("%s\n", getmyenv("PWD", table->env));
+	else
+		printf("%s\n", getcwd(s, 100));
 }

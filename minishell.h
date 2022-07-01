@@ -117,25 +117,32 @@ int		red_parcing(t_list *node);
 
 int		check_fd(int *fd, int k, char **str, int c);
 void	error_dup(int *fd, int i);
+int		red(t_list *node);
 
 
 //check for redirections
 int		check_redirection(char **table);
 int		check_redirection_index(char **table, int index, int k);
 int		simulate_redirection(t_list *node);
+int		count_red(int k, char **str);
 int		check_table(char **table, char *arg);
 char	**ft_strdup_2(char **source);
 
 //bultins
-//export
+void	non_bulltins(t_list *node, t_env *table);
+void	bulttins_simulator(t_list *node, t_env *table);
+void	bulttins(t_list *node, t_env *table);
+// export
 void	export(t_env *env, t_list *table);
 char	*getmyenv(char *str, char **env);
 int		find_equal(char *table);
 
-//
+void	just_equal(char *arg, t_env *env);
+void	setmyenv(char *str, char *value, t_env *env);
+	//
 void	echo(char **argv);
 void	cd(t_env *env, t_list *table);
-void	pwd(void);
+void	pwd(t_env *table);
 void	ft_exit(void);
 void	env(t_env *env);
 char **ft_strdup_red(char **source);
@@ -146,4 +153,8 @@ int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
 void	handler(int sig);
 
+//char **ft_strdup_red(char **source);
+//pipe
+void	pipeit(t_list *node, t_env *table);
+void	bulttins(t_list *node, t_env *table);
 #endif

@@ -77,6 +77,8 @@ char	*only_dollar(char *s, char *str, int *x, int *y)
 	}
 	else if (str[i] == '$' && str[i + 1] && (str[i + 1] != 39 && str[i + 1] != '"'))
 		i++;
+	else if (str[i] == '$' && !str[i + 1])
+		s = add_char(s, str[i]);
 	else if (str[i] != '$')
 		s = add_char(s, str[i]);
 	*x = i;

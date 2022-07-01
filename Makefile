@@ -26,11 +26,12 @@ READLINE = $(shell brew --prefix readline)
 
 FILES = minishell.c main_2.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c \
 		./utils/red_utils_2.c ./Execution/export/export_utils.c \
-		./utils/red_utils.c ./utils/ft_strtrim.c ./Parser/checker.c \
+		./utils/red_utils.c ./utils/ft_strtrim.c ./Parser/checker.c ./utils/bulttins_utils.c \
 		./Parser/lexer.c ./Parser/parcer.c ./Parser/set_args_utils.c ./Parser/set_args.c \
 		./Parser/lexer_utils.c ./Parser/redirection_parcer.c ./Parser/red_parcer_utils.c \
 		./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c \
 		./Execution/env/env.c ./Execution/exit/exit.c \
+		./Execution/pip.c \
 
 
 # FLAGS := -L$(shell brew --prefix readline)/lib -lreadline \
