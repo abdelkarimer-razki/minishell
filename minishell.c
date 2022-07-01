@@ -128,6 +128,6 @@ int	main(void)
 			}
 		}
 		free(line);
-		free_all(&node);
+		//free_all(&node);
 	}
 }

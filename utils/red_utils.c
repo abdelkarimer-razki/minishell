@@ -45,17 +45,11 @@ void	redirect_input(int *fd, int k, char **str, int j)
 void	redirect_output(int i, int *fd, int k, char *arg, char **str)
 {
 	if (i == 0 && check_fd(fd, k, str, 1) != -1)
-	{
 		fd[k] = open(arg, O_RDWR | O_CREAT | O_TRUNC, 0777);
-		dup2(fd[k], 1);
-		close(fd[k]);
-	}
 	else if (i == 1 && check_fd(fd, k, str, 1) != -1)
-	{
 		fd[k] = open(arg, O_RDWR | O_CREAT | O_APPEND, 0777);
-		dup2(fd[k], 1);
-		close(fd[k]);
-	}
+	dup2(fd[k], 1);
+	close(fd[k]);
 }
 
 int	check_fd(int *fd, int k, char **str, int c)
