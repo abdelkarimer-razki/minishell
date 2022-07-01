@@ -6,6 +6,7 @@ int	parse_args(char **argv)
 	int	j;
 
 	i = 0;
+
 	while (argv[++i])
 	{
 		j = -1;
@@ -22,6 +23,20 @@ int	parse_args(char **argv)
 	return (i);
 }
 
+int	valid_arg(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (ft_strlen(arg[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	echo(char **argv)
 {
 	int	i;
@@ -34,6 +49,6 @@ void	echo(char **argv)
 			printf(" ");
 		i++;
 	}
-	if (parse_args(argv) == 1)
+	if (parse_args(argv) == 1 || valid_arg(argv))
 		printf("\n");
 }

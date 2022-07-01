@@ -16,10 +16,13 @@ void	setmyenv(char *str, char *value, t_env *env)
 	char	*value1;
 	char	*equal;
 
-	tmp = ft_strdup(str);
-	value1 = ft_strdup(value);
-	equal = ft_strdup("=");
-	just_equal(ft_strjoin1(tmp, ft_strjoin1(equal, value1)), env);
+	if (str != NULL && value != NULL)
+	{
+		tmp = ft_strdup(str);
+		value1 = ft_strdup(value);
+		equal = ft_strdup("=");
+		just_equal(ft_strjoin1(tmp, ft_strjoin1(equal, value1)), env);
+	}
 }
 
 int	find_equal(char *table)

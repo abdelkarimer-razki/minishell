@@ -125,7 +125,6 @@ int	main(void)
 			{	
 				//print(node);
 				pipeit(node, &table);
-		
 			}
 		}
 		free(line);
