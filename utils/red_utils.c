@@ -25,7 +25,8 @@ void	here_doc(char *arg, int *fd, int k, int i)
 		}
 		exit(1);
 	}
-	wait(NULL);
+	waitpid(pid, NULL, 0);
+	close(fd[k]);
 	fd[k] = open("/tmp/heredoc", O_RDWR, 0777);
 	dup2(fd[k], 0);
 	close(fd[k]);
@@ -50,6 +51,8 @@ void	redirect_output(int i, int *fd, int k, char *arg, char **str)
 int	check_fd(int *fd, int k, char **str, int c)
 {
 	int	i;
+	int	in;
+	int	out;
 
 	i = 0;
 	while (i < k)
@@ -63,7 +66,26 @@ int	check_fd(int *fd, int k, char **str, int c)
 		}
 		i++;
 	}
-	return (1);
+	i = 0;
+	in = 0;
+	out = 0;
+	while (i < k * 2)
+	{
+		if (ft_strncmp(str[i], ">", 1) == 0
+			|| ft_strncmp(str[i], ">>", 2) == 0)
+			out++;
+		else if (ft_strncmp(str[i], "<", 4) == 0
+			|| ft_strncmp(str[i], "<<", 2) == 0)
+			in++;
+		i++;
+	}
+	if (out > 0 && in > 0)
+		return (3);
+	if (out > 0)
+		return (2);
+	if (in > 0)
+		return (1);
+	return (0);
 }
 
 int	simulate_redirection(t_list *node)
@@ -84,9 +106,9 @@ int	simulate_redirection(t_list *node)
 		while (++k < i)
 		{
 			j = check_redirection_index(node->red_args, j, k);
-			if (ft_strncmp(node->red_args[j], ">", ft_strlen(node->red_args[j])) == 0)
+			if (!ft_strncmp(node->red_args[j], ">", 1))
 				redirect_output(0, fd, k, node->red_args[j + 1], node->red_args);
-			else if (ft_strncmp(node->red_args[j], "<", ft_strlen(node->red_args[j])) == 0)
+			else if (!ft_strncmp(node->red_args[j], "<", 1))
 			{
 				fd[k] = open(node->red_args[j + 1], O_RDWR, 0777);
 				if (fd[k] == -1)
@@ -95,9 +117,9 @@ int	simulate_redirection(t_list *node)
 					dup2(fd[k], 0);
 				close(fd[k]);
 			}
-			else if (ft_strncmp(node->red_args[j], ">>", ft_strlen(node->red_args[j])) == 0)
+			else if (!ft_strncmp(node->red_args[j], ">>", 2))
 				redirect_output(1, fd, k, node->red_args[j + 1], node->red_args);
-			else if (ft_strncmp(node->red_args[j], "<<", ft_strlen(node->red_args[j])) == 0)
+			else if (!ft_strncmp(node->red_args[j], "<<", 2))
 				here_doc(node->red_args[j + 1], fd, k, i);
 		}
 	}

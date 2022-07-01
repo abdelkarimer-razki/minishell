@@ -47,14 +47,14 @@ void	print(t_list *node)
 	{
 		printf("%s\n", node->cmd);
 		printf("||||||||||||\n");
-		// while (node->args[++i])
-		// 	printf("%s\n", node->args[i]);
+		while (node->args[++i])
+			printf("%s\n", node->args[i]);
 		i = -1;
 		//printf("*************************\n");
-		if (node->red_args)
+		/*if (node->red_args)
 		{	while (node->red_args[++i])
 				printf("%s\n", node->red_args[i]);
-		}
+		}*/
 		// i = -1;
 		// while (node->table[++i])
 		// 	printf("%s\n", node->table[i]);
@@ -138,6 +138,7 @@ int	main(void)
 		node = malloc(sizeof(t_list) * 1);
 		init_node(node);
 		line = readline("do3afa2-1.0$ ");
+		//printf("brahin\n");
 		if (*line == 0)
 		{
 			free(line);
@@ -148,11 +149,14 @@ int	main(void)
 		if (lexer(line, node))
 		{
 			if (check_redirect(node))
-				i = red_parcer(node);
+				i = red(node);
 			else
 				i = parcer(node);
 			if (i == 1)
+			{
+				//print(node);
 				pipeit(node, &table);
+			}
 		}
 		free(line);
 		free_all(&node);

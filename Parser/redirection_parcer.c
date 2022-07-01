@@ -80,6 +80,7 @@ int	red_parcer_2(t_list *node, char **table)
 	return (1);
 }
 
+
 int	red_parcer(t_list *node)
 {
 	char	**table;
@@ -109,6 +110,19 @@ int	red_parcer(t_list *node)
     return (1);	
 }
 
+int	red(t_list *node)
+{
+	t_list	*tmp;
+
+	tmp = node;
+	while (tmp)
+	{
+		if (!red_parcer(tmp))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 
 

@@ -106,6 +106,7 @@ char	*red_with_quote(char *str, int *i);
 char	**split_with_red(char *str);
 int		check_fd(int *fd, int k, char **str, int c);
 void	error_dup(int *fd, int i);
+int		red(t_list *node);
 
 int		check_table(char **table, char *arg);
 //check for redirections

@@ -53,11 +53,16 @@ void	bulttins_simulator(t_list *node, t_env *table)
 
 void	bulttins(t_list *node, t_env *table)
 {
-	int	fd[2];
+	/*int	fd[2];
 
 	fd[0] = dup(1);
-	fd[1] = dup(0);
-	if (simulate_redirection(node) == 1)
+	fd[1] = dup(0);*/
+	/*if (simulate_redirection(node) == 1)
+	{*/
 		bulttins_simulator(node, table);
+		//error_dup(fd, 0);
+		//return (1);
+/*	}
 	error_dup(fd, 0);
+	return (-1);*/
 }

@@ -25,7 +25,7 @@ FILES = minishell.c ./utils/utils.c ./utils/ft_split.c ./utils/utils_2.c ./utils
 		./Parser/lexer_utils.c ./Parser/redirection_parcer.c ./Parser/red_parcer_utils.c \
 		./Execution/export/export.c ./Execution/echo/echo.c ./Execution/cd/cd.c ./Execution/pwd/pwd.c \
 		./Execution/env/env.c ./Execution/exit/exit.c \
-		./Execution/pip.c\
+		./Execution/pip.c \
 
 OBJS = $(FILES:%.c=%.o)
 
