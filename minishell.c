@@ -42,9 +42,9 @@ void	handler(int sig)
 		printf("\n");
 	else if (sig == SIGSEGV)
 		printf("Segmentation fault: 11\n");
-	//rl_replace_line("", 0);
-	//rl_on_new_line();
-	//rl_redisplay();
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	print(t_list *node)

@@ -18,7 +18,7 @@ void	non_bulltins(t_list *node, t_env *table)
 		if (i == 8 && execve(node->args[0], node->args, table->env) == -1)
 			i++;
 		if (i == 9)
-			printf("do3afa2: %s: command not found\n", node->args[0]);
+			write(2, "do3afa2: command not found\n", 27);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -39,27 +39,16 @@ void	bulttins_simulator(t_list *node, t_env *table)
 		pwd(table);
 	else if (ft_strncmp(node->args[0],
 			"env", ft_strlen(node->args[0])) == 0)
-		env(table);
+		env(table, node);
 	else if (ft_strncmp(node->args[0],
 			"exit", ft_strlen(node->args[0])) == 0)
-		ft_exit();
+		ft_exit(node);
 	else
 		non_bulltins(node, table);
 }
 
 void	bulttins(t_list *node, t_env *table)
 {
-	/*int	fd[2];
-
-	fd[0] = dup(1);
-	fd[1] = dup(0);*/
-	/*if (simulate_redirection(node) == 1)
-	{*/
 	if (node->args[0])
 		bulttins_simulator(node, table);
-		//error_dup(fd, 0);
-		//return (1);
-/*	}
-	error_dup(fd, 0);
-	return (-1);*/
 }

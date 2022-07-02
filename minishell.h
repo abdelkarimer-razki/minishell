@@ -39,6 +39,7 @@ typedef struct s_env
 {
 	char			**env;
 	char			**export;
+	int				d;
 }	t_env;
 
 typedef struct s_list
@@ -119,15 +120,28 @@ int		check_fd(int *fd, int k, char **str, int c);
 void	error_dup(int *fd, int i);
 int		red(t_list *node);
 
+//pipe
 
+void	pipe_all(int d, int **fd);
+void	red_dup_bulttins(int **fd, int i, t_list *node, t_env *table);
+void	one_node(t_list *node, t_env *table, int *fi);
+void	last_node(int **fd, int pid, int d);
+void	wait_all(int d);
+void	close_fd(int **fd, int i, int d);
+void	dup_and_close(int **fd, int i, int ioo);
 //check for redirections
 int		check_redirection(char **table);
 int		check_redirection_index(char **table, int index, int k);
 int		simulate_redirection(t_list *node);
 int		count_red(int k, char **str);
 int		check_table(char **table, char *arg);
+int		here_check(char **str);
+void	write_str(char *str, int fd, char *arg);
 char	**ft_strdup_2(char **source);
-
+int		*save_dup_malloc(int i);
+int		ouble(char *str);
+void	ouput_redirections(int	*fd, int j, char **str, int k);
+void	redirect_output(int i, int *fd, int k, char *arg);
 //bultins
 void	non_bulltins(t_list *node, t_env *table);
 void	bulttins_simulator(t_list *node, t_env *table);
@@ -143,8 +157,8 @@ void	setmyenv(char *str, char *value, t_env *env);
 void	echo(char **argv);
 void	cd(t_env *env, t_list *table);
 void	pwd(t_env *table);
-void	ft_exit(void);
-void	env(t_env *env);
+void	ft_exit(t_list *table);
+void	env(t_env *env, t_list *table);
 char **ft_strdup_red(char **source);
 
 //main

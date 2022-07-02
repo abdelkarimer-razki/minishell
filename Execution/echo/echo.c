@@ -6,7 +6,6 @@ int	parse_args(char **argv)
 	int	j;
 
 	i = 0;
-
 	while (argv[++i])
 	{
 		j = -1;

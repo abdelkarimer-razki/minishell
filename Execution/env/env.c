@@ -1,9 +1,14 @@
 #include "../../minishell.h"
 
-void	env(t_env *env)
+void	env(t_env *env, t_list *table)
 {
 	int	i;
 
+	if (ft_strlen_2(table->args) != 1)
+	{
+		printf("env: too many arguments\n");
+		return ;
+	}
 	if (!(*env->env))
 	{
 		env->env = ft_realloc(env->env, 4);

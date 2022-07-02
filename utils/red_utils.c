@@ -17,11 +17,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 		{
 			free(str);
 			str = readline(">");
-			if (ft_strncmp(arg, str, ft_strlen(str)) != 0)
-			{
-				write(fd[k], str, ft_strlen(str));
-				write(fd[k], "\n", 1);
-			}
+			write_str(str, fd[k], arg);
 		}
 		exit(1);
 	}
@@ -42,11 +38,11 @@ void	redirect_input(int *fd, int k, char **str, int j)
 	close(fd[k]);
 }
 
-void	redirect_output(int i, int *fd, int k, char *arg, char **str)
+void	redirect_output(int i, int *fd, int k, char *arg)
 {
-	if (i == 0 && check_fd(fd, k, str, 1) != -1)
+	if (i == 0)
 		fd[k] = open(arg, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	else if (i == 1 && check_fd(fd, k, str, 1) != -1)
+	else if (i == 1)
 		fd[k] = open(arg, O_RDWR | O_CREAT | O_APPEND, 0777);
 	dup2(fd[k], 1);
 	close(fd[k]);
@@ -64,7 +60,7 @@ int	check_fd(int *fd, int k, char **str, int c)
 			if (c == 0)
 				printf(ANSI_COLOR_RED "do3afa2: %s:no such file or directory\n"
 					ANSI_COLOR_RESET, str[(i * 2) + 1]);
-			return (-1);
+			return (0);
 		}
 		i++;
 	}
@@ -81,20 +77,16 @@ int	simulate_redirection(t_list *node)
 	j = 0;
 	k = -1;
 	i = check_redirection(node->red_args);
-	fd = malloc(sizeof(int) * (i + 2));
-	fd[i] = dup(1);
-	fd[i + 1] = dup(0);
+	fd = save_dup_malloc(i);
 	if (i != 0)
 	{
 		while (++k < i)
 		{
 			j = check_redirection_index(node->red_args, j, k);
-			if (!ft_strncmp(node->red_args[j], ">", 1))
-				redirect_output(0, fd, k, node->red_args[j + 1], node->red_args);
+			if (check_fd(fd, i, node->red_args, 1) && ouble(node->red_args[j]))
+				ouput_redirections(fd, j, node->red_args, k);
 			else if (!ft_strncmp(node->red_args[j], "<", 1))
 				redirect_input(fd, k, node->red_args, j);
-			else if (!ft_strncmp(node->red_args[j], ">>", 2))
-				redirect_output(1, fd, k, node->red_args[j + 1], node->red_args);
 			else if (!ft_strncmp(node->red_args[j], "<<", 2))
 				here_doc(node->red_args[j + 1], fd, k, i);
 		}
