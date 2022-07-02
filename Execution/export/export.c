@@ -347,6 +347,11 @@ void	fill_args(t_env *env, t_list *table)
 
 void	export(t_env *env, t_list *table)
 {
+	if (table->args[1] && table->args[1][0] == '-')
+	{
+		ft_putstr_fd("do3afa2: pwd: option not supported\n", 2);
+		return ;
+	}
 	if (ft_strlen_2(table->args) == 1)
 		show_export(env->export);
 	else

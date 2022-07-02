@@ -19,6 +19,7 @@ void	non_bulltins(t_list *node, t_env *table)
 			i++;
 		if (i == 9)
 			write(2, "do3afa2: command not found\n", 27);
+		
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -36,13 +37,16 @@ void	bulttins_simulator(t_list *node, t_env *table)
 		cd(table, node);
 	else if (ft_strncmp(node->args[0],
 			"pwd", ft_strlen(node->args[0])) == 0)
-		pwd(table);
+		pwd(table, node);
 	else if (ft_strncmp(node->args[0],
 			"env", ft_strlen(node->args[0])) == 0)
 		env(table, node);
 	else if (ft_strncmp(node->args[0],
 			"exit", ft_strlen(node->args[0])) == 0)
 		ft_exit(node);
+	else if (ft_strncmp(node->args[0],
+			"unset", ft_strlen(node->args[0])) == 0)
+		unset(table, node);
 	else
 		non_bulltins(node, table);
 }

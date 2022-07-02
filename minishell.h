@@ -156,11 +156,16 @@ void	setmyenv(char *str, char *value, t_env *env);
 	//
 void	echo(char **argv);
 void	cd(t_env *env, t_list *table);
-void	pwd(t_env *table);
+void	pwd(t_env *table, t_list *node);
 void	ft_exit(t_list *table);
+void	unset(t_env *env, t_list *table);
 void	env(t_env *env, t_list *table);
 char **ft_strdup_red(char **source);
 
+//unset tools
+int		ft_isalpha2(int c);
+int		ft_isalpha1(int c);
+int		check_args(char *arg);
 //main
 void	free_all(t_list **node);
 int 	ft_error_2(int Er, char **table, char *str);

@@ -1,5 +1,34 @@
 #include "../../minishell.h"
 
+int	ft_atoi(const char *str)
+{
+	char		*c;
+	size_t		k;
+	size_t		m;
+
+	c = (char *)str;
+	m = 1;
+	k = 0;
+	while (*c == ' ' || *c == '\n'
+		|| *c == '\t' || *c == '\r'
+		|| *c == '\f' || *c == '\v' )
+	{
+		c++;
+	}
+	if (*c == '-' || *c == '+')
+	{
+		if (*c == '-')
+			m = m * -1;
+		c++;
+	}
+	while (*c >= '0' && *c <= '9')
+	{
+		k = (*c - 48) + k * 10;
+		c++;
+	}
+	return ((int)(k * m));
+}
+
 int	ft_isntdigit(char *arv)
 {
 	int	i;
@@ -21,7 +50,7 @@ int	ft_isntdigit(char *arv)
 
 void	ft_exit(t_list *table)
 {
-	if (ft_isntdigit(table->args[1]) == -1)
+	if (ft_isntdigit(table->args[1]) != -1)
 	{
 		printf("exit: numeric argument required: %s\n", table->args[1]);
 		exit(255);
@@ -32,5 +61,5 @@ void	ft_exit(t_list *table)
 		exit(1);
 	}
 	printf("exit\n");
-	exit(0);
+	exit(ft_atoi(table->args[1]));
 }
