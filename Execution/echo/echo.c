@@ -50,4 +50,5 @@ void	echo(char **argv)
 	}
 	if (parse_args(argv) == 1 || valid_arg(argv))
 		printf("\n");
+	g_data.exit_status = 0;
 }

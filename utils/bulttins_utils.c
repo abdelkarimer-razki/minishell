@@ -1,5 +1,25 @@
 #include "../minishell.h"
 
+int	access_cmd(char **path, char *arg)
+{
+	int		i;
+
+	i = 0;
+	while (i < 8 && access(ft_strjoin(path[i],
+				ft_strjoin("/", arg)), F_OK) == -1)
+	i++;
+	return (i);
+}
+
+void	error_exe(int i)
+{
+	if (i == 9)
+	{
+		write(2, "do3afa2: command not found\n", 27);
+		g_data.exit_status = 127;
+	}
+}
+
 void	non_bulltins(t_list *node, t_env *table)
 {
 	int		pid;
@@ -7,19 +27,19 @@ void	non_bulltins(t_list *node, t_env *table)
 	char	**path;
 
 	path = ft_split(getenv("PATH"), ':');
-	i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		while (i < 8 && access(ft_strjoin(path[i], ft_strjoin("/", node->args[0])), F_OK) == -1)
-			i++;
+		i = access_cmd(path, node->args[0]);
 		if (i != 8)
-			execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])), node->args, table->env);
+		{
+			g_data.exit_status = 0;
+			execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])),
+				node->args, table->env);
+		}
 		if (i == 8 && execve(node->args[0], node->args, table->env) == -1)
 			i++;
-		if (i == 9)
-			write(2, "do3afa2: command not found\n", 27);
-		
+		error_exe(i);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);

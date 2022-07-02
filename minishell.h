@@ -33,7 +33,7 @@
 // 	char	type;
 // }	t_red;
 
-extern char **environ;
+extern char	**environ;
 
 typedef struct s_env
 {
@@ -41,6 +41,16 @@ typedef struct s_env
 	char			**export;
 	int				d;
 }	t_env;
+
+typedef struct s_data
+{
+	char	**env;
+	char	**export;
+	int		sig;
+	int		exit_status;
+}	t_data;
+
+t_data	g_data;
 
 typedef struct s_list
 {

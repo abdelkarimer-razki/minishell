@@ -50,16 +50,30 @@ int	ft_isntdigit(char *arv)
 
 void	ft_exit(t_list *table)
 {
-	if (ft_isntdigit(table->args[1]) != -1)
+	printf("exit\n");
+	if (table->args[1] && ft_isntdigit(table->args[1]) != -1)
 	{
 		printf("exit: numeric argument required: %s\n", table->args[1]);
 		exit(255);
 	}
-	if (ft_strlen_2(table->args) != 2)
+	if (ft_strlen_2(table->args) > 2)
 	{
 		printf("exit: too many arguments\n");
 		exit(1);
 	}
-	printf("exit\n");
-	exit(ft_atoi(table->args[1]));
+	if (table->args[1] && ft_atoi(table->args[1]) >= 0)
+	{
+		if (ft_atoi(table->args[1]) > 255)
+			exit(ft_atoi(table->args[1]) % 256);
+		else
+			exit(ft_atoi(table->args[1]));
+	}
+	else if (table->args[1])
+	{
+		if (ft_atoi(table->args[1]) >= -256)
+			exit(256 + ft_atoi(table->args[1]));
+		else
+			exit(256 - ((ft_atoi(table->args[1]) * -1) % 256));
+	}
+	exit(0);
 }

@@ -58,8 +58,11 @@ int	check_fd(int *fd, int k, char **str, int c)
 		if (fd[i] == -1)
 		{
 			if (c == 0)
+			{
 				printf(ANSI_COLOR_RED "do3afa2: %s:no such file or directory\n"
 					ANSI_COLOR_RESET, str[(i * 2) + 1]);
+				g_data.exit_status = 1;
+			}
 			return (0);
 		}
 		i++;

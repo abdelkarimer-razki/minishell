@@ -1,17 +1,29 @@
 #include "../../minishell.h"
 
+void	no_option(void)
+{
+	ft_putstr_fd("do3afa2: env: option not supported\n", 2);
+	g_data.exit_status = 1;
+}
+
+void	many_args(void)
+{
+	ft_putstr_fd("do3afa2: env: too many argumants\n", 2);
+	g_data.exit_status = 127;
+}
+
 void	env(t_env *env, t_list *table)
 {
 	int	i;
 
 	if (table->args[1] && table->args[1][0] == '-')
 	{
-		ft_putstr_fd("do3afa2: pwd: option not supported\n", 2);
+		no_option();
 		return ;
 	}
 	if (ft_strlen_2(table->args) != 1)
 	{
-		printf("env: too many arguments\n");
+		many_args();
 		return ;
 	}
 	if (!(*env->env))

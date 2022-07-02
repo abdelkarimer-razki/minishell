@@ -27,30 +27,28 @@ void	unset(t_env *env, t_list *table)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	if (table->args[1] && table->args[1][0] == '-')
 	{
 		ft_putstr_fd("do3afa2: pwd: option not supported\n", 2);
+		g_data.exit_status = 2;
 		return ;
 	}
-	while (table->args[i])
+	while (table->args[++i])
 	{
 		if (check_args(table->args[1]) == -1)
 		{
-			ft_putstr_fd("unset: ", 2);
-			ft_putstr_fd(table->args[1], 2);
-			ft_putstr_fd(": invalid argument\n", 2);
+			ft_putstr_fd("unset :invalid argument\n", 2);
+			g_data.exit_status = 2;
 			return ;
 		}
-		i++;
 	}
-	i = 1;
-	while (table->args[i])
+	i = 0;
+	while (table->args[++i])
 	{
 		if (check_table(env->env, table->args[i]) != -1)
 			env->env = tabup(env->env, table->args[i]);
 		if (check_table(env->export, table->args[i]) != -1)
 			env->export = tabup(env->export, table->args[i]);
-		i++;
 	}
 }
