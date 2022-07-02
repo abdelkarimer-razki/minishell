@@ -4,10 +4,17 @@ char	*getmyenv(char *str, char **env)
 {
 	int	i;
 
+	char	*s;
+
+	s = ft_calloc(1, 1);
 	i = check_table(env, str);
 	if (i != -1)
-		return (cut_string(env[i], find_equal(env[i]) + 1, ft_strlen(env[i])));
-	return (NULL);
+	{	
+		free(s);
+		s = cut_string(env[i], find_equal(env[i]) + 1, ft_strlen(env[i]));
+		return (s);
+	}
+	return (s);
 }
 
 void	setmyenv(char *str, char *value, t_env *env)

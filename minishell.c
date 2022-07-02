@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/02 07:10:06 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/02 10:16:26 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,35 @@ int	check_redirect(t_list *node)
 
 void	handler(int signum)
 {
-	if (signum == SIGINT)
+	if (signum == SIGINT && g_data.sig_i == 1)
 	{
 		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_data.sig_i = 0;
+		SIGINT;
+	}
+	else if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		SIGINT;
+		g_data.sig_i = 0;
+	}
+	else if (signum == SIGQUIT && g_data.sig_q == 1)
+	{	
+		printf("Quit: 3\n");
+		SIG_IGN;
+		g_data.sig_q = 0;
 	}
 	else if (signum == SIGQUIT)
-	{	//printf("Quit: 3\n");
+	{
+		//printf("Quit: 3\n");
 		SIG_IGN;
+		g_data.sig_q = 0;
 	}
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
 }
 
 void	print(t_list *node)
@@ -86,9 +104,12 @@ int	main(void)
 
 	g_data.env = ft_strdup_0(environ);
 	g_data.export = ft_strdup_2(g_data.env);
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
+//	signal(SIGINT, handler);
+//	signal(SIGQUIT, handler);
+	//signal(SIGQUIT, SIG_IGN);
 	rl_catch_signals = 0;
+	g_data.sig_i = 0;
+	g_data.sig_q = 0;
 	while (1)
 	{
 		node = malloc(sizeof(t_list) * 1);
@@ -115,8 +136,8 @@ int	main(void)
 				pipeit(node, &table);
 			}
 		}
-		g_data.env = ft_strdup_0(table.env);
-		g_data.export = ft_strdup_2(g_data.env);
+		// g_data.env = ft_strdup_0(table.env);
+		// g_data.export = ft_strdup_2(g_data.env);
 		free(line);
 		free_all(&node);
 	}

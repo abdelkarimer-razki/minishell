@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/02 07:10:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/02 07:26:02 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_data
 {
 	char	**env;
 	char	**export;
-	int		sig;		
+	int		sig_i;
+	int		sig_q;		
 }	t_data;
 
 t_data	g_data;
