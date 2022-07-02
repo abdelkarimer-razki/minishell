@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 00:25:07 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/01 06:53:26 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ int	ft_isalnum(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 

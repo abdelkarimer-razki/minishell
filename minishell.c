@@ -6,18 +6,12 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 03:40:24 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/02 07:10:06 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	init_red(t_red *red)
-// {
-// 	red->args = NULL;
-// 	red->red_args = NULL;
-// 	red->cmd = NULL;
-// }
 int	check_redirect(t_list *node)
 {
 	int	i;
@@ -36,15 +30,19 @@ int	check_redirect(t_list *node)
 	return (0);
 }
 
-void	handler(int sig)
+void	handler(int signum)
 {
-	if (sig == SIGINT)
+	if (signum == SIGINT)
+	{
 		printf("\n");
-	else if (sig == SIGSEGV)
-		printf("Segmentation fault: 11\n");
-	//rl_replace_line("", 0);
-	//rl_on_new_line();
-	//rl_redisplay();
+	}
+	else if (signum == SIGQUIT)
+	{	//printf("Quit: 3\n");
+		SIG_IGN;
+	}
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	print(t_list *node)
@@ -75,32 +73,22 @@ void	print(t_list *node)
 	}
 }
 
-// void	handler(int sig)
-// {
-// 	if (sig == SIGINT && g_sig == 0)	
-// 	{	printf("\n");
-// 		g_sig = 1;
-// 	}
-// }
-
-
 int	main(void)
 {
 	t_list	*node;
 	t_env	table;
 	char	*line;
-	// struct sigaction	sa;
-
-	// sa.sa_sigaction = &handler;
-	// sa.sa_flags = SA_RESTART;
-	
 	int		i;
 
 	i = -1;
 	table.env = ft_strdup_0(environ);
 	table.export = ft_strdup_2(table.env);
-	
+
+	g_data.env = ft_strdup_0(environ);
+	g_data.export = ft_strdup_2(g_data.env);
 	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
+	rl_catch_signals = 0;
 	while (1)
 	{
 		node = malloc(sizeof(t_list) * 1);
@@ -127,7 +115,9 @@ int	main(void)
 				pipeit(node, &table);
 			}
 		}
+		g_data.env = ft_strdup_0(table.env);
+		g_data.export = ft_strdup_2(g_data.env);
 		free(line);
-		//free_all(&node);
+		free_all(&node);
 	}
 }

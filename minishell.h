@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 03:33:19 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/02 07:10:55 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,22 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef struct s_red
-// {
-// 	char	**args;
-// 	char	**red_args;
-// 	char	*cmd;
-// 	char	type;
-// }	t_red;
+
+typedef struct s_data
+{
+	char	**env;
+	char	**export;
+	int		sig;		
+}	t_data;
+
+t_data	g_data;
 
 extern char **environ;
 
 typedef struct s_env
 {
-	char			**env;
-	char			**export;
+	char	**env;
+	char	**export;
 }	t_env;
 
 typedef struct s_list
@@ -49,8 +51,6 @@ typedef struct s_list
 	char			**red_args;
 	char			**args;
 	struct s_list	*next;
-	struct s_env	*env;
-	//struct s_red	*red;
 }	t_list;
 
 

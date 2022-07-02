@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:57:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 00:37:58 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/02 06:59:20 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	check_dollar(char *str, int start, int end)
 {
 	while (start < end && str[start])
 	{
-		if (str[start] == '$' && ft_isalpha(str[start + 1]))
-			return (1);
+		if (str[start] == '$' && (ft_isalpha(str[start + 1]) || str[start + 1] == '_' || ft_isalnum(str[start + 1])))
+			return (start);
 		start++;
 	}
 	return (0);
@@ -58,7 +58,7 @@ char	*get_env_2(char **s1, char **s2, char **s3,char *str)
 		*s2 = add_char(*s2, str[i++]);
 	while (str[i])
 		*s3 = add_char(*s3, str[i++]);
-	env = getenv(*s2);
+	env = getmyenv(*s2, g_data.env);
 	if (!env)
 		env = ft_calloc(1, 1);
 	return (env);

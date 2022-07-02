@@ -1,8 +1,10 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/bboulhan/Desktop/minishell'
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c minishell.c -o minishell.o
  
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c main_2.c -o main_2.o
+ 
+cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c utils/utils.c -o utils/utils.o
  
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c utils/ft_split.c -o utils/ft_split.o
  
@@ -18,20 +20,17 @@ cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c uti
  
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/checker.c -o Parser/checker.o
  
+cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c utils/bulttins_utils.c -o utils/bulttins_utils.o
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/lexer.c -o Parser/lexer.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/parcer.c -o Parser/parcer.o
  
+cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/set_args_utils.c -o Parser/set_args_utils.o
+cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/set_args.c -o Parser/set_args.o
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/lexer_utils.c -o Parser/lexer_utils.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/redirection_parcer.c -o Parser/redirection_parcer.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Parser/red_parcer_utils.c -o Parser/red_parcer_utils.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/export/export.c -o Execution/export/export.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/echo/echo.c -o Execution/echo/echo.o
- 
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/cd/cd.c -o Execution/cd/cd.o
  
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/pwd/pwd.c -o Execution/pwd/pwd.o
@@ -40,7 +39,9 @@ cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Exe
  
 cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/exit/exit.c -o Execution/exit/exit.o
  
-cc -Wall -Werror -Wextra  minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/red_utils_2.o ./Execution/export/export_utils.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o -I /goinfre/bboulhan/.brew/opt/readline/include  -L /goinfre/bboulhan/.brew/opt/readline/lib -o minishell -lreadline
+cc -Wall -Werror -Wextra  -I /goinfre/bboulhan/.brew/opt/readline/include -c Execution/pip.c -o Execution/pip.o
+ 
+cc -Wall -Werror -Wextra  minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/red_utils_2.o ./Execution/export/export_utils.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./utils/bulttins_utils.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o ./Execution/pip.o -I /goinfre/bboulhan/.brew/opt/readline/include  -L /goinfre/bboulhan/.brew/opt/readline/lib -o minishell -lreadline
 clear
  
 make: Leaving directory `/Users/bboulhan/Desktop/minishell'

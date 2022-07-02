@@ -117,7 +117,7 @@ void	pipeit(t_list *node, t_env *table)
 			{
 				close_fd(fd, i, d - 1);
 				f = simulate_redirection(node);
-				if (node->next && f != 3 && f != 2 && f != -1)
+				if (node->next)
 					dup_and_close(fd, i, 1);
 				if (i != 0 && f != 1 && f != 3 && f != -1)
 					dup_and_close(fd, i, 0);
@@ -126,6 +126,8 @@ void	pipeit(t_list *node, t_env *table)
 				exit(0);
 			}
 		}
+		/*if (node->next)
+			waitpid(pid, NULL, 0);*/
 		if (!node->next && i != 0)
 		{
 			close_fd(fd, -1, d - 1);
