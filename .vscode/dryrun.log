@@ -6,6 +6,19 @@ make: brew: Command not found
 make: brew: Command not found
 make: brew: Command not found
 make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
 
 cc -Wall -Werror -Wextra  -I /include -c minishell.c -o minishell.o
 cc -Wall -Werror -Wextra  -I /include -c main_2.c -o main_2.o
@@ -14,19 +27,7 @@ cc -Wall -Werror -Wextra  -I /include -c utils/ft_split.c -o utils/ft_split.o
 cc -Wall -Werror -Wextra  -I /include -c utils/utils_2.c -o utils/utils_2.o
 cc -Wall -Werror -Wextra  -I /include -c utils/red_utils_2.c -o utils/red_utils_2.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/export/export_utils.c -o Execution/export/export_utils.o
- 
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-
+cc -Wall -Werror -Wextra  -I /include -c utils/red_utils_3.c -o utils/red_utils_3.o
 cc -Wall -Werror -Wextra  -I /include -c utils/red_utils.c -o utils/red_utils.o
 cc -Wall -Werror -Wextra  -I /include -c utils/ft_strtrim.c -o utils/ft_strtrim.o
 cc -Wall -Werror -Wextra  -I /include -c Parser/checker.c -o Parser/checker.o
@@ -38,28 +39,30 @@ cc -Wall -Werror -Wextra  -I /include -c Parser/set_args.c -o Parser/set_args.o
 cc -Wall -Werror -Wextra  -I /include -c Parser/lexer_utils.c -o Parser/lexer_utils.o
 cc -Wall -Werror -Wextra  -I /include -c Parser/redirection_parcer.c -o Parser/redirection_parcer.o
 cc -Wall -Werror -Wextra  -I /include -c Parser/red_parcer_utils.c -o Parser/red_parcer_utils.o
- 
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-make: brew: Command not found
-
 cc -Wall -Werror -Wextra  -I /include -c Execution/export/export.c -o Execution/export/export.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/echo/echo.c -o Execution/echo/echo.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/cd/cd.c -o Execution/cd/cd.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/pwd/pwd.c -o Execution/pwd/pwd.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/env/env.c -o Execution/env/env.o
 cc -Wall -Werror -Wextra  -I /include -c Execution/exit/exit.c -o Execution/exit/exit.o
+cc -Wall -Werror -Wextra  -I /include -c Execution/unset/unset.c -o Execution/unset/unset.o
+cc -Wall -Werror -Wextra  -I /include -c Execution/pip.c -o Execution/pip.o
+cc -Wall -Werror -Wextra  -I /include -c utils/pipe_utils.c -o utils/pipe_utils.o
+cc -Wall -Werror -Wextra  -I /include -c utils/pipe_utils_2.c -o utils/pipe_utils_2.o
+cc -Wall -Werror -Wextra  minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/red_utils_2.o ./Execution/export/export_utils.o ./utils/red_utils_3.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./utils/bulttins_utils.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o ./Execution/unset/unset.o ./Execution/pip.o ./utils/pipe_utils.o ./utils/pipe_utils_2.o -I /include  -L /lib -o minishell -lreadline
+clear
+make: Leaving directory `/Users/bboulhan/Desktop/minishell'
  
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
+make: brew: Command not found
 make: brew: Command not found
 make: brew: Command not found
 make: brew: Command not found
 
-cc -Wall -Werror -Wextra  -I /include -c Execution/pip.c -o Execution/pip.o
-cc -Wall -Werror -Wextra  minishell.o main_2.o ./utils/utils.o ./utils/ft_split.o ./utils/utils_2.o ./utils/red_utils_2.o ./Execution/export/export_utils.o ./utils/red_utils.o ./utils/ft_strtrim.o ./Parser/checker.o ./utils/bulttins_utils.o ./Parser/lexer.o ./Parser/parcer.o ./Parser/set_args_utils.o ./Parser/set_args.o ./Parser/lexer_utils.o ./Parser/redirection_parcer.o ./Parser/red_parcer_utils.o ./Execution/export/export.o ./Execution/echo/echo.o ./Execution/cd/cd.o ./Execution/pwd/pwd.o ./Execution/env/env.o ./Execution/exit/exit.o ./Execution/pip.o -I /include  -L /lib -o minishell -lreadline
-clear
-make: Leaving directory `/Users/bboulhan/Desktop/minishell'
- 

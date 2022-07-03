@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/02 10:16:26 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:02:40 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,62 +34,31 @@ void	handler(int signum)
 {
 	if (signum == SIGINT && g_data.sig_i == 1)
 	{
-		printf("\n");
+		 printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		g_data.sig_i = 0;
-		SIGINT;
 	}
 	else if (signum == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		rl_redisplay();
-		SIGINT;
 		g_data.sig_i = 0;
 	}
 	else if (signum == SIGQUIT && g_data.sig_q == 1)
 	{	
 		printf("Quit: 3\n");
-		SIG_IGN;
 		g_data.sig_q = 0;
 	}
 	else if (signum == SIGQUIT)
 	{
 		//printf("Quit: 3\n");
-		SIG_IGN;
 		g_data.sig_q = 0;
 	}
 }
 
-void	print(t_list *node)
-{
-	int	i;
 
-	i = -1;
-	while (node)
-	{
-		printf("%s\n", node->cmd);
-		printf("||||||||||||\n");
-		while (node->args[++i])
-			printf("%s\n", node->args[i]);
-		i = -1;
-		//printf("*************************\n");
-		if (node->red_args)
-		{
-			while (node->red_args[++i])
-				printf("*%s\n", node->red_args[i]);
-		}
-		// i = -1;
-		// while (node->table[++i])
-		// 	printf("%s\n", node->table[i]);
-		//printf("%s\n" ,node->args_index);
-		i = -1;
-		printf("--------------------\n");
-		node = node->next;
-	}
-}
 
 int	main(void)
 {
@@ -101,17 +70,18 @@ int	main(void)
 	i = -1;
 	table.env = ft_strdup_0(environ);
 	table.export = ft_strdup_2(table.env);
-
 	g_data.env = ft_strdup_0(environ);
 	g_data.export = ft_strdup_2(g_data.env);
-//	signal(SIGINT, handler);
-//	signal(SIGQUIT, handler);
-	//signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
+	g_data.fd_i[0] = dup(0);
+	g_data.fd_i[1] = dup(1);
 	rl_catch_signals = 0;
 	g_data.sig_i = 0;
 	g_data.sig_q = 0;
 	while (1)
 	{
+		g_data.signal = 0;
 		node = malloc(sizeof(t_list) * 1);
 		init_node(node);
 		line = readline("do3afa2-1.0$ ");
@@ -140,5 +110,7 @@ int	main(void)
 		// g_data.export = ft_strdup_2(g_data.env);
 		free(line);
 		free_all(&node);
+		dup2(g_data.fd_i[0], 0);
+		dup2(g_data.fd_i[1], 1);
 	}
 }

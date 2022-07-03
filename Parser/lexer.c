@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 03:37:40 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 10:45:58 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	lexer(char *line, t_list *node)
 
 	tmp = node;
 	par = lexer_pipe(line);
-	if (!par)
-		return (ft_error_2(0, NULL, NULL));
+	if (!par || par[0] == NULL)
+		return (ft_error_2(3, NULL, NULL));
 	tmp->str = ft_strdup(par[0]);
 	tmp->table = lexer_space(par[0]);
 	if (!(tmp->table))
@@ -37,12 +37,14 @@ void	lexer_pipe_2(char *line, char ***t, int *i, int *n)
 {
 	int		j;
 	char	**table;
-	
+
 	j = 0;
 	table = *t;
 	while (table[j])
 		j++;
-	if ((line[*i] == '|' && line[*i - 1] != '|') || line[*i + 1] == '\0')
+	if (line[*i] == '|' && line[*i + 1] == 0)
+		table = ft_error(0, table, NULL);
+	else if ((line[*i] == '|' && line[*i + 1] != '|') || line[*i + 1] == '\0')
 	{
 		table = ft_realloc(table, ++j);
 		if (line[*i] == '|')
@@ -84,7 +86,7 @@ void	lexer_space_2(char *line, char ***t, int *i, int *n)
 {
 	int		j;
 	char	**table;
-	
+
 	j = 0;
 	table = *t;
 	while (table[j])
@@ -108,6 +110,7 @@ char	**lexer_space(char *line)
 	int		i;
 	int		n;
 	char	**table;
+
 	i = -1;
 	n = 0;
 	table = malloc(sizeof(char *) * 1);

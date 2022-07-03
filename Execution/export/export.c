@@ -322,6 +322,7 @@ void	fill_args(t_env *env, t_list *table)
 			printf(ANSI_COLOR_RED
 				"do3afa2: export: `%s': not a valid identifier\n"
 				ANSI_COLOR_RESET, table->args[i]);
+			g_data.exit_status = 1;
 			continue ;
 		}
 		while (table->args[i][++j] && ft_strncmp(table->args[i], "_",
@@ -347,6 +348,12 @@ void	fill_args(t_env *env, t_list *table)
 
 void	export(t_env *env, t_list *table)
 {
+	if (table->args[1] && table->args[1][0] == '-')
+	{
+		ft_putstr_fd("do3afa2: export: option not supported\n", 2);
+		g_data.exit_status = 2;
+		return ;
+	}
 	if (ft_strlen_2(table->args) == 1)
 		show_export(env->export);
 	else

@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/02 07:26:02 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 14:38:09 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ typedef struct s_data
 	char	**env;
 	char	**export;
 	int		sig_i;
-	int		sig_q;		
+	int		sig_q;
+	int		exit_status;
+	int		hd;
+	char	*str;
+	int  	d;
+	int		signal;
+	int		fd_i[4];
 }	t_data;
 
 t_data	g_data;
@@ -40,9 +46,11 @@ extern char **environ;
 
 typedef struct s_env
 {
-	char	**env;
-	char	**export;
+	char			**env;
+	char			**export;
+	int				d;
 }	t_env;
+
 
 typedef struct s_list
 {
@@ -54,6 +62,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+void	print(t_list *node);
 
 //utils
 char	*ft_strjoin(char const *s1, char *s2);
@@ -120,15 +129,28 @@ int		check_fd(int *fd, int k, char **str, int c);
 void	error_dup(int *fd, int i);
 int		red(t_list *node);
 
+//pipe
 
+void	pipe_all(int d, int **fd);
+void	red_dup_bulttins(int **fd, int i, t_list *node, t_env *table);
+void	one_node(t_list *node, t_env *table, int *fi);
+void	last_node(int **fd, int pid, int d);
+void	wait_all(int d);
+void	close_fd(int **fd, int i, int d);
+void	dup_and_close(int **fd, int i, int ioo);
 //check for redirections
 int		check_redirection(char **table);
 int		check_redirection_index(char **table, int index, int k);
 int		simulate_redirection(t_list *node);
 int		count_red(int k, char **str);
 int		check_table(char **table, char *arg);
+int		here_check(char **str);
+void	write_str(char *str, int fd, char *arg);
 char	**ft_strdup_2(char **source);
-
+int		*save_dup_malloc(int i);
+int		ouble(char *str);
+void	ouput_redirections(int	*fd, int j, char **str, int k);
+void	redirect_output(int i, int *fd, int k, char *arg);
 //bultins
 void	non_bulltins(t_list *node, t_env *table);
 void	bulttins_simulator(t_list *node, t_env *table);
@@ -143,11 +165,16 @@ void	setmyenv(char *str, char *value, t_env *env);
 	//
 void	echo(char **argv);
 void	cd(t_env *env, t_list *table);
-void	pwd(t_env *table);
-void	ft_exit(void);
-void	env(t_env *env);
+void	pwd(t_env *table, t_list *node);
+void	ft_exit(t_list *table);
+void	unset(t_env *env, t_list *table);
+void	env(t_env *env, t_list *table);
 char **ft_strdup_red(char **source);
 
+//unset tools
+int		ft_isalpha2(int c);
+int		ft_isalpha1(int c);
+int		check_args(char *arg);
 //main
 void	free_all(t_list **node);
 int 	ft_error_2(int Er, char **table, char *str);
@@ -158,4 +185,5 @@ void	handler(int sig);
 //pipe
 void	pipeit(t_list *node, t_env *table);
 void	bulttins(t_list *node, t_env *table);
+
 #endif

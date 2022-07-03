@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/01 06:53:26 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 12:08:50 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -104,27 +106,6 @@ int	ft_isalnum(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
-	return (0);
+	else
+		return (0);
 }
-
-
-/*test*/
-/*char **ft_strdup_red(char **source)
-{
-	char **s;
-	int i;
-	int y;
-
-	s = malloc(check_redirection_index(source, 0) * sizeof(char *));
-	if (!s)
-		return (NULL);
-	y = 0;
-	i = check_redirection_index(source, 0);
-	while (y < i)
-	{
-		s[y] = ft_strdup(source[y]);
-		y++;
-	}
-	s[y] = 0;
-	return (s);
-}*/

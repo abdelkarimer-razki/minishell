@@ -1,5 +1,25 @@
 #include "../minishell.h"
 
+int	access_cmd(char **path, char *arg)
+{
+	int		i;
+
+	i = 0;
+	while (i < 8 && access(ft_strjoin(path[i],
+				ft_strjoin("/", arg)), F_OK) == -1)
+	i++;
+	return (i);
+}
+
+void	error_exe(int i)
+{
+	if (i == 9)
+	{
+		write(2, "do3afa2: command not found\n", 27);
+		g_data.exit_status = 127;
+	}
+}
+
 void	non_bulltins(t_list *node, t_env *table)
 {
 	int		pid;
@@ -7,22 +27,21 @@ void	non_bulltins(t_list *node, t_env *table)
 	char	**path;
 
 	path = ft_split(getenv("PATH"), ':');
-	i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		while (i < 8)
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		i = access_cmd(path, node->args[0]);
+		if (i != 8)
 		{
-			if (execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])),
-					node->args, table->env) != -1)
-				break ;
-			i++;
+			g_data.exit_status = 0;
+			execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])),
+				node->args, table->env);
 		}
-		if (execve(node->args[0], node->args, table->env) == -1)
+		if (i == 8 && execve(node->args[0], node->args, table->env) == -1)
 			i++;
-		if (i == 9)
-			printf(ANSI_COLOR_RED "do3afa2: %s: command not found\n"
-				ANSI_COLOR_RESET, node->args[0]);
+		error_exe(i);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -40,35 +59,22 @@ void	bulttins_simulator(t_list *node, t_env *table)
 		cd(table, node);
 	else if (ft_strncmp(node->args[0],
 			"pwd", ft_strlen(node->args[0])) == 0)
-		pwd(table);
+		pwd(table, node);
 	else if (ft_strncmp(node->args[0],
 			"env", ft_strlen(node->args[0])) == 0)
-		env(table);
+		env(table, node);
 	else if (ft_strncmp(node->args[0],
 			"exit", ft_strlen(node->args[0])) == 0)
-		ft_exit();
+		ft_exit(node);
+	else if (ft_strncmp(node->args[0],
+			"unset", ft_strlen(node->args[0])) == 0)
+		unset(table, node);
 	else
 		non_bulltins(node, table);
 }
 
 void	bulttins(t_list *node, t_env *table)
 {
-	/*int	fd[2];
-
-	fd[0] = dup(1);
-	fd[1] = dup(0);*/
-	/*if (simulate_redirection(node) == 1)
-	{*/
-	if (ft_strncmp(node->cmd, "./minishell", 12) != 0)
-	{
-		g_data.sig_i = 1;
-		g_data.sig_q = 1;
-	}
-	if(node->args[0])
+	if (node->args[0])
 		bulttins_simulator(node, table);
-		//error_dup(fd, 0);
-		//return (1);
-/*	}
-	error_dup(fd, 0);
-	return (-1);*/
 }
