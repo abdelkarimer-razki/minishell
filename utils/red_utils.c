@@ -2,39 +2,23 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-
-	void	had(int sig_num)
-	{
-		char *s;
-
-		s = NULL;
-		if (sig_num == SIGINT)
-		{
-			//write(0, EOF, 1);
-			//printf("\n");
-			// rl_replace_line("", 0);
-			// rl_on_new_line();
-			g_data.d = 1;
-		}
-	}
-
-char	*short_getNextLine()
+char	*short_readline()
 {
 	char	*s;
 	char	*t;
 	int		i;
 
-	i = -1;
+	i = 1;
 	s = ft_calloc(1, 1);
 	t = ft_calloc(2, 1);
-	while (i == -1)
+	while (i)
 	{
 		write(1, ">", 1);
 		while (read(0, t, 1) >= 0)
 		{
 			if (t[0] == '\n')
 			{
-				i = 1;
+				i = 0;
 				break ;
 			}
 			s = add_char(s, t[0]);
@@ -47,36 +31,28 @@ char	*short_getNextLine()
 
 void	here_doc(char *arg, int *fd, int k, int i)
 {
-	//char	*str;
+	char	*str;
 	int		pid;
 	int		status;
-	char	*s;
 
-
-	g_data.d = 0;
-	g_data.str = ft_strdup("herdoc");
+	str = ft_strdup("herdoc");
 	fd[k] = open("/tmp/heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	g_data.sig_q = 2;
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		error_dup(fd, i);
-		while (ft_strncmp(arg, g_data.str, ft_strlen(g_data.str)) != 0)
+		while (ft_strncmp(arg, str, ft_strlen(g_data.str)) != 0)
 		{
-			free(g_data.str);
-			//g_data.str = readline(">");
-			s = short_getNextLine();
-			g_data.str = ft_strdup(s);
-			//printf("%s\n", g_data.str);
-			free(s);
-			if (g_data.str == NULL || g_data.str[0] == 0)
+			free(str);
+			str = short_readline();
+			if (str == NULL || str[0] == 0)
 				exit(0);
-			write_str(g_data.str, fd[k], arg);
+			write_str(str, fd[k], arg);
 		}
 		exit(1);
 	}
-	g_data.d = 0;
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
 		g_data.signal = 1;
@@ -84,6 +60,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 	fd[k] = open("/tmp/heredoc", O_RDONLY, 0777);
 	dup2(fd[k], 0);
 	close(fd[k]);
+	g_data.sig_q = 0;
 }
 
 void	redirect_input(int *fd, int k, char **str, int j)

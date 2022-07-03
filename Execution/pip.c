@@ -97,11 +97,6 @@ void	pipeit(t_list *node, t_env *table)
 				signal(SIGQUIT, SIG_DFL);
 				red_dup_bulttins(fd, i, node, table);
 			}
-			if (g_data.signal == 1)
-			{
-				dup2(g_data.fd_i[1], 1);
-				dup2(g_data.fd_i[0], 0);
-			}
 			if (here_check(node->red_args) == 1)
 				waitpid(pid, NULL, 0);
 		}

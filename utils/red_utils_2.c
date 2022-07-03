@@ -41,10 +41,8 @@ int	check_redirection_index(char **table, int index, int k)
 
 void	error_dup(int *fd, int i)
 {
-	(void) i;
-	(void) fd;
-	dup2(g_data.fd_i[1], 1);
-	dup2(g_data.fd_i[0], 0);
+	dup2(fd[i], 1);
+	dup2(fd[i + 1], 0);
 }
 
 int	here_check(char **str)

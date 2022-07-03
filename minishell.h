@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 14:38:09 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:21:02 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,8 @@
 typedef struct s_data
 {
 	char	**env;
-	char	**export;
 	int		sig_i;
-	int		sig_q;
 	int		exit_status;
-	int		hd;
-	char	*str;
-	int  	d;
-	int		signal;
-	int		fd_i[4];
 }	t_data;
 
 t_data	g_data;
@@ -127,7 +120,6 @@ int		red_parcing(t_list *node);
 
 int		check_fd(int *fd, int k, char **str, int c);
 void	error_dup(int *fd, int i);
-int		red(t_list *node);
 
 //pipe
 
@@ -175,11 +167,13 @@ char **ft_strdup_red(char **source);
 int		ft_isalpha2(int c);
 int		ft_isalpha1(int c);
 int		check_args(char *arg);
+
 //main
 void	free_all(t_list **node);
 int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
-void	handler(int sig);
+int		check_redirect(t_list *node);
+void	handler(int signum);
 
 //char **ft_strdup_red(char **source);
 //pipe
