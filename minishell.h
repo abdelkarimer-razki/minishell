@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 20:21:02 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:09:28 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
 typedef struct s_data
 {
-	char	**env;
-	int		sig_i;
-	int		exit_status;
+	char		**env;
+	char		**export;
+	int			sig_i;
+	int			sig_q;
+	int			exit_status;
+	int			signal;
 }	t_data;
 
 t_data	g_data;
 
-extern char **environ;
 
 typedef struct s_env
 {
@@ -43,7 +44,6 @@ typedef struct s_env
 	char			**export;
 	int				d;
 }	t_env;
-
 
 typedef struct s_list
 {
@@ -77,6 +77,7 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_itoa(int n);
 
 //lexer
 char	*cut_string(char *str, int i0, int i1);
@@ -174,7 +175,8 @@ int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
 int		check_redirect(t_list *node);
 void	handler(int signum);
-
+void	exec(t_list *node, t_env table);
+int		parc(t_list *node, char *line);
 //char **ft_strdup_red(char **source);
 //pipe
 void	pipeit(t_list *node, t_env *table);

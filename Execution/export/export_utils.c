@@ -6,6 +6,14 @@ char	*getmyenv(char *str, char **env)
 	char	*s;
 
 	s = ft_calloc(1, 1);
+	if (str[0] == '?')
+	{
+		free(s);
+		s = ft_itoa(g_data.exit_status);
+		return (s);
+	}
+	else if (ft_isalnum(str[0]))
+		return(s);
 	i = check_table(env, str);
 	if (i != -1)
 	{

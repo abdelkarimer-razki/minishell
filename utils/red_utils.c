@@ -43,7 +43,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 	{
 		signal(SIGINT, SIG_DFL);
 		error_dup(fd, i);
-		while (ft_strncmp(arg, str, ft_strlen(g_data.str)) != 0)
+		while (ft_strncmp(arg, str, ft_strlen(str)) != 0)
 		{
 			free(str);
 			str = short_readline();

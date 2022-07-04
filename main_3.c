@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 19:23:56 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 20:21:36 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:29:13 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,41 @@ void	handler(int signum)
 			printf("Quit: 3\n");
 		g_data.sig_q = 0;
 	}
+}
+
+void	exec(t_list *node, t_env table)
+{
+	table.export = ft_strdup_2(table.env);
+	pipeit(node, &table);
+	free(g_data.env);
+	g_data.env = ft_strdup_0(table.env);
+	g_data.signal = 0;
+}
+
+int	parc(t_list *node, char *line)
+{
+	int		i;
+
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
+	rl_catch_signals = 0;
+	g_data.sig_i = 0;
+	g_data.sig_i = 0;
+	g_data.exit_status = 0;
+	i = 0;
+	add_history(line);
+	if (lexer(line, node))
+	{
+		if (check_redirect(node))
+			i = red_parcer(node);
+		else
+			i = parcer(node);
+		if (i == 1 && error_checker(node))
+		{
+			free(line);
+			return (1);
+		}
+	}
+	free(line);
+	return (0);
 }

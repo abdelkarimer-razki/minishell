@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:57:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 11:53:50 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:32:33 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_dollar(char *str, int start, int end)
 {
 	while (start < end && str[start])
 	{
-		if (str[start] == '$' && (ft_isalpha(str[start + 1])
+		if (str[start] == '$' && (ft_isalpha(str[start + 1]) || str[start + 1] == '?'
 				|| str[start + 1] == '_' || ft_isalnum(str[start + 1])))
 			return (start);
 		start++;
@@ -47,13 +47,17 @@ char	*get_env_2(char **s3, char **s2, int *i, char *str)
 {
 	char	*env;
 	char	*s1;
-
+	char	*ex;
+	int		j;
+	
+	ex = NULL;
+	j = -1;
 	s1 = ft_calloc(1, 1);
 	while (str[*i] && str[*i] != '$')
 		s1 = add_char(s1, str[(*i)++]);
 	(*i)++;
-	if (ft_isalnum(str[*i]))
-		(*i)++;
+	if (ft_isalnum(str[*i]) || str[*i] == '?')
+		*s2 = add_char(*s2, str[(*i)++]);	
 	else
 	{
 		while (ft_isalpha(str[*i]) || ft_isalnum(str[*i]) || str[*i] == '_')
