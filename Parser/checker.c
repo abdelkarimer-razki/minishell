@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 02:02:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 09:28:21 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 10:37:47 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_dif_red(char *str)
 {
 	int		i;
 	char	c;
-	
+
 	i = 0;
 	c = str[i];
 	while (str[++i])
@@ -48,16 +48,17 @@ int	check_dif_red(char *str)
 	return (1);
 }
 
-int red_errors(t_list *node)
+int	red_errors(t_list *node)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!node->red_args)
 		return (1);
 	while (node->red_args[++i])
 	{
-		if (check_red(node->red_args[i]) && node->red_args[i + 1] && check_red(node->red_args[i + 1]))
+		if (check_red(node->red_args[i]) && node->red_args[i + 1]
+			&& check_red(node->red_args[i + 1]))
 			return (0);
 		else if (check_red(node->red_args[i]) && !node->red_args[i + 1])
 			return (0);
@@ -69,7 +70,7 @@ int red_errors(t_list *node)
 
 int	error_checker(t_list *node)
 {
-	int	i;
+	int		i;
 	t_list	*tmp;
 
 	i = -1;
@@ -77,10 +78,10 @@ int	error_checker(t_list *node)
 	while (tmp)
 	{
 		if (!check_pipe(tmp))
-			return (ft_error_2(5, NULL, NULL));
-        if (!red_errors(tmp))
+			return (ft_error_2 (5, NULL, NULL));
+		if (!red_errors(tmp))
 			return (ft_error_2(3, NULL, NULL));
-        tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return (1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bulttins_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:58:24 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 11:06:08 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	access_cmd(char **path, char *arg)
@@ -11,12 +23,12 @@ int	access_cmd(char **path, char *arg)
 	return (i);
 }
 
-void	error_exe(int i)
+void	error_exe(int i, char **path)
 {
-	if (i == 9)
+	if (i == 9 || path == NULL || !path[0])
 	{
 		write(2, "do3afa2: command not found\n", 27);
-		g_data.exit_status = 127;
+		exit(127);
 	}
 }
 
@@ -26,23 +38,20 @@ void	non_bulltins(t_list *node, t_env *table)
 	int		i;
 	char	**path;
 
-	path = ft_split(getenv("PATH"), ':');
+	path = ft_split(getmyenv("PATH", table->env), ':');
 	pid = fork();
 	if (pid == 0)
 	{
 		i = access_cmd(path, node->args[0]);
 		if (i != 8)
-		{
-			g_data.exit_status = 0;
 			execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])),
 				node->args, table->env);
-		}
 		if (i == 8 && execve(node->args[0], node->args, table->env) == -1)
 			i++;
-		error_exe(i);
-		exit(0);
+		error_exe(i, path);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &g_data.exit_status, 0);
+	study_exit_status();
 	ft_free(path);
 }
 

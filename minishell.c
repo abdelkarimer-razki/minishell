@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 03:40:24 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:28:28 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,23 @@ void	print(t_list *node)
 // }
 
 
-int	main(void)
+int	main(int arc, char **arv, char **enviro)
 {
 	t_list	*node;
 	t_env	table;
 	char	*line;
-	// struct sigaction	sa;
 
-	// sa.sa_sigaction = &handler;
-	// sa.sa_flags = SA_RESTART;
+	(void)arv;
+	(void)arc;
 	
 	int		i;
 
 	i = -1;
-	table.env = ft_strdup_0(environ);
+	table.env = ft_strdup_0(enviro);
 	table.export = ft_strdup_2(table.env);
-	
+	g_data.env = ft_strdup_0(enviro);
+	g_data.export = ft_strdup_2(g_data.env);
+
 	signal(SIGINT, handler);
 	while (1)
 	{
@@ -123,11 +124,15 @@ int	main(void)
 				i = parcer(node);
       		if (i == 1 && error_checker(node))
 			{	
+				//printf("dhdh\n");
 				//print(node);
 				pipeit(node, &table);
 			}
+			g_data.env = ft_strdup_0(table.env);
+			g_data.export = ft_strdup_2(g_data.env);
 		}
 		free(line);
-		//free_all(&node);
+		free_all(&node);
+		printf("%d\n", g_data.exit_status);
 	}
 }

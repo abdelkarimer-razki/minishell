@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:57:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 00:37:58 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:53:50 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,40 @@ int	check_dollar(char *str, int start, int end)
 {
 	while (start < end && str[start])
 	{
-		if (str[start] == '$' && ft_isalpha(str[start + 1]))
-			return (1);
+		if (str[start] == '$' && (ft_isalpha(str[start + 1])
+				|| str[start + 1] == '_' || ft_isalnum(str[start + 1])))
+			return (start);
 		start++;
 	}
 	return (0);
 }
 
-char	*get_env_2(char **s1, char **s2, char **s3,char *str)
+char	*get_env_2(char **s3, char **s2, int *i, char *str)
 {
 	char	*env;
-	int		i;
+	char	*s1;
 
-	i = 0;
-	*s1 = ft_calloc(1, 1);
-	*s2 = ft_calloc(1, 1);
-	*s3 = ft_calloc(1, 1);
-	while (str[i] && str[i] != '$')
-		*s1 = add_char(*s1, str[i++]);
-	i++;
-	while (ft_isalpha(str[i]) || ft_isalnum(str[i]) || str[i] == '_')
-		*s2 = add_char(*s2, str[i++]);
-	while (str[i])
-		*s3 = add_char(*s3, str[i++]);
-	env = getenv(*s2);
-	if (!env)
-		env = ft_calloc(1, 1);
-	return (env);
+	s1 = ft_calloc(1, 1);
+	while (str[*i] && str[*i] != '$')
+		s1 = add_char(s1, str[(*i)++]);
+	(*i)++;
+	if (ft_isalnum(str[*i]))
+		(*i)++;
+	else
+	{
+		while (ft_isalpha(str[*i]) || ft_isalnum(str[*i]) || str[*i] == '_')
+			*s2 = add_char(*s2, str[(*i)++]);
+	}
+	while (str[*i] && str[*i] != '$')
+		*s3 = add_char(*s3, str[(*i)++]);
+	env = getmyenv(*s2, g_data.env);
+	free(*s2);
+	*s2 = ft_strjoin(s1, env);
+	free(s1);
+	s1 = ft_strjoin(*s2, *s3);
+	free(*s2);
+	free(*s3);
+	return (s1);
 }
 
 char	*get_env(char *str)
@@ -69,17 +76,22 @@ char	*get_env(char *str)
 	char	*s1;
 	char	*s2;
 	char	*s3;
-	char	*env;
+	char	*s4;
+	int		i;
 
-	env = get_env_2(&s1, &s2, &s3, str);
-	free(s2);
-	s2 = ft_strjoin(s1 ,env);
-	free(s1);
-	s1 = ft_strjoin(s2, s3);
-	free(s2);
-	free(s3);
+	i = 0;
+	s4 = ft_calloc(1, 1);
+	while (str[i])
+	{
+		s2 = ft_calloc(1, 1);
+		s3 = ft_calloc(1, 1);
+		s1 = get_env_2(&s3, &s2, &i, str);
+		s2 = ft_strjoin(s4, s1);
+		free(s4);
+		s4 = ft_strdup(s2);
+		free(s2);
+		free(s1);
+	}
 	free(str);
-	if (env[0] == 0)
-		free(env);
-	return (s1);
+	return (s4);
 }

@@ -1,6 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   red_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:58:42 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 11:22:10 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-#include <sys/types.h>
-#include <sys/stat.h>
+
+void	study_exit_status(void)
+{
+	if (WIFEXITED(g_data.exit_status))
+	{
+		WEXITSTATUS(g_data.exit_status);
+		g_data.exit_status = g_data.exit_status % 255;
+	}
+	else if (WIFSIGNALED(g_data.exit_status))
+		g_data.exit_status = WTERMSIG(g_data.exit_status) + 128;
+	else if (WIFSTOPPED(g_data.exit_status))
+		WSTOPSIG(g_data.exit_status);
+}
 
 void	here_doc(char *arg, int *fd, int k, int i)
 {
@@ -16,36 +39,54 @@ void	here_doc(char *arg, int *fd, int k, int i)
 		while (ft_strncmp(arg, str, ft_strlen(str)) != 0)
 		{
 			free(str);
-			str = readline(">");
+			str = short_readline();
+			if (str == NULL)
+				exit(0);
 			write_str(str, fd[k], arg);
 		}
 		exit(1);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &g_data.exit_status, 0);
+	study_exit_status();
 	close(fd[k]);
 	fd[k] = open("/tmp/heredoc", O_RDWR, 0777);
 	dup2(fd[k], 0);
 	close(fd[k]);
+	free(str);
 }
 
 void	redirect_input(int *fd, int k, char **str, int j)
 {
-	fd[k] = open(str[j + 1], O_RDWR, 0777);
+	char	*tmp;
+	char	c[2];
+
+	c[0] = '"';
+	c[1] = 0;
+	tmp = put_arg(str[j + 1]);
+	fd[k] = open(tmp, O_RDWR, 0777);
 	if (fd[k] == -1)
 		error_dup(fd, check_redirection(str));
 	else if (fd[k] != -1)
 		dup2(fd[k], 0);
 	close(fd[k]);
+	free(tmp);
 }
 
 void	redirect_output(int i, int *fd, int k, char *arg)
 {
+	char	*tmp;
+	char	c[2];
+
+	c[0] = '"';
+	c[1] = 0;
+	tmp = put_arg(arg);
 	if (i == 0)
-		fd[k] = open(arg, O_RDWR | O_CREAT | O_TRUNC, 0777);
+		fd[k] = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 0777);
 	else if (i == 1)
-		fd[k] = open(arg, O_RDWR | O_CREAT | O_APPEND, 0777);
+		fd[k] = open(tmp, O_RDWR | O_CREAT | O_APPEND, 0777);
 	dup2(fd[k], 1);
 	close(fd[k]);
+	free(tmp);
 }
 
 int	check_fd(int *fd, int k, char **str, int c)

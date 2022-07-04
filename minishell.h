@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 03:33:19 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:06:49 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
-# include <string.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
 
 // typedef struct s_red
 // {
@@ -32,9 +32,6 @@
 // 	char	*cmd;
 // 	char	type;
 // }	t_red;
-
-extern char	**environ;
-
 typedef struct s_env
 {
 	char			**env;
@@ -60,8 +57,6 @@ typedef struct s_list
 	char			**red_args;
 	char			**args;
 	struct s_list	*next;
-	struct s_env	*env;
-	//struct s_red	*red;
 }	t_list;
 
 
@@ -85,6 +80,7 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strtrim2(char *s1, char *set);
 
 //lexer
 char	*cut_string(char *str, int i0, int i1);
@@ -113,7 +109,6 @@ void	checker(char *line, t_list **node);
 int		error_checker(t_list *node);
 int 	red_errors(t_list *node);
 int		check_pipe(t_list *node);
-int 	red_errors(t_list *node);
 
 //redirection
 int		red_parcer(t_list *node);
@@ -170,7 +165,8 @@ void	pwd(t_env *table, t_list *node);
 void	ft_exit(t_list *table);
 void	unset(t_env *env, t_list *table);
 void	env(t_env *env, t_list *table);
-char **ft_strdup_red(char **source);
+char 	**ft_strdup_red(char **source);
+char	*short_readline(void);
 
 //unset tools
 int		ft_isalpha2(int c);
@@ -185,5 +181,5 @@ void	handler(int sig);
 //char **ft_strdup_red(char **source);
 //pipe
 void	pipeit(t_list *node, t_env *table);
-void	bulttins(t_list *node, t_env *table);
+void	study_exit_status(void);
 #endif
