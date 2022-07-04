@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:56:06 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 10:29:46 by aer-razk         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:13:22 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ char	**tabup(char **tab, char *str)
 	{
 		str_new = cut_string(tab[i], 0, find_equal(tab[i]));
 		if (ft_strncmp(str_new, str, ft_strlen(str_new)) != 0)
-			new[k++] = tab[i];
+			new[k++] = ft_strdup(tab[i]);
 		free(str_new);
 	}
-	new[i - 1] = NULL;
 	ft_free(tab);
+	new[i - 1] = NULL;
 	return (new);
 }
 

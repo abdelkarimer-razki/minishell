@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:20 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 09:58:21 by aer-razk         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:00:28 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void	red_dup_bulttins(int **fd, int i, t_list *node, t_env *table)
 		dup_and_close(fd, i, 1);
 	if (i != 0 && f != 1 && f != 3 && f != 0)
 		dup_and_close(fd, i, 0);
-	if (f != 0)
+	if (f != 0 && g_data.signal == 0)
 		bulttins(node, table);
 	exit(0);
 }
 
-void	pipe_all(int d, int **fd)
+void	pipe_all(int d, int **fd, int *e)
 {
 	int	i;
 
+	*e = -1;
 	i = -1;
 	while (++i < d - 1 && d > 1)
 		pipe(fd[i]);

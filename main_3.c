@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 19:23:56 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 12:31:36 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:20:09 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,20 @@ void	handler(int signum)
 	}
 }
 
-void	exec(t_list *node, t_env table)
+void	exec(t_list *node, t_env *table, char **av)
 {
-	table.export = ft_strdup_2(table.env);
-	pipeit(node, &table);
-	free(g_data.env);
-	g_data.env = ft_strdup_0(table.env);
+	(void)av;
+	pipeit(node, table);
+	ft_free(g_data.env);
+	g_data.env = ft_strdup_0(table->env);
 	g_data.signal = 0;
 }
 
-int	parc(t_list *node, char *line)
+int	parc(t_list *node, char *line, int ac)
 {
 	int		i;
 
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
-	rl_catch_signals = 0;
+	(void)ac;
 	g_data.sig_i = 0;
 	g_data.sig_i = 0;
 	i = 0;

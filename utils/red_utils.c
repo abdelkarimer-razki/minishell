@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:42 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 12:08:24 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:05:30 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,25 @@ void	study_exit_status(void)
 		g_data.exit_status = g_data.exit_status % 255;
 	}
 	else if (WIFSIGNALED(g_data.exit_status))
+	{
 		g_data.exit_status = WTERMSIG(g_data.exit_status) + 128;
+		g_data.signal = 1;
+	}
 	else if (WIFSTOPPED(g_data.exit_status))
+	{
 		WSTOPSIG(g_data.exit_status);
+	}
+}
+
+void	here_doc2(int pid, int fd, char *str)
+{
+	wait_and_study(pid);
+	close(fd);
+	fd = open("/tmp/heredoc", O_RDWR, 0777);
+	dup2(fd, 0);
+	close(fd);
+	free(str);
+	g_data.sig_q = 0;
 }
 
 void	here_doc(char *arg, int *fd, int k, int i)
@@ -48,14 +64,7 @@ void	here_doc(char *arg, int *fd, int k, int i)
 		}
 		exit(1);
 	}
-	waitpid(pid, &g_data.exit_status, 0);
-	study_exit_status();
-	close(fd[k]);
-	fd[k] = open("/tmp/heredoc", O_RDWR, 0777);
-	dup2(fd[k], 0);
-	close(fd[k]);
-	free(str);
-	g_data.sig_q = 0;
+	here_doc2(pid, fd[k], str);
 }
 
 void	redirect_input(int *fd, int k, char **str, int j)
@@ -106,11 +115,14 @@ int	check_fd(int *fd, int k, char **str, int c)
 				printf(ANSI_COLOR_RED "do3afa2: %s:no such file or directory\n"
 					ANSI_COLOR_RESET, str[(i * 2) + 1]);
 				g_data.exit_status = 1;
+				free(fd);
 			}
 			return (0);
 		}
 		i++;
 	}
+	if (c == 0)
+		free(fd);
 	return (count_red(k, str));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:55:47 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 09:55:48 by aer-razk         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:22:43 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,8 +298,8 @@ void	plus_equal(char *arg, t_env *env)
 		env->env[ft_strlen_2(env->env) - 1] = remove_plus(arg);
 	}
 	if (j != -1)
-		env->export[j] = ft_strjoin1(ft_strjoin1(env->export[j],
-					ft_strdup("=")), ft_substr(arg,
+		env->export[j] = ft_strjoin1(env->export[j],
+					 ft_substr(arg,
 					find_equal(arg) + 2, ft_strlen(arg) - 1));
 	else
 	{

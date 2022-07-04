@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 10:45:58 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:46:55 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	lexer(char *line, t_list *node)
 	tmp = node;
 	par = lexer_pipe(line);
 	if (!par || par[0] == NULL)
-		return (ft_error_2(3, NULL, NULL));
+		return (ft_error_2(0, NULL, NULL));
 	tmp->str = ft_strdup(par[0]);
 	tmp->table = lexer_space(par[0]);
 	if (!(tmp->table))
@@ -43,7 +43,7 @@ void	lexer_pipe_2(char *line, char ***t, int *i, int *n)
 	while (table[j])
 		j++;
 	if (line[*i] == '|' && line[*i + 1] == 0)
-		table = ft_error(0, table, NULL);
+		table = ft_error(3, table, NULL);
 	else if ((line[*i] == '|' && line[*i + 1] != '|') || line[*i + 1] == '\0')
 	{
 		table = ft_realloc(table, ++j);

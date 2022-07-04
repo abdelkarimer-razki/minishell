@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:57:15 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 11:32:33 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:38:18 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ char	*get_env_2(char **s3, char **s2, int *i, char *str)
 {
 	char	*env;
 	char	*s1;
-	char	*ex;
-	int		j;
-	
-	ex = NULL;
-	j = -1;
+
 	s1 = ft_calloc(1, 1);
 	while (str[*i] && str[*i] != '$')
 		s1 = add_char(s1, str[(*i)++]);
@@ -72,6 +68,7 @@ char	*get_env_2(char **s3, char **s2, int *i, char *str)
 	s1 = ft_strjoin(*s2, *s3);
 	free(*s2);
 	free(*s3);
+	free(env);
 	return (s1);
 }
 

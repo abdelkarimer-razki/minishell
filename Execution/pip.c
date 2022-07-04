@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:56:31 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 12:32:47 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:58:27 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,9 @@ void	pipeit(t_list *node, t_env *table)
 	int		i;
 
 	fd = fdalloc(node, &table->d);
-	pipe_all(table->d, fd);
-	i = -1;
-	g_data.sig_i = 1;
-	g_data.sig_q = 1;
-	while (node && ++i >= 0 && g_data.signal != 1)
+	pipe_all(table->d, fd, &i);
+	sigs(1);
+	while (node && ++i >= 0 && g_data.signal == 0)
 	{
 		if (node->next || i != 0)
 		{
@@ -110,7 +108,7 @@ void	pipeit(t_list *node, t_env *table)
 				red_dup_bulttins(fd, i, node, table);
 			}
 			if (here_check(node->red_args) == 1)
-				waitpid(pid, NULL, 0);
+				wait_and_study(pid);
 		}
 		if (!node->next && i != 0)
 			last_node(fd, pid, table->d);
@@ -118,6 +116,6 @@ void	pipeit(t_list *node, t_env *table)
 			one_node(node, table, fd[0]);
 		node = node->next;
 	}
-	g_data.sig_i = 0;
-	g_data.sig_q = 0;
+	ft_free_int(fd);
+	sigs(0);
 }

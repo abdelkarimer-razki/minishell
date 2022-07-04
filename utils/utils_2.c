@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:44:46 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/11 11:54:15 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:42:20 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,20 @@ void	ft_putstr_fd(char *s, int fd)
 			i++;
 		}
 	}
+}
+
+void	*ft_free_int(int **fd)
+{
+	int	i;
+
+	i = 0;
+	if (!fd)
+		return (NULL);
+	while (fd[i])
+	{
+		free(fd[i]);
+		i++;
+	}
+	free(fd);
+	return (NULL);
 }

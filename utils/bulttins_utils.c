@@ -6,20 +6,34 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:24 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 12:06:39 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:57:24 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	access_cmd(char **path, char *arg)
+int	access_cmd(char **path, char *arg, t_env *table, t_list *node)
 {
 	int		i;
+	char	*arg1;
+	char  	*path1;
 
 	i = 0;
-	while (i < 8 && access(ft_strjoin(path[i],
-				ft_strjoin("/", arg)), F_OK) == -1)
-	i++;
+	arg1 = ft_strjoin("/", arg);
+	path1 = ft_strjoin(path[i], arg1);
+	while (i < 8 && access(path1, F_OK) == -1)
+	{
+		free(path1);
+		i++;
+		path1 = ft_strjoin(path[i], arg1);
+	}
+	free(path1);
+	if (i != 8)
+	{
+		path1 = ft_strjoin(path[i], arg1);
+		execve(path1, node->args, table->env);
+		free(path);
+	}
 	return (i);
 }
 
@@ -36,18 +50,17 @@ void	non_bulltins(t_list *node, t_env *table)
 {
 	int		pid;
 	int		i;
+	char 	*path1;
 	char	**path;
 
-	path = ft_split(getmyenv("PATH", table->env), ':');
+	path1 = getmyenv("PATH", table->env);
+	path = ft_split(path1 , ':');
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		i = access_cmd(path, node->args[0]);
-		if (i != 8)
-			execve(ft_strjoin(path[i], ft_strjoin("/", node->args[0])),
-				node->args, table->env);
+		i = access_cmd(path, node->args[0], table, node);
 		if (i == 8 && execve(node->args[0], node->args, table->env) == -1)
 			i++;
 		error_exe(i, path);
@@ -55,6 +68,7 @@ void	non_bulltins(t_list *node, t_env *table)
 	waitpid(pid, &g_data.exit_status, 0);
 	study_exit_status();
 	ft_free(path);
+	free(path1);
 }
 
 void	bulttins_simulator(t_list *node, t_env *table)
@@ -84,6 +98,6 @@ void	bulttins_simulator(t_list *node, t_env *table)
 
 void	bulttins(t_list *node, t_env *table)
 {
-	if (node->args[0])
+	if (node->args[0] && g_data.signal == 0)
 		bulttins_simulator(node, table);
 }

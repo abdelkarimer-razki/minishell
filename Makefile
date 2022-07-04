@@ -6,13 +6,13 @@
 #    By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/21 14:06:22 by bboulhan          #+#    #+#              #
-#    Updated: 2022/07/04 11:09:55 by bboulhan         ###   ########.fr        #
+#    Updated: 2022/07/04 16:00:23 by bboulhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -static-libsan -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 
 CC = cc
 

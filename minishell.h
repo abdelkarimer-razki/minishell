@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 12:14:28 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:40:55 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	error_dup(int *fd, int i);
 
 //pipe
 
-void	pipe_all(int d, int **fd);
+void	pipe_all(int d, int **fd, int *e);
 void	red_dup_bulttins(int **fd, int i, t_list *node, t_env *table);
 void	one_node(t_list *node, t_env *table, int *fi);
 void	last_node(int **fd, int pid, int d);
@@ -177,11 +177,16 @@ int 	ft_error_2(int Er, char **table, char *str);
 void	*ft_error(int Er, char **table, char *str);
 int		check_redirect(t_list *node);
 void	handler(int signum);
-void	exec(t_list *node, t_env table);
-int		parc(t_list *node, char *line);
+void	exec(t_list *node, t_env *table, char **av);
+int		parc(t_list *node, char *line, int ac);
 //char **ft_strdup_red(char **source);
 //pipe
 void	pipeit(t_list *node, t_env *table);
 void	bulttins(t_list *node, t_env *table);
+void	*ft_free_int(int **fd);
+//child process
+void	wait_and_study(int pid);
+
+void	sigs(int i);
 
 #endif

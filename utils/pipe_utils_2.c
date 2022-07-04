@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:29 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 10:05:31 by aer-razk         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:11:42 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,19 @@ char	*short_readline(void)
 		}
 	}
 	return (s);
+}
+
+void	wait_and_study(int pid)
+{
+	waitpid(pid, &g_data.exit_status, 0);
+	study_exit_status();
+}
+
+void	sigs(int i)
+{
+	if (i == 1 || i == 0)
+		g_data.sig_i = i;
+		g_data.sig_q = i;
+	if (i == 2)
+		g_data.sig_q = i;
 }
