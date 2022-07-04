@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:56:06 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 18:13:22 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:03:35 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ char	**tabup(char **tab, char *str)
 	return (new);
 }
 
+void unset_exit_Status(void)
+{
+	if (g_data.exit_status == -212121)
+		g_data.exit_status = 1;
+	else
+		g_data.exit_status = 0;
+}
+
 void	unset(t_env *env, t_list *table)
 {
 	int	i;
@@ -49,20 +57,16 @@ void	unset(t_env *env, t_list *table)
 	}
 	while (table->args[++i])
 	{
-		if (check_args(table->args[1]) == -1)
+		if (check_args(table->args[i]) == -1)
 		{
 			ft_putstr_fd("do3afa2: unset :invalid argument\n", 2);
-			g_data.exit_status = 2;
-			return ;
+			g_data.exit_status = -212121;
+			continue ;
 		}
-	}
-	i = 0;
-	while (table->args[++i])
-	{
 		if (check_table(env->env, table->args[i]) != -1)
 			env->env = tabup(env->env, table->args[i]);
 		if (check_table(env->export, table->args[i]) != -1)
 			env->export = tabup(env->export, table->args[i]);
 	}
-	g_data.exit_status = 0;
+	unset_exit_Status();
 }

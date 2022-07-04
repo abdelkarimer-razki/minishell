@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:24 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 16:57:24 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:13:36 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	non_bulltins(t_list *node, t_env *table)
 
 	path1 = getmyenv("PATH", table->env);
 	path = ft_split(path1 , ':');
+	sigs(1);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -66,6 +67,7 @@ void	non_bulltins(t_list *node, t_env *table)
 		error_exe(i, path);
 	}
 	waitpid(pid, &g_data.exit_status, 0);
+	sigs(0);
 	study_exit_status();
 	ft_free(path);
 	free(path1);

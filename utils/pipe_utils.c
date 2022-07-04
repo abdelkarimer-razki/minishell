@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 09:58:20 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/07/04 17:00:28 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:15:55 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	wait_all(int d)
 void	last_node(int **fd, int pid, int d)
 {
 	close_fd(fd, -1, d);
-	waitpid(pid, NULL, 0);
+	wait_and_study(pid);
 	wait_all(d - 1);
 }
 

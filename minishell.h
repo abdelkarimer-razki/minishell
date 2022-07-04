@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 16:40:55 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:38:06 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data
 	char		**export;
 	int			sig_i;
 	int			sig_q;
+	int			sig_m;
 	int			exit_status;
 	int			signal;
 }	t_data;
