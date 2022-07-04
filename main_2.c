@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 01:44:23 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/03 19:38:01 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:19:35 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	*ft_error(int Er, char **table, char *str)
 		ft_free(table);
 	if (str)
 		free(str);
+	g_data.exit_status = 258;
 	return (NULL);
 }
 
@@ -47,6 +48,7 @@ int ft_error_2(int Er, char **table, char *str)
 		ft_free(table);
 	if (str)
 		free(str);
+	g_data.exit_status = 258;
 	return (0);
 }
 

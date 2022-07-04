@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   red_utils_3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:58:10 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 10:05:38 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	write_str(char *str, int fd, char *arg)
@@ -32,4 +44,12 @@ void	ouput_redirections(int	*fd, int j, char **str, int k)
 		redirect_output(0, fd, k, str[j + 1]);
 	else if (!ft_strncmp(str[j], ">>", 2))
 		redirect_output(1, fd, k, str[j + 1]);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
 }

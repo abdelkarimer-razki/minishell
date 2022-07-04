@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:54:42 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 10:24:47 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	show_oldpwd(t_env *env)
 {
 	char	*oldpwd;
+
 	oldpwd = getmyenv("OLDPWD", env->env);
 	printf("%s\n", oldpwd);
 	free(oldpwd);
@@ -43,6 +56,8 @@ void	cd(t_env *env, t_list *table)
 		perror("do3afa2: cd: ");
 		g_data.exit_status = 1;
 	}
+	else
+		g_data.exit_status = 0;
 	if (getcwd(s, 100) != NULL)
 		setmyenv("PWD", getcwd(s, 100), env);
 }

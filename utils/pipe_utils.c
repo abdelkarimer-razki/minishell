@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:58:20 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 09:58:21 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	wait_all(int d)
@@ -19,10 +31,7 @@ void	last_node(int **fd, int pid, int d)
 void	one_node(t_list *node, t_env *table, int *fi)
 {
 	if (simulate_redirection(node))
-	{
-		if (g_data.signal != 1)
-			bulttins(node, table);
-	}
+		bulttins(node, table);
 	error_dup(fi, 0);
 }
 
@@ -32,15 +41,12 @@ void	red_dup_bulttins(int **fd, int i, t_list *node, t_env *table)
 
 	close_fd(fd, i, table->d);
 	f = simulate_redirection(node);
-	if (g_data.signal != 1)
-	{
-		if (node->next && f != 3 && f != 2 && f != 0)
-			dup_and_close(fd, i, 1);
-		if (i != 0 && f != 1 && f != 3 && f != 0)
-			dup_and_close(fd, i, 0);
-		if (f != 0)
-			bulttins(node, table);
-	}
+	if (node->next && f != 3 && f != 2 && f != 0)
+		dup_and_close(fd, i, 1);
+	if (i != 0 && f != 1 && f != 3 && f != 0)
+		dup_and_close(fd, i, 0);
+	if (f != 0)
+		bulttins(node, table);
 	exit(0);
 }
 

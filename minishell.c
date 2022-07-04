@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:18:35 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 10:55:41 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:17:48 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **environ)
 
 	(void)ac;
 	(void)av;
+	g_data.exit_status = 0;
 	table.env = ft_strdup_0(environ);
 	g_data.env = ft_strdup_0(environ);
 	while (1)

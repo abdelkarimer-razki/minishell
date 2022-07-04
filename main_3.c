@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 19:23:56 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 11:29:13 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:31:36 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	parc(t_list *node, char *line)
 	rl_catch_signals = 0;
 	g_data.sig_i = 0;
 	g_data.sig_i = 0;
-	g_data.exit_status = 0;
 	i = 0;
 	add_history(line);
 	if (lexer(line, node))

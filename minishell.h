@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:19:27 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/07/04 11:09:28 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:14:28 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,9 @@ void	pwd(t_env *table, t_list *node);
 void	ft_exit(t_list *table);
 void	unset(t_env *env, t_list *table);
 void	env(t_env *env, t_list *table);
-char **ft_strdup_red(char **source);
+char 	**ft_strdup_red(char **source);
+char	*short_readline(void);
+void	study_exit_status(void);
 
 //unset tools
 int		ft_isalpha2(int c);

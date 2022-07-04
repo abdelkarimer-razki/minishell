@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 09:56:06 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 10:29:46 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char	**tabup(char **tab, char *str)
@@ -20,6 +32,7 @@ char	**tabup(char **tab, char *str)
 		free(str_new);
 	}
 	new[i - 1] = NULL;
+	ft_free(tab);
 	return (new);
 }
 
@@ -30,7 +43,7 @@ void	unset(t_env *env, t_list *table)
 	i = 0;
 	if (table->args[1] && table->args[1][0] == '-')
 	{
-		ft_putstr_fd("do3afa2: pwd: option not supported\n", 2);
+		ft_putstr_fd("do3afa2: unset: option not supported\n", 2);
 		g_data.exit_status = 2;
 		return ;
 	}
@@ -38,7 +51,7 @@ void	unset(t_env *env, t_list *table)
 	{
 		if (check_args(table->args[1]) == -1)
 		{
-			ft_putstr_fd("unset :invalid argument\n", 2);
+			ft_putstr_fd("do3afa2: unset :invalid argument\n", 2);
 			g_data.exit_status = 2;
 			return ;
 		}
@@ -51,4 +64,5 @@ void	unset(t_env *env, t_list *table)
 		if (check_table(env->export, table->args[i]) != -1)
 			env->export = tabup(env->export, table->args[i]);
 	}
+	g_data.exit_status = 0;
 }
