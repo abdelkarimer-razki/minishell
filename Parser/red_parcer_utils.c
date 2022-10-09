@@ -6,7 +6,7 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:45:59 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/27 06:06:19 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 05:01:16 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_red(char c)
 {
 	if (c == '>' || c == '<')
 		return (1);
-	return (0); 
+	return (0);
 }
 
 int	check_red(char *str)
@@ -44,7 +44,7 @@ char	*red_with_quote(char *str, int *i)
 	if (str[*i] == 39 || str[*i] == '"')
 	{	
 		k = *i;
-		*i =  quoted(str, *i);
+		*i = quoted(str, *i);
 		while (str[k] && k <= *i)
 			s = add_char(s, str[k++]);
 		(*i)++;
@@ -57,16 +57,16 @@ char	*red_with_quote(char *str, int *i)
 	return (s);
 }
 
-char    **split_with_red(char *str)
+char	**split_with_red(char *str)
 {
 	char	**table;
-    int 	i;
+	int		i;
 	int		j;
 
 	j = 0;
-    i = 0;
+	i = 0;
 	table = malloc(sizeof(char *) * 1);
-    table[0] = NULL;
+	table[0] = NULL;
 	while (str[i])
 	{
 		table = ft_realloc(table, ++j);

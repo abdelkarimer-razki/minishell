@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:06:25 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 03:37:40 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 21:51:56 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	lexer(char *line, t_list *node)
 
 	tmp = node;
 	par = lexer_pipe(line);
-	if (!par)
+	if (!par || par[0] == 0)
 		return (ft_error_2(0, NULL, NULL));
 	tmp->str = ft_strdup(par[0]);
 	tmp->table = lexer_space(par[0]);
@@ -37,12 +37,14 @@ void	lexer_pipe_2(char *line, char ***t, int *i, int *n)
 {
 	int		j;
 	char	**table;
-	
+
 	j = 0;
 	table = *t;
 	while (table[j])
 		j++;
-	if ((line[*i] == '|' && line[*i - 1] != '|') || line[*i + 1] == '\0')
+	if (line[*i] == '|' && line[*i + 1] == 0)
+		table = ft_error(3, table, NULL);
+	else if ((line[*i] == '|' && line[*i + 1] != '|') || line[*i + 1] == '\0')
 	{
 		table = ft_realloc(table, ++j);
 		if (line[*i] == '|')
@@ -61,12 +63,16 @@ char	**lexer_pipe(char *line)
 	int		n;
 	char	**table;
 
-	i = -1;
+	i = 0;
 	n = 0;
 	table = malloc(sizeof(char *) * 1);
-	if (!table)
-		return (NULL);
 	table[0] = NULL;
+	while (line[i] == ' ')
+	{
+		if (line[++i] == '|')
+			return (ft_error(3, table, NULL));
+	}
+	i = -1;
 	while (line[++i])
 	{
 		if (line[i] == 39 || line[i] == '"')
@@ -84,7 +90,7 @@ void	lexer_space_2(char *line, char ***t, int *i, int *n)
 {
 	int		j;
 	char	**table;
-	
+
 	j = 0;
 	table = *t;
 	while (table[j])
@@ -108,6 +114,7 @@ char	**lexer_space(char *line)
 	int		i;
 	int		n;
 	char	**table;
+
 	i = -1;
 	n = 0;
 	table = malloc(sizeof(char *) * 1);
@@ -124,5 +131,7 @@ char	**lexer_space(char *line)
 		}
 		lexer_space_2(line, &table, &i, &n);
 	}
+	if (line[i] == 0 && table[0] == 0)
+		return (ft_error(0, table, NULL));
 	return (table);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 10:08:37 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/07/04 21:53:45 by aer-razk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	parse_args(char **argv)
@@ -6,7 +18,6 @@ int	parse_args(char **argv)
 	int	j;
 
 	i = 0;
-
 	while (argv[++i])
 	{
 		j = -1;
@@ -51,4 +62,5 @@ void	echo(char **argv)
 	}
 	if (parse_args(argv) == 1 || valid_arg(argv))
 		printf("\n");
+	g_data.exit_status = 0;
 }

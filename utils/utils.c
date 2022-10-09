@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aer-razk <aer-razk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:56:47 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/30 00:25:07 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/04 10:00:29 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (s == NULL)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -91,41 +93,3 @@ char	**ft_realloc(char **table, int size)
 	ft_free(table);
 	return (t);
 }
-
-int	ft_isalpha(int c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_isalnum(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-
-/*test*/
-/*char **ft_strdup_red(char **source)
-{
-	char **s;
-	int i;
-	int y;
-
-	s = malloc(check_redirection_index(source, 0) * sizeof(char *));
-	if (!s)
-		return (NULL);
-	y = 0;
-	i = check_redirection_index(source, 0);
-	while (y < i)
-	{
-		s[y] = ft_strdup(source[y]);
-		y++;
-	}
-	s[y] = 0;
-	return (s);
-}*/

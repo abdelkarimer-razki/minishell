@@ -6,12 +6,11 @@
 /*   By: bboulhan <bboulhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:29:49 by bboulhan          #+#    #+#             */
-/*   Updated: 2022/06/28 02:46:45 by bboulhan         ###   ########.fr       */
+/*   Updated: 2022/07/03 04:59:18 by bboulhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	parcer(t_list *node)
 {
@@ -26,20 +25,6 @@ int	parcer(t_list *node)
 	}
 	return (1);
 }
-
-
-// void	lower_case(char	*str)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if (str[i] >= 65 && str[i] <= 90)
-// 			str[i] += 32;	
-// 	}
-// }
-
 
 char	*delete_quote(char *str)
 {
@@ -67,7 +52,6 @@ char	*delete_quote(char *str)
 	return (s);
 }
 
-
 char	*check_cmd(char *str)
 {
 	int		i;
@@ -84,13 +68,13 @@ char	*check_cmd(char *str)
 	while (cmd[++i])
 	{
 		if (!ft_isalpha(cmd[i]))
-			return (ft_error(0, NULL, cmd));			
+			return (ft_error(0, NULL, cmd));
 	}
 	i = -1;
 	while (cmd[++i])
 	{
 		if (cmd[i] >= 65 && cmd[i] <= 90)
-			cmd[i] += 32;	
+			cmd[i] += 32;
 	}
 	return (cmd);
 }
@@ -99,7 +83,7 @@ int	cmd_and_args(t_list *node)
 {
 	int	i;
 	int	j;
-	
+
 	j = 1;
 	i = 0;
 	node->cmd = ft_strdup(node->table[0]);
@@ -122,22 +106,3 @@ int	cmd_and_args(t_list *node)
 	node->args[j] = NULL;
 	return (1);
 }
-
-
-//------------------------------------------------
-
-
-
-// char	*clean_quote(char *str)
-// {
-// 	char	*s;
-
-// 	s = NULL;
-// 	if (str[0] == '"' || str[0] == 39)
-// 		s = ft_strdup(&str[1]);
-// 	if ((str[ft_strlen(str) - 1] == '"' || str[ft_strlen(str) - 1] == 39) && *s)
-// 		s[ft_strlen(s) - 1] = '\0';
-// 	if (*s)
-// 		return (s);
-// 	return (str);
-// }
